@@ -11,7 +11,6 @@ USE [db_ing]
 CREATE USER [root] FOR LOGIN [root] WITH DEFAULT_SCHEMA=[dbo]
 
 -- Creación de tablas
-
 CREATE TABLE tb_provinces(
 	[id] TINYINT PRIMARY KEY,
 	[description] VARCHAR(10)
@@ -49,13 +48,12 @@ CREATE TABLE tb_sexes(
 CREATE TABLE tb_legal_responses(
 	[id] SMALLINT IDENTITY(1,1) PRIMARY KEY,
 	[description] VARCHAR(25) UNIQUE NOT NULL,
-	[national] BIT NOT NULL
 );
 
 CREATE TABLE tb_departments(
 	[id] SMALLINT IDENTITY(1,1) PRIMARY KEY,
 	[description] VARCHAR(50) UNIQUE NOT NULL,
-
+	[national] BIT NOT NULL,
 	[id_district] SMALLINT NOT NULL,
 	[id_canton] TINYINT NOT NULL,
 	[id_province] TINYINT NOT NULL,
