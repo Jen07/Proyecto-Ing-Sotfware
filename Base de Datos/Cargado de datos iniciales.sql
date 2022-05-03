@@ -12,20 +12,20 @@ INSERT INTO tb_classifiers([description]) VALUES
 , ('Normativa o ley nacional')
 , ('Otro');
 
-INSERT INTO tb_departments([description]) VALUES 
-  ('Consejo Directivo')
-, ('Gerencia')
-, ('Subgerencia')
-, ('Auditoría Interna')
-, ('Tecnología de la Informática')
-, ('Unidad de Planificación Institucional')
-, ('Área Administrativa y Financiera')
-, ('Recursos Humanos')
-, ('Unidad de Finanzas')
-, ('Unidad de Proveeduría')
-, ('Proceso de Transporte')
-, ('Servicio y Mantenimiento')
-, ('Investigación y desarrollo');
+INSERT INTO tb_departments([description],[id_district]) VALUES 
+  ('Consejo Directivo',01)
+, ('Gerencia',02)
+, ('Subgerencia',03)
+, ('Auditoría Interna',04)
+, ('Tecnología de la Informática',05)
+, ('Unidad de Planificación Institucional',06)
+, ('Área Administrativa y Financiera',07)
+, ('Recursos Humanos',08)
+, ('Unidad de Finanzas',09)
+, ('Unidad de Proveeduría',10)
+, ('Proceso de Transporte',11)
+, ('Servicio y Mantenimiento',12)
+, ('Investigación y desarrollo',13);
 
 
 select * from tb_users

@@ -1,9 +1,9 @@
 
 /*-------------------------------------------------------------------------*/
 /* Carga de datos de paises de otra tabla */
-INSERT INTO tb_countries([description],[country_code]) 
+INSERT INTO tb_countries([description],[country_code],[ENG]) 
 	(
-		SELECT [nombre],[iso3] FROM tb_raw_countries
+		SELECT [nombre],[iso3],[name] FROM tb_raw_countries
 	);
 
 -- Verificación
@@ -99,9 +99,6 @@ ON u.identification = s.identification;
 
 -- Verificación
 SELECT * FROM tb_users where id_sex is null
-
-
-
 
 
 

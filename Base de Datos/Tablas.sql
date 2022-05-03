@@ -14,6 +14,7 @@ CREATE USER [root] FOR LOGIN [root] WITH DEFAULT_SCHEMA=[dbo]
 CREATE TABLE tb_countries(
 	[id] SMALLINT PRIMARY KEY IDENTITY(1,1),
 	[description] NVARCHAR(45) UNIQUE NOT NULL,
+	[ENG] NVARCHAR(45) UNIQUE NOT NULL,
 	[country_code] VARCHAR(3) UNIQUE NOT NULL
 );
 
@@ -77,13 +78,13 @@ CREATE TABLE tb_classifiers(
 );
 
 CREATE TABLE tb_users(
-	[id] int IDENTITY(1,1) PRIMARY KEY,
+	[id] SMALLINT IDENTITY(1,1) PRIMARY KEY,
 	[identification] VARCHAR(9) UNIQUE NOT NULL,
 	[name] NVARCHAR(30) NOT NULL,
 	[surname] NVARCHAR(26) NOT NULL,
 	[lastname] NVARCHAR(26) NOT NULL,
 	[picture] VARCHAR(MAX),	
-	[birthdate] DATE,
+	[birthdate] SMALLDATETIME,
 	[email] VARCHAR(50),
 	[phone] VARCHAR(12),
 	[password] VARBINARY(MAX),
@@ -110,12 +111,12 @@ CREATE TABLE tb_requests(
 	[date] SMALLDATETIME NOT NULL,
 	[keyword] VARCHAR(30) NOT NULL,
 	[issue] VARCHAR(60) NOT NULL,
-	[changes] SMALLINT NOT NULL,
+	[changes] TINYINT NOT NULL,
 	[response_detail] VARCHAR(60) NOT NULL,
 	[response_date] SMALLDATETIME NOT NULL,
-	[attachments] SMALLINT NOT NULL,
+	[attachments] TINYINT NOT NULL,
 
-	[id_user] INT NOT NULL,
+	[id_user] SMALLINT NOT NULL,
 	CONSTRAINT fk_user_request
 	FOREIGN KEY ([id_user]) 
 	REFERENCES tb_users([id]),
@@ -130,7 +131,7 @@ CREATE TABLE tb_requests(
 	FOREIGN KEY ([id_legal_response]) 
 	REFERENCES tb_legal_responses([id]),
 
-	[id_response_user] INT NOT NULL,
+	[id_response_user] SMALLINT NOT NULL,
 	CONSTRAINT fk_response_user_request
 	FOREIGN KEY ([id_response_user]) 
 	REFERENCES tb_users([id])
@@ -155,7 +156,7 @@ CREATE TABLE tb_binnacles(
 	[date] SMALLDATETIME NOT NULL,
 	[description] VARCHAR(60) NOT NULL,			
 
-	[id_user] INT NOT NULL,		
+	[id_user] SMALLINT NOT NULL,		
 	CONSTRAINT fk_user_binnacle 
 	FOREIGN KEY ([id_user]) 
 	REFERENCES  tb_users([id])
@@ -164,7 +165,7 @@ CREATE TABLE tb_binnacles(
 
 -- Tabla de 2FA
 CREATE TABLE tb_authenticators(
-	[id] int PRIMARY KEY,
+	[id] SMALLINT PRIMARY KEY,
 	[secret] varchar(50) NOT NULL,
 
 	CONSTRAINT fk_user_authenticator
