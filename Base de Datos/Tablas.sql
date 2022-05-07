@@ -1,3 +1,7 @@
+--Integrantes 
+--Jennfier Granados B83547
+--Luis Leitón B94216
+
 -- Creación de base de datos
 CREATE DATABASE db_ing;
 
