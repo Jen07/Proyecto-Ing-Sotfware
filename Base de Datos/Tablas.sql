@@ -1,3 +1,7 @@
+--Integrantes 
+--Jennfier Granados B83547
+--Luis Leitón B94216
+
 -- Creación de base de datos
 CREATE DATABASE db_ing;
 
@@ -57,7 +61,7 @@ CREATE TABLE tb_sexes(
 );
 
 CREATE TABLE tb_legal_responses(
-	[id] SMALLINT IDENTITY(1,1) PRIMARY KEY,
+	[id] INT IDENTITY(1,1) PRIMARY KEY,
 	[description] VARCHAR(25) UNIQUE NOT NULL,
 );
 
@@ -78,7 +82,7 @@ CREATE TABLE tb_classifiers(
 );
 
 CREATE TABLE tb_users(
-	[id] SMALLINT IDENTITY(1,1) PRIMARY KEY,
+	[id] INT IDENTITY(1,1) PRIMARY KEY,
 	[identification] VARCHAR(9) UNIQUE NOT NULL,
 	[name] NVARCHAR(30) NOT NULL,
 	[surname] NVARCHAR(26) NOT NULL,
@@ -116,7 +120,7 @@ CREATE TABLE tb_requests(
 	[response_date] SMALLDATETIME NOT NULL,
 	[attachments] TINYINT NOT NULL,
 
-	[id_user] SMALLINT NOT NULL,
+	[id_user] INT NOT NULL,
 	CONSTRAINT fk_user_request
 	FOREIGN KEY ([id_user]) 
 	REFERENCES tb_users([id]),
@@ -126,12 +130,12 @@ CREATE TABLE tb_requests(
 	FOREIGN KEY ([id_classifier]) 
 	REFERENCES tb_classifiers([id]),
 
-	[id_legal_response] SMALLINT NOT NULL,
+	[id_legal_response] INT NOT NULL,
 	CONSTRAINT fk_legal_response_request
 	FOREIGN KEY ([id_legal_response]) 
 	REFERENCES tb_legal_responses([id]),
 
-	[id_response_user] SMALLINT NOT NULL,
+	[id_response_user] INT NOT NULL,
 	CONSTRAINT fk_response_user_request
 	FOREIGN KEY ([id_response_user]) 
 	REFERENCES tb_users([id])
@@ -156,7 +160,7 @@ CREATE TABLE tb_binnacles(
 	[date] SMALLDATETIME NOT NULL,
 	[description] VARCHAR(60) NOT NULL,			
 
-	[id_user] SMALLINT NOT NULL,		
+	[id_user] INT NOT NULL,		
 	CONSTRAINT fk_user_binnacle 
 	FOREIGN KEY ([id_user]) 
 	REFERENCES  tb_users([id])
@@ -165,7 +169,7 @@ CREATE TABLE tb_binnacles(
 
 -- Tabla de 2FA
 CREATE TABLE tb_authenticators(
-	[id] SMALLINT PRIMARY KEY,
+	[id] INT PRIMARY KEY,
 	[secret] varchar(50) NOT NULL,
 
 	CONSTRAINT fk_user_authenticator
