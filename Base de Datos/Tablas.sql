@@ -61,7 +61,7 @@ CREATE TABLE tb_sexes(
 );
 
 CREATE TABLE tb_legal_responses(
-	[id] INT IDENTITY(1,1) PRIMARY KEY,
+	[id] TINYINT IDENTITY(1,1) PRIMARY KEY,
 	[description] VARCHAR(25) UNIQUE NOT NULL,
 );
 
@@ -130,7 +130,7 @@ CREATE TABLE tb_requests(
 	FOREIGN KEY ([id_classifier]) 
 	REFERENCES tb_classifiers([id]),
 
-	[id_legal_response] INT NOT NULL,
+	[id_legal_response] TINYINT NOT NULL,
 	CONSTRAINT fk_legal_response_request
 	FOREIGN KEY ([id_legal_response]) 
 	REFERENCES tb_legal_responses([id]),
