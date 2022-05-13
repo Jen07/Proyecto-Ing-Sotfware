@@ -1,0 +1,8 @@
+<div  class="login__waves"></div>
+
+<app-login-form *ngIf="loginSteps.step.value === 1"></app-login-form> 
+<app-secret-form  *ngIf="loginSteps.step.value === 2"></app-secret-form>
+
+<app-loading></app-loading>
+
+<router-outlet></router-outlet>

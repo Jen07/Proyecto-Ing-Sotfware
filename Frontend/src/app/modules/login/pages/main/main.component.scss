@@ -1,0 +1,12 @@
+.login__waves {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+
+  background-image: url(~/src/assets/images/top-waves.svg);
+  background-color: var(--actual-bg-color-2);
+  background-repeat: no-repeat;
+  background-position: 0% 100%;
+  background-attachment: fixed;
+  animation: animate_wave 20s infinite linear;
+}

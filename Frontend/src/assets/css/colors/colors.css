@@ -1,0 +1,26 @@
+:root{
+    --primary: #e69f11;
+    --accent: #e00e38;
+
+    --neutral-100: #fffafa;
+    --neutral-200: #a3a29f;
+    --neutral-300: #424140;
+    --neutral-400: #2c2c2c;
+    --neutral-500: #202020;
+
+    --actual-font-color: #fffafa;
+    --actual-aux-color: #a3a29f;
+
+    --actual-bg-color-1: #424140;
+    --actual-bg-color-2: #2c2c2c;
+    --actual-bg-color-3: #202020;
+}
+
+.light{
+    --actual-font-color: #202020;
+    --actual-aux-color: #2c2c2c;
+
+    --actual-bg-color-1: #a3a29f;
+    --actual-bg-color-2: #fffafa;
+    --actual-bg-color-3: #fffafa;
+}

@@ -1,0 +1,63 @@
+/* 
+  Funciona para agregar iconos SVG propios 
+  al estilo de una libreria de fuentes. 
+*/
+
+.ico {
+  position: relative;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  color: currentColor;
+}
+
+.ico::after {
+  content: "";
+
+  -webkit-mask-size: 1em, 1em;
+  mask-size: 1em, 1em;
+
+  -webkit-mask-position: center;
+  mask-position: center;
+
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+
+  width: 100%;
+  height: 100%;
+
+  left: 0;
+  position: absolute;
+
+  background-color: currentColor;
+}
+
+.i__lock::after {
+  -webkit-mask-image: url(../../images/icons/lock.svg);
+  mask-image: url(../../images/icons/lock.svg);
+}
+
+.i__mail::after {
+  -webkit-mask-image: url(../../images/icons/mail.svg);
+  mask-image: url(../../images/icons/mail.svg);
+}
+
+.i__sun::after {
+  -webkit-mask-image: url(../../images/icons/sun.svg);
+  mask-image: url(../../images/icons/sun.svg);
+}
+
+.i__moon::after {
+  -webkit-mask-image: url(../../images/icons/moon.svg);
+  mask-image: url(../../images/icons/moon.svg);
+}
+
+.i__secret::after {
+  -webkit-mask-image: url(../../images/icons/secret.svg);
+  mask-image: url(../../images/icons/secret.svg);
+}
+
+.i__rewind::after {
+  -webkit-mask-image: url(../../images/icons/rewind.svg);
+  mask-image: url(../../images/icons/rewind.svg);
+}

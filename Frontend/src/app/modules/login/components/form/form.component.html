@@ -1,0 +1,48 @@
+<div class="card__container appear_animation" #main__form >
+    <div class="login__card">
+
+        <app-toggle-color></app-toggle-color>
+
+      <h1 class="card__title">¡Bienvenido! </h1>
+
+      <div class="card__section">
+
+        <form [formGroup]="form" (submit)="prepareLogin()">
+
+          <div class="input__group">
+            <i class="ico input__prefix i__mail"></i>
+            <input type="email" placeholder=" " id="email" class="input__control" formControlName="email">
+            <label for="email" class="input__label">Email</label>
+            <ng-container *ngTemplateOutlet="email_error; context: {error: form.get('email')?.errors}"></ng-container>
+          </div>
+
+          <div class="input__group">
+            <i class="ico input__prefix i__lock"></i>
+            <input type="password" placeholder=" " id="pass" class="input__control" formControlName="password">
+            <label for="pass" class="input__label">Contraseña</label>
+            <ng-container *ngTemplateOutlet="password_error; context: {error: form.get('password')?.errors}"></ng-container>
+          </div>
+
+          <button class="input__login-button"> Acceder </button>
+
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+
+  <ng-template #email_error let-error="error">
+    <ng-container *ngIf="form.get('email')?.dirty || form.get('email')?.touched">
+      <span class="input__hint" *ngIf="error?.required">El campo es requerido </span>
+      <span class="input__hint" *ngIf="error?.email && !error?.maxlength">No es un email válido </span>
+      <span class="input__hint" *ngIf="error?.maxlength && !error?.pattern">Longitud máxima {{error.maxlength.requiredLength}}, actual {{error.maxlength.actualLength}}  </span>
+    </ng-container>
+  </ng-template>
+  
+  <ng-template #password_error let-error="error">
+    <ng-container *ngIf="form.get('password')?.dirty || form.get('password')?.touched">
+      <span class="input__hint" *ngIf="error?.required">El campo es requerido </span>
+      <span class="input__hint" *ngIf="error?.maxlength">Longitud máxima {{error.maxlength.requiredLength}}, actual {{error.maxlength.actualLength}}  </span>
+  </ng-container>
+  </ng-template>

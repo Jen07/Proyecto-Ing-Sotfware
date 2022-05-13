@@ -1,0 +1,35 @@
+.toggle__color-mode:checked + * > .toggle__ico {
+  transform: translateX(1.3em);
+}
+
+.toggle__color-mode:checked + * > .toggle__ico.i__moon {
+  opacity: 0;
+}
+
+.toggle__color-switch {
+  width: 2.5em;
+  height: 1.5em;
+  border-radius: 5em;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  background-color: var(--actual-bg-color-1);
+  box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.151);
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.toggle__ico {
+  color: var(--actual-bg-color-2);
+  background-color: var(--actual-font-color);
+  border-radius: 50%;
+  font-size: 0.8em;
+  width: 1.5em;
+  height: 1.5em;
+  top: 0.2em;
+  left: 0.2em;
+  position: absolute;
+  transition: transform 500ms, opacity 500ms;
+}

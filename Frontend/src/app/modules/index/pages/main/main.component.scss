@@ -1,0 +1,12 @@
+.title{
+    color: var(--actual-font-color);
+    text-align: center;
+    line-height: 20em;
+}
+
+.construction{
+    width: 100%;    
+    height: auto;
+    background-image:  url(~/src/assets/images/under_construction/under.jpg);
+    background-color: red;
+}
