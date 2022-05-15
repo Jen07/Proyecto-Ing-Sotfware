@@ -54,6 +54,7 @@ export class FormComponent implements OnInit, AfterViewInit {
     this.form.markAllAsTouched();
 
     if (this.form.valid) {
+      this.loadingService.isLoading.next(true);
       this.validateLogin();
     } else {
       this.errorToast();
@@ -66,16 +67,17 @@ export class FormComponent implements OnInit, AfterViewInit {
    */
   private validateLogin() {
     this.authService.loginUser(this.form.value.email, this.form.value.password);
-    if (this.authService.isLogged()) {
-      /* Simula una peticion al servidor */
-      this.loadingService.isLoading.next(true);
-      setTimeout(() => {
+
+    /* Simula una peticion al servidor */
+    setTimeout(() => {
+      if (this.authService.isLogged()) {
         this.mainForm.classList.add('disappear_animation');
         this.loadingService.isLoading.next(false);
-      }, 1000);
-    } else {
-      this.errorToast();
-    }
+      } else {
+        this.loadingService.isLoading.next(false);
+        this.errorToast();
+      }
+    }, 1000);
   }
 
   /**

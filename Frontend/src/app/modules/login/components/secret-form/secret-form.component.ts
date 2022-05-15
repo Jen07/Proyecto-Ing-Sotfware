@@ -1,9 +1,9 @@
-import { LoadingService } from './../../../../core/services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 
 import { LoginStepsService } from './../../services/login-steps.service';
 import Alerts from 'src/app/core/utils/alerts';
 import { Router } from '@angular/router';
-import { AuthService } from './../../../../core/services/auth.service';
+import { AuthService } from '@core/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 
@@ -34,7 +34,7 @@ export class SecretFormComponent implements OnInit, AfterViewInit {
     this.form = this.formBuilder.group({
       secret: [
         '',
-        [Validators.required, Validators.maxLength(6), Validators.minLength(6)],
+        [Validators.required,Validators.min(1), Validators.max(999999)],
       ],
     });
   }
@@ -73,21 +73,23 @@ export class SecretFormComponent implements OnInit, AfterViewInit {
       this.errorToast();
     }
   }
-
+  
   /**
    * Este metodo se encarga de verificar que
    * el secret brindado sea válido.
    */
   validateLogin() {
-    if (this.authService.doubleAuth(this.form.value.secret)) {
-      this.loadingService.isLoading.next(true);
-      setTimeout(() => {
+
+    this.loadingService.isLoading.next(true);
+    setTimeout(() => {
+      if (this.authService.doubleAuth(this.form.value.secret)) {
         this.secretForm.classList.add('disappear_animation');
         this.loadingService.isLoading.next(false);
-      }, 1000);
-    } else {
-      this.errorToast();
-    }
+      } else {
+        this.loadingService.isLoading.next(false);
+        this.errorToast();
+      }
+    }, 1000);
   }
 
   /**

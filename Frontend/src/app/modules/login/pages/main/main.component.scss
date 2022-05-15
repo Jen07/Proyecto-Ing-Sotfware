@@ -10,3 +10,12 @@
   background-attachment: fixed;
   animation: animate_wave 20s infinite linear;
 }
+
+@keyframes animate_wave {
+  0%{
+    background-position: 00% 100%;
+  }
+  100%{
+    background-position: 99% 100%;
+  }
+}

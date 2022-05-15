@@ -9,5 +9,8 @@ import { LoginStepsService } from '../../services/login-steps.service';
 export class MainComponent implements OnInit {
   constructor( public loginSteps: LoginStepsService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // Cada vez que carga este componente inicia en el paso 1
+    this.loginSteps.step.next(1);
+  }
 }

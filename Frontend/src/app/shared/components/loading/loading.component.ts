@@ -1,4 +1,4 @@
-import { LoadingService } from './../../../core/services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 
 @Component({
