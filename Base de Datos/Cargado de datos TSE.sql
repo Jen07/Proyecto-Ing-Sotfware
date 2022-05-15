@@ -99,6 +99,7 @@ ON u.identification = s.identification;
 
 -- Verificación
 SELECT * FROM tb_users where id_sex is null
+SELECT count(*) FROM tb_users 
 
 
 
