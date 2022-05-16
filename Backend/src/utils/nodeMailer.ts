@@ -49,7 +49,7 @@ export default class Mailer {
       port: 587,
       secureConnection: false,
       auth: {
-        user: process.env.MAIL,
+        user: process.env.MAIL_EMAIL,
         pass: process.env.MAIL_PASS,
       },
     } as SMTPTransport.Options);

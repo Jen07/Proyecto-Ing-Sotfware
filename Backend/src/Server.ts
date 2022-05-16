@@ -3,6 +3,8 @@ import express, { Application } from "express";
 import cors from "cors";
 import morgan from "morgan";
 
+import testRoutes from "./entities/test/routes"
+
 /**
  *  Esta clase contiene la configuracion necesaria para el
  *  lanzamiento del servidor
@@ -41,7 +43,7 @@ export class Server {
    * de los router por su endpoint.
    */
   private routes = () => {
-    
+    this.app.use('/test', testRoutes);
   };
 
   /**

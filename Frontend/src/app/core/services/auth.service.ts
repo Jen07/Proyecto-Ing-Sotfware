@@ -1,7 +1,7 @@
 import Tokenizer  from '@core/utils/tokenizer';
 import { User } from './../models/user';
 import { Injectable, Output } from '@angular/core';
-
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,9 @@ export class AuthService {
   @Output() authenticated: boolean;
   @Output() token: string | undefined;
 
-  constructor() {
+  constructor(
+    private http:HttpClient,
+  ) {
     this.authenticated = false;
   }
 
