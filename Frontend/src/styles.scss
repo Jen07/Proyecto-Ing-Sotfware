@@ -19,13 +19,18 @@ body {
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
   background-color: var(--actual-bg-color-2);
+  overflow: hidden;
+  min-height: 100vh;
 }
 
 button {
   cursor: pointer;
   border: none;
+}
+
+footer{
+  margin-top: auto;
 }
 
 /* Remover flechas del input number */
@@ -41,7 +46,36 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+//----------------------------------
 
+/* Cambiar scroll bar por defecto */
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: var(--actual-bg-color-1);
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--actual-aux-color); 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--actual-font-color); 
+}
+
+//----------------------------------
+
+
+.swal2-shown{
+  user-select: none;
+}
 
 
 .appear_animation  {

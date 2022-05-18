@@ -1,12 +1,28 @@
+.main{
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.content{
+    animation: appear 1s;
+}
+
 .title{
     color: var(--actual-font-color);
     text-align: center;
     line-height: 20em;
 }
 
-.construction{
-    width: 100%;    
-    height: auto;
-    background-image:  url(~/src/assets/images/under_construction/under.jpg);
-    background-color: red;
+@keyframes appear {
+    0%{
+        transform: scale(.90);
+        opacity: 0;
+    }
+
+    100%{
+        transform: scale(1);
+        opacity: 1;
+    }
 }

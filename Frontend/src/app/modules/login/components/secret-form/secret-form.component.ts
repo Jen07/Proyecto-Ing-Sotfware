@@ -27,7 +27,7 @@ export class SecretFormComponent implements OnInit, AfterViewInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router,
+
     private loginSteps: LoginStepsService,
     private loadingService: LoadingService
   ) {
@@ -55,7 +55,7 @@ export class SecretFormComponent implements OnInit, AfterViewInit {
       }
 
       if (e.animationName === 'disappear') {
-        this.router.navigate(['/']);
+        this.loginSteps.step.next(3)
       }
     });
   }

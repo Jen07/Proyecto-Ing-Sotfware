@@ -1,0 +1,175 @@
+
+
+p{
+    margin: 0;
+}
+
+.table__container{
+    width: 100%;
+    height: 80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.table{
+    border-collapse: separate;
+    border-spacing: .5em;
+    height: 10em;
+    margin: 2em .5em;
+
+    & td{
+        color: var(--actual-font-color);
+        background-color: var(--actual-bg-color-3);
+         border: none;
+    }
+
+}
+
+
+
+.message{
+    position: relative;
+    cursor: pointer;
+   
+}
+
+.message>td{
+    padding: 1em;
+    
+}
+
+.message__status{
+    bottom: .5em;
+    margin: 0;
+    position: absolute;
+}
+
+.message__date{
+    right: .5em;
+    bottom: .5em;
+    position: absolute;
+}
+
+.message__title{
+    margin-bottom: 2em;
+}
+
+.message__status{
+    width: 100px;
+    text-align: center;
+    border-radius: 1em;
+}
+
+.message__status.extended{
+    background-color: rgba(255, 230, 0,.6);
+}
+
+.message__status.solved{
+    background-color: rgba(0, 255, 13, 0.6);
+}
+
+.message__status.pending {
+    background-color: rgba(255, 0, 0, 0.6);
+}
+
+.message__filterer{
+    background-color: var(--actual-bg-color-3);
+    color: var(--actual-font-color);
+    overflow: hidden;
+    position: absolute;
+    z-index: 10;
+    
+    max-height: 2em;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 3.5em;
+    transition: max-height 250ms;
+    padding: 0 1em 2em 1em;
+    filter: brightness(.95);
+}
+
+.toggle-check__filter{
+   display: none;
+}
+
+.toggle__filter{
+    width: 100%;
+    height: 2em;
+    margin-top: 1em;
+    cursor: pointer;margin-bottom: 1em;
+}
+
+.toggle-check__filter:checked+*>.toggle__filter> .bars{
+   max-width: 0em;
+   
+}
+
+.toggle-check__filter:checked+*>.toggle__filter> .bars::after{
+    transform: rotate(-45deg) translateY(-.45em);
+    
+ }
+
+ .toggle-check__filter:checked+*>.toggle__filter> .bars::before{
+    transform: rotate(45deg)  translateY(.45em);
+ }
+
+ .toggle-check__filter:checked+ .message__filterer{
+     max-height: 100vh;
+ }
+
+.bars,
+.bars::after,
+.bars::before{
+    content: '';
+    position: absolute;
+    background-color: gray;
+    width: 1em;
+    max-width: 1em;
+    height: 0.2em;
+    transition: max-width 250ms, transform 250ms;
+}
+
+.bars{
+    display: block;
+    margin-left: calc(50% - 1em);
+}
+
+.bars::after{
+    bottom: -.3em;
+    left: 0em;
+}
+
+.bars::before{
+    top: -.3em;
+    left: 0em;
+}
+
+.request__list{
+    display: flex;
+}
+
+@media (min-width:500px) {
+    .message__classifier{
+        position: absolute;
+        right: .5em;
+        top: .5em;
+    }
+
+    .message__filterer{
+        max-height: 100vh;
+        position: sticky;
+        top: 8.5em;
+        padding: 1em;
+    }
+
+    .toggle__filter{
+        display: none;
+    }
+
+    .table{
+        margin-top: 0;
+        padding: 0 1em;
+    }
+
+}

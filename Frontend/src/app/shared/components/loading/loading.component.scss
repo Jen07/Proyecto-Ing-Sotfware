@@ -10,14 +10,24 @@
   top: 0;
   left: 0;
   pointer-events: none;
+
+  &.activated{
+    pointer-events: all;
+  }
+
 }
+
+
+
+
 
 .loading__container-backdrop{
   position: absolute;
   width: 100%;
   height: 100%;
   background:linear-gradient(45deg, var(--actual-aux-color), var(--accent));
-  opacity: .4;
+  opacity: .4; 
+  cursor: progress;
 }
 
 .loading__icon {

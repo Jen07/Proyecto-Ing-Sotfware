@@ -1,0 +1,25 @@
+.header{
+    background-color: var(--actual-font-color);
+    animation: enter_header 1s forwards;
+    color: var(--actual-bg-color-1);
+}
+
+.nav__list{
+    list-style: none;
+    display: flex;
+
+    & li{
+        padding: 1em;
+    }
+
+}
+
+@keyframes enter_header {
+    0%{
+        transform: translateY(-150%);
+    }
+
+    100%{
+        transform: translateY(0%);
+    }
+}

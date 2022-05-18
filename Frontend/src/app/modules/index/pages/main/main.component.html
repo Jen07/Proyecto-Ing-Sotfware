@@ -1,15 +1,19 @@
-<app-header></app-header>
+<section class="main">
+    <header class="header">
+        <app-header></app-header>
+    </header>
+   
+    <main class="content appear">
+         <!-- Temporal -->
+        <button style="margin: 1em;" (click)="logout()">Logout</button>
 
-<!-- Temporal -->
-<button style="margin: 1em;" (click)="logout()">Logout</button>
+        <!-- -->
 
-<h1 class="title"> Esta será la pagina inicial. </h1>
-
-<div class="construction">a</div>
-<!-- -->
-
-<router-outlet></router-outlet>
+        <router-outlet></router-outlet>
+    </main>
 
 
-
-<app-footer></app-footer>
+    <footer class="footer">
+        <app-footer></app-footer>
+    </footer>
+</section>

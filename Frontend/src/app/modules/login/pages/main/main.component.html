@@ -1,5 +1,7 @@
+
 <app-particles></app-particles>
-<div  class="login__waves"></div>
+
+<div  class="login__waves" #waves></div>
 
 <app-login-form *ngIf="loginSteps.step.value === 1"></app-login-form> 
 <app-secret-form  *ngIf="loginSteps.step.value === 2"></app-secret-form>

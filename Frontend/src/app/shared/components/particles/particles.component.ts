@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { LoginStepsService } from './../../../modules/login/services/login-steps.service';
+import { Subscription } from 'rxjs';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 declare var particlesJS: any;
 
 @Component({
@@ -6,10 +8,32 @@ declare var particlesJS: any;
   templateUrl: './particles.component.html',
   styleUrls: ['./particles.component.scss'],
 })
-export class ParticlesComponent implements OnInit {
-  constructor() {}
+export class ParticlesComponent implements OnInit, AfterViewInit, OnDestroy {
+
+  @ViewChild("particles", { static: false }) rawParticles: any;
+  private particles!: HTMLElement;
+
+  observers: Subscription[] = [];
+
+  constructor(
+    private loginSteps:LoginStepsService
+  ) {}
+
+  ngAfterViewInit(): void {
+    this.particles = this.rawParticles.nativeElement;
+  }
+
 
   ngOnInit(): void {
+
+    this.observers.push(
+      this.loginSteps.step.subscribe((step) => {
+        if (step === 3) {
+          this.particles.classList.add('disappear__particles');
+        }
+      })
+    );
+
     particlesJS('particles-js', {
       particles: {
         number: { value: 160, density: { enable: true, value_area: 800 } },
@@ -59,5 +83,11 @@ export class ParticlesComponent implements OnInit {
       retina_detect: true,
     });
     
+  }
+
+  ngOnDestroy(): void {
+    this.observers.forEach((element) => {
+      element.unsubscribe();
+    });
   }
 }

@@ -1,11 +1,16 @@
 
 .card__container {
-  width: 90vw;
+
   height: 90vh;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow-y: hidden;
+
+  & *{
+    user-select: none;
+  }
+
 }
 
 .login__card {

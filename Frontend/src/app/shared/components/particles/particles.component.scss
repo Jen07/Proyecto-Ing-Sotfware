@@ -4,4 +4,9 @@
   height: 90vh;
   top: 0;
   background-color: #00000000;
+  transition: opacity 1s;
+}
+
+.disappear__particles{
+  opacity: 0;
 }

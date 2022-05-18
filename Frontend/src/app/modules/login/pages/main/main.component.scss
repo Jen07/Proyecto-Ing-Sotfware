@@ -11,6 +11,24 @@
   animation: animate_wave 20s infinite linear;
 }
 
+.disappear__waves{
+  transform: translateY(100%);
+  animation: disappear__waves 1s forwards;
+}
+
+.boom{
+  background-color: red;
+}
+
+@keyframes disappear__waves {
+  0%{
+    transform: translateY(0%);
+  }
+  100%{
+    transform: translateY(100%);
+  }
+}
+
 @keyframes animate_wave {
   0%{
     background-position: 00% 100%;
