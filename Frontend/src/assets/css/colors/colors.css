@@ -2,6 +2,11 @@
     --primary: #e69f11;
     --accent: #e00e38;
 
+    --warning: #e2e611;
+    --danger: #e61111;
+    
+
+
     --neutral-100: #fffafa;
     --neutral-200: #a3a29f;
     --neutral-300: #424140;
@@ -21,6 +26,7 @@
     --actual-aux-color: #2c2c2c;
 
     --actual-bg-color-1: #a3a29f;
-    --actual-bg-color-2: #fffafa;
+    --actual-bg-color-2: #f0efef;
     --actual-bg-color-3: #fffafa;
+    
 }

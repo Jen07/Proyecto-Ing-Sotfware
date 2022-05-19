@@ -1,3 +1,4 @@
+import { AuthService } from '@core/services/auth.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import {
@@ -21,14 +22,18 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
 
   observers: Subscription[] = [];
 
-  constructor(public loginSteps: LoginStepsService, private router: Router) {}
-  ngOnDestroy(): void {
-    this.observers.forEach((element) => {
-      element.unsubscribe();
-    });
-  }
+  constructor(
+    public loginSteps: LoginStepsService, 
+    private router: Router,
+    private authService:AuthService
+    ) {}
 
   ngOnInit(): void {
+    // Si el usuario esta logueado lo enviamos a index.
+    if(this.authService.isLogged()){
+      this.router.navigate(['/'])
+    }
+    
     // Cada vez que carga este componente inicia en el paso 1
     this.loginSteps.step.next(1);
 
@@ -50,4 +55,11 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
   }
+
+  ngOnDestroy(): void {
+    this.observers.forEach((element) => {
+      element.unsubscribe();
+    });
+  }
+
 }

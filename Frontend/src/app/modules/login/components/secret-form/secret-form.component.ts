@@ -104,6 +104,6 @@ export class SecretFormComponent implements OnInit, AfterViewInit {
    * Este método imprime un mensaje de error predeterminado.
    */
   private errorToast() {
-    Alerts.simpleErrorToast('Código no válido', 'error');
+    Alerts.simpleToast('Código no válido', 'error');
   }
 }

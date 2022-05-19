@@ -84,7 +84,7 @@ export class FormComponent implements OnInit, AfterViewInit {
    * Este método imprime un mensaje de error predeterminado.
    */
   private errorToast() {
-    Alerts.simpleErrorToast('Credenciales no válidas', 'error');
+    Alerts.simpleToast('Credenciales no válidas', 'error');
   }
 
   /**

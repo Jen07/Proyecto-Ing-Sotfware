@@ -61,3 +61,13 @@
   -webkit-mask-image: url(../../images/icons/rewind.svg);
   mask-image: url(../../images/icons/rewind.svg);
 }
+
+.i__edit::after {
+  -webkit-mask-image: url(../../images/icons/edit.svg);
+  mask-image: url(../../images/icons/edit.svg);
+}
+
+.i__delete::after {
+  -webkit-mask-image: url(../../images/icons/delete.svg);
+  mask-image: url(../../images/icons/delete.svg);
+}

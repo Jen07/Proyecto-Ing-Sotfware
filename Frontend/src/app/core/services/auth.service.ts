@@ -24,6 +24,7 @@ export class AuthService {
     if (email === 'luis.leiton.cr@gmail.com' && password === '123123123') {
       this.userData = { email: email, password: password };
     }
+    /*------------------------------------------ */
 
     return false;
   }
@@ -112,7 +113,6 @@ export class AuthService {
         }
         console.log(this.userData);
         
-     
     }else{
       //  Si no se puede decodificar correctamente el token en memoria se elimina.
       localStorage.removeItem("id_token");

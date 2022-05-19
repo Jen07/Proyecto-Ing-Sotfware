@@ -1,4 +1,4 @@
-import { IndexModule } from './modules/index/index.module';
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
@@ -11,8 +11,8 @@ const routes: Routes = [
   },
   {
     path:'',
-    component: MainComponent,
     canActivate:[AuthGuard],
+    component: MainComponent,
     loadChildren:() => import('./modules/index/index.module').then(m => m.IndexModule),
   }
  

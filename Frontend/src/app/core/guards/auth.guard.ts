@@ -6,19 +6,25 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
+/**
+ * Esta clase se encarga de validar si el usuario 
+ * ha realizado un login valido en la aplicacion. 
+ */
 export class AuthGuard implements CanActivate {
 
-  constructor(private auth:AuthService, private router:Router){}
-  
+  constructor(
+    private auth:AuthService, 
+    private router:Router
+  ){}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-      if(!this.auth.isLogged()){
-        this.router.navigate(["/login"])
-      }
- 
+    if(!this.auth.isLogged()){
+      this.router.navigate(["/login"])
+    }
 
     return true;
   }

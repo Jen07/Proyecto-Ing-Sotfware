@@ -1,16 +1,16 @@
-.footer{
-    background-color: var(--actual-font-color);
-    animation: enter_footer 1s forwards;
-    color: var(--actual-bg-color-1);
-    padding: 1em;
+.footer {
+  background-color: var(--actual-bg-color-3);
+  animation: enter_footer 1s forwards;
+  color: var(--actual-font-color);
+  padding: 1em;
 }
 
 @keyframes enter_footer {
-    0%{
-        transform: translateY(150%);
-    }
+  0% {
+    transform: translateY(150%);
+  }
 
-    100%{
-        transform: translateY(0%);
-    }
+  100% {
+    transform: translateY(0%);
+  }
 }

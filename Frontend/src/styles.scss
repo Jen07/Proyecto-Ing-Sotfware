@@ -29,7 +29,7 @@ button {
   border: none;
 }
 
-footer{
+footer {
   margin-top: auto;
 }
 
@@ -43,7 +43,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 //----------------------------------
@@ -59,30 +59,28 @@ input[type=number] {
 ::-webkit-scrollbar-track {
   background-color: var(--actual-bg-color-1);
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: var(--actual-aux-color); 
+  background: var(--actual-aux-color);
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--actual-font-color); 
+  background: var(--actual-font-color);
 }
 
 //----------------------------------
 
-
-.swal2-shown{
+.swal2-shown {
   user-select: none;
 }
 
-
-.appear_animation  {
+.appear_animation {
   animation: appear 0.5s forwards linear;
 }
 
-.disappear_animation  {
+.disappear_animation {
   animation: disappear 0.5s forwards linear;
 }
 
@@ -92,7 +90,7 @@ input[type=number] {
     opacity: 0;
   }
 
-  75%{
+  75% {
     transform: scale(1.15);
   }
 
@@ -108,7 +106,7 @@ input[type=number] {
     transform: translateX(0%);
   }
 
-  75%{
+  75% {
     transform: scale(1.15);
   }
 
@@ -138,17 +136,14 @@ input[type=number] {
 
 @keyframes loading_unshow {
   0% {
-   opacity: 1;
+    opacity: 1;
   }
   100% {
-   opacity: 0;
+    opacity: 0;
   }
 }
 
-
-
-
-/* Contenido para formularios */
+/* Estilos para formularios */
 
 .input__group {
   height: 3em;
@@ -215,4 +210,66 @@ input[type=number] {
   font-size: 1.2em;
   border-radius: 0.5em 0 0 0.5em;
   box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.15);
+}
+
+/* Estilos para las tablas*/
+.list__container {
+  height: 60vh;
+  overflow: auto;
+}
+
+.list__table {
+  width: 100%;
+  color: var(--actual-font-color);
+  background-color: var(--actual-bg-color-3);
+
+  th {
+    background-color: var(--actual-font-color);
+    color: var(--actual-bg-color-3);
+    padding: 1em;
+    &:first-child {
+      border-radius: 0.5em 0 0 0;
+    }
+
+    &:last-child {
+      border-radius: 0 0.5em 0 0;
+    }
+  }
+
+  & td,
+  th {
+    &:last-child {
+      text-align: center;
+      width: 5em;
+    }
+  }
+
+  & tbody tr {
+    & td {
+      padding: 0.5em 0.2em 0.5em 0.5em;
+    }
+
+    &:hover {
+      background-color: var(--actual-bg-color-1);
+      color: white;
+    }
+  }
+}
+
+.action__container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.action__button {
+  font-size: 1.5em;
+  border-radius: 0.1em;
+
+  &.edit {
+    background-color: var(--warning);
+  }
+
+  &.delete {
+    background-color: var(--danger);
+  }
 }
