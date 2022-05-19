@@ -1,24 +1,30 @@
-###
-GET http://localhost:4200/classifier HTTP/1.1
+@hostname = localhost
+@port = 4200
+@host = {{hostname}}:{{port}}
+@entity = department
+@contentType = application/json
 
 ###
-GET http://localhost:4200/classifier/1 HTTP/1.1
+GET http://{{host}}/{{entity}} HTTP/1.1
 
 ###
-POST http://localhost:4200/classifier HTTP/1.1
-content-type: application/json
+GET http://{{host}}/{{entity}}/112 HTTP/1.1
+
+###
+POST http://{{host}}/{{entity}} HTTP/1.1
+content-type: {{contentType}}
 
 {
     "description": "samplea"
 }
 
 ###
-PUT http://localhost:4200/classifier/4 HTTP/1.1
-content-type: application/json
+PUT http://{{host}}/{{entity}}/4 HTTP/1.1
+content-type: {{contentType}}
 
 {
     "description": "plea"
 }
 
 ###
-DELETE  http://localhost:4200/classifier/12 HTTP/1.1
+DELETE  http://{{host}}/{{entity}}/12 HTTP/1.1

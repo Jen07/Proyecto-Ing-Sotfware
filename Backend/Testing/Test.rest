@@ -1,5 +1,12 @@
-POST http://localhost:4200/test HTTP/1.1
-content-type: application/json
+@hostname = localhost
+@port = 4200
+@host = {{hostname}}:{{port}}
+@entity = test
+@contentType = application/json
+
+###
+POST http://{{host}}/{{entity}} HTTP/1.1
+content-type:  {{contentType}}
 
 {
     "id": 1,

@@ -5,6 +5,7 @@ import morgan from "morgan";
 
 import testRoutes from "./entities/test/routes"
 import classifierRoutes from "./entities/classifier/routes"
+import departmentRoutes from "./entities/department/routes"
 
 /**
  *  Esta clase contiene la configuracion necesaria para el
@@ -46,6 +47,7 @@ export class Server {
   private routes = () => {
     this.app.use('/test', testRoutes);
     this.app.use('/classifier', classifierRoutes);
+    this.app.use('/department', departmentRoutes);
   };
 
   /**

@@ -1,0 +1,32 @@
+@hostname = localhost
+@port = 4200
+@host = {{hostname}}:{{port}}
+@entity = department
+@contentType = application/json
+
+###
+GET http://{{host}}/{{entity}} HTTP/1.1
+
+###
+GET http://{{host}}/{{entity}}/7 HTTP/1.1
+
+###
+POST http://{{host}}/{{entity}} HTTP/1.1
+content-type: {{contentType}}
+
+{
+    "description": "samplea",
+    "district": 313
+}
+
+###
+PUT http://{{host}}/{{entity}}/16 HTTP/1.1
+content-type: content-type: {{contentType}}
+
+{
+    "description": "Alea",
+    "district": 15
+}
+
+###
+DELETE  http://{{host}}/{{entity}}/16 HTTP/1.1
