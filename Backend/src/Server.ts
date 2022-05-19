@@ -4,6 +4,7 @@ import cors from "cors";
 import morgan from "morgan";
 
 import testRoutes from "./entities/test/routes"
+import classifierRoutes from "./entities/classifier/routes"
 
 /**
  *  Esta clase contiene la configuracion necesaria para el
@@ -44,6 +45,7 @@ export class Server {
    */
   private routes = () => {
     this.app.use('/test', testRoutes);
+    this.app.use('/classifier', classifierRoutes);
   };
 
   /**

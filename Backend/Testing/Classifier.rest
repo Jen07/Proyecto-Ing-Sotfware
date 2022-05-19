@@ -1,0 +1,24 @@
+###
+GET http://localhost:4200/classifier HTTP/1.1
+
+###
+GET http://localhost:4200/classifier/1 HTTP/1.1
+
+###
+POST http://localhost:4200/classifier HTTP/1.1
+content-type: application/json
+
+{
+    "description": "samplea"
+}
+
+###
+PUT http://localhost:4200/classifier/4 HTTP/1.1
+content-type: application/json
+
+{
+    "description": "plea"
+}
+
+###
+DELETE  http://localhost:4200/classifier/12 HTTP/1.1
