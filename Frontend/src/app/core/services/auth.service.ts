@@ -37,6 +37,15 @@ export class AuthService {
   }
 
   /**
+   * Este metodo verifica si el usuario que inicio sesion es del departamento legal.
+   * @returns [boolean] indicando si el usuario es del departamento legal o no.
+   */
+  isLegal(){
+    return this.userData?.department === "Legal"
+  }
+
+
+  /**
    * Este método verifica si la clave de doble autenticación es válida.
    * @param secret [number] número ingresado por el usuario.
    * @returns [boolean] indicando si la clave fue valida o no.
@@ -68,8 +77,13 @@ export class AuthService {
     if(this.userData && this.authenticated){
       
       // Pedir el token al servidor con user data.
-      const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyMzQ1Njc4OTAiLCJuYW1lIjoiSm9obiBEb2UgV2FsbG93aXR6IiwiZW1haWwiOiJXYW9AZ21haWwuY29tIiwicGhvdG8iOiJodHRwczovL3d3dy5lbHNvbGRlZHVyYW5nby5jb20ubXgvZG9ibGUtdmlhLzhvNjJubS1idXp6LWxpZ2h0eWVhci9BTFRFUk5BVEVTL0xBTkRTQ0FQRV8xMTQwL0J1enolMjBMaWdodHllYXIifQ.HvcI7hutYA__uQbmwkBP_ljKeAale-RFbn_z15os1Zs"
+      // Departamento legal
+      const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyMzQ1Njc4OTAiLCJuYW1lIjoiSm9obiBEb2UgV2FsbG93aXR6IiwiZW1haWwiOiJXYW9AZ21haWwuY29tIiwiZGVwYXJ0bWVudCI6IkxlZ2FsIiwicGhvdG8iOiJodHRwczovL3d3dy5lbHNvbGRlZHVyYW5nby5jb20ubXgvZG9ibGUtdmlhLzhvNjJubS1idXp6LWxpZ2h0eWVhci9BTFRFUk5BVEVTL0xBTkRTQ0FQRV8xMTQwL0J1enolMjBMaWdodHllYXIifQ.1o8vgkTy0G_mxg6WfkhtVQwu_uzjDIITRr6c-_I2nJA"
       
+      // Departamento otro
+      //const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyMzQ1Njc4OTAiLCJuYW1lIjoiSm9obiBEb2UgV2FsbG93aXR6IiwiZW1haWwiOiJXYW9AZ21haWwuY29tIiwiZGVwYXJ0bWVudCI6Ik90cm8iLCJwaG90byI6Imh0dHBzOi8vd3d3LmVsc29sZGVkdXJhbmdvLmNvbS5teC9kb2JsZS12aWEvOG82Mm5tLWJ1enotbGlnaHR5ZWFyL0FMVEVSTkFURVMvTEFORFNDQVBFXzExNDAvQnV6eiUyMExpZ2h0eWVhciJ9.b5uTpnzGwcYWlR1TQ4_ZKImL5agPiD8IDxyqYlWrKKE"
+      
+
       // Se decodifica y verifica si es valido. 
       const data = Tokenizer.decode(token)
     
@@ -88,7 +102,16 @@ export class AuthService {
     const token = localStorage.getItem("id_token");
     const data = Tokenizer.decode(token||"");
     if(data.state === "success"){
-      this.userData = {id:data.payload.id, email: data.payload.email, name: data.payload.name, photo:data.payload.photo}
+      this.userData = 
+        {
+          id:data.payload.id, 
+          email: data.payload.email, 
+          name: data.payload.name, 
+          department: data.payload.department,
+          photo:data.payload.photo
+        }
+        console.log(this.userData);
+        
      
     }else{
       //  Si no se puede decodificar correctamente el token en memoria se elimina.

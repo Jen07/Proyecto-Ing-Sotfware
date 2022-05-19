@@ -31,12 +31,15 @@ export default class ClassifierValidation {
 }
 
 const validateDescription = (req: Request, res: Response) => {
-  if (!req.body.description) {
+
+  const {description} = req.body
+
+  if (!description) {
     res.status(406).json({ status: 406, message: "No se encontró una descripcion." });
     return false
   }
 
-  if (req.body.description === ""){
+  if (description === ""){
     res.status(406).json({ status: 406, message: "La descripcion es invalida." });
     return false
   }

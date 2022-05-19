@@ -33,12 +33,15 @@ export default class DepartmentValidation{
 }
 
 const validateDescription = (req: Request, res: Response) => {
-  if (!req.body.description) {
+
+  const {description} = req.body;
+
+  if (!description) {
     res.status(406).json({ status: 406, message: "No se encontró una descripcion." });
     return false
   }
 
-  if (req.body.description === ""){
+  if (description === ""){
     res.status(406).json({ status: 406, message: "La descripcion es invalida." });
     return false
   }
@@ -47,12 +50,14 @@ const validateDescription = (req: Request, res: Response) => {
 }
 
 const validateDistrict = (req: Request, res: Response) => {
-    if (!req.body.district) {
+  const {district} = req.body;
+
+    if (district) {
       res.status(406).json({ status: 406, message: "No se encontró un distrito." });
       return false
     }
   
-    if (req.body.district < 0 || req.body.district > 32700){
+    if (district < 0 || district > 32700){
       res.status(406).json({ status: 406, message: "El distrito es invalido." });
       return false
     }

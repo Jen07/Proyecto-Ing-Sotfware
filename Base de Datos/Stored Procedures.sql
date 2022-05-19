@@ -21,7 +21,7 @@ GO
         BEGIN TRANSACTION
 			BEGIN TRY
 
-				SELECT dep.[id], dep.[description] AS [departament], dis.[description] AS [district] 
+				SELECT dep.[id], dep.[description] AS [description], dis.[description] AS [district] 
 				FROM tb_departments dep, tb_districts dis
 				WHERE dep.id_district = dis.id  
 				ORDER BY dep.[description]
@@ -70,7 +70,7 @@ GO
 		SET NOCOUNT ON
 			BEGIN TRANSACTION
 				BEGIN TRY
-					SELECT dep.[id], dep.[description] AS [departament], dis.[description] AS [district] 
+					SELECT dep.[id], dep.[description] AS [description], dis.[description] AS [district] 
 					FROM tb_departments dep, tb_districts dis
 					WHERE dep.id_district = dis.id 
 					AND @id = dep.id

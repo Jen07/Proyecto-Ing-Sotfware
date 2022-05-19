@@ -1,0 +1,8 @@
+<p>main works!</p>
+
+<table>
+    <tr *ngFor="let item of departmentsService.list.value" data-id="{{item.id}}">
+        <td>{{item.description}}</td>
+        <td>{{item.district}}</td>
+    </tr>
+</table>
