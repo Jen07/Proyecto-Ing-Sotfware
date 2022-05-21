@@ -21,9 +21,10 @@ GO
         BEGIN TRANSACTION
 			BEGIN TRY
 
-				SELECT dep.[id], dep.[description] AS [description], dis.[description] AS [district] 
-				FROM tb_departments dep, tb_districts dis
-				WHERE dep.id_district = dis.id  
+				SELECT dep.[id], dep.[description] AS [description], CONCAT(TRIM(d.[description]), ', ', TRIM(c.[description]), ', ',TRIM(p.[description]) , ', ' , TRIM( l.[description])) AS [district] 
+				FROM tb_departments dep, tb_districts d, tb_cantons c, tb_provinces p, tb_countries l
+				WHERE dep.id_district = d.id and d.id_canton = c.id AND c.id_province = p.id AND p.id_country = l.id
+				
 				ORDER BY dep.[description]
 
 				-- Si por alguna razon no se pudo ejecutar el query se lanza el error.
@@ -70,7 +71,7 @@ GO
 		SET NOCOUNT ON
 			BEGIN TRANSACTION
 				BEGIN TRY
-					SELECT dep.[id], dep.[description] AS [description], dis.[description] AS [district] 
+					SELECT dep.[id], dep.[description] AS [description], dis.[id] AS [district] 
 					FROM tb_departments dep, tb_districts dis
 					WHERE dep.id_district = dis.id 
 					AND @id = dep.id
@@ -483,3 +484,236 @@ GO
                   END
 			END CATCH
 	END
+
+
+
+
+
+/*-----------------------------------------------------------------------------------------
+									Procedimientos District
+-----------------------------------------------------------------------------------------*/
+
+-- =============================================
+-- Author:		<Author, Luis Leiton>
+-- Create date: <Create Date, 17/5/22>
+-- Description:	<Description, Metodo utilizado obtener los datos de los distritos>
+-- =============================================
+
+GO 
+	CREATE OR ALTER PROCEDURE sp_List_Districts
+	AS 
+	BEGIN
+		SET NOCOUNT ON
+        BEGIN TRANSACTION
+			BEGIN TRY
+
+				SELECT  [id], [description], [id_canton]
+				FROM tb_districts
+
+				-- Si por alguna razon no se pudo ejecutar el query se lanza el error.
+				IF @@ROWCOUNT = 0
+					THROW 51000, 'An SQL error has occurred.', 1;  
+				
+				-- Si hay una transaccion abierta y se ejecuto el query completa la transaccion.
+                IF @@TRANCOUNT > 0  
+                      BEGIN
+                      COMMIT TRANSACTION; 
+                      RETURN 1;
+                END
+			END TRY
+
+			BEGIN CATCH
+				-- Si habia abierta una transaccion se cierra haciendo rollback.
+				IF @@TRANCOUNT > 0  
+					BEGIN
+						ROLLBACK TRANSACTION;
+                        SELECT ERROR_MESSAGE() AS ErrorMessage;
+                        RETURN -1;
+                  END
+			END CATCH
+	END
+
+
+
+-- =============================================
+-- Author:		<Author, Luis Leiton>
+-- Create date: <Create Date, 17/5/22>
+-- Description:	<Description, Metodo utilizado obtener los datos de un distrito>
+-- =============================================
+
+GO 
+	CREATE OR ALTER PROCEDURE sp_Get_District
+	@id SMALLINT
+	AS 
+	BEGIN
+		SET NOCOUNT ON
+        BEGIN TRANSACTION
+			BEGIN TRY
+
+				SELECT  d.[id],l.[description] as country, p.[description] AS province,c.[description] AS canton, d.[description] AS district, 
+				l.id country_id,p.id province_id,c.id canton_id FROM tb_districts d, tb_cantons c, tb_provinces p, tb_countries l
+				WHERE d.id_canton = c.id AND c.id_province = p.id AND p.id_country = l.id AND @id = d.id
+
+				-- Si por alguna razon no se pudo ejecutar el query se lanza el error.
+				IF @@ROWCOUNT = 0
+					THROW 51000, 'An SQL error has occurred.', 1;  
+				
+				-- Si hay una transaccion abierta y se ejecuto el query completa la transaccion.
+                IF @@TRANCOUNT > 0  
+                      BEGIN
+                      COMMIT TRANSACTION; 
+                      RETURN 1;
+                END
+			END TRY
+
+			BEGIN CATCH
+				-- Si habia abierta una transaccion se cierra haciendo rollback.
+				IF @@TRANCOUNT > 0  
+					BEGIN
+						ROLLBACK TRANSACTION;
+                        SELECT ERROR_MESSAGE() AS ErrorMessage;
+                        RETURN -1;
+                  END
+			END CATCH
+	END
+
+
+
+
+/*-----------------------------------------------------------------------------------------
+									Procedimientos Canton
+-----------------------------------------------------------------------------------------*/
+
+-- =============================================
+-- Author:		<Author, Luis Leiton>
+-- Create date: <Create Date, 17/5/22>
+-- Description:	<Description, Metodo utilizado obtener los datos de los cantones>
+-- =============================================
+
+GO 
+	CREATE OR ALTER PROCEDURE sp_List_Cantons
+	AS 
+	BEGIN
+		SET NOCOUNT ON
+        BEGIN TRANSACTION
+			BEGIN TRY
+
+				SELECT  [id], [description], [id_province]
+				FROM tb_cantons
+
+				-- Si por alguna razon no se pudo ejecutar el query se lanza el error.
+				IF @@ROWCOUNT = 0
+					THROW 51000, 'An SQL error has occurred.', 1;  
+				
+				-- Si hay una transaccion abierta y se ejecuto el query completa la transaccion.
+                IF @@TRANCOUNT > 0  
+                      BEGIN
+                      COMMIT TRANSACTION; 
+                      RETURN 1;
+                END
+			END TRY
+
+			BEGIN CATCH
+				-- Si habia abierta una transaccion se cierra haciendo rollback.
+				IF @@TRANCOUNT > 0  
+					BEGIN
+						ROLLBACK TRANSACTION;
+                        SELECT ERROR_MESSAGE() AS ErrorMessage;
+                        RETURN -1;
+                  END
+			END CATCH
+	END
+
+
+	
+
+
+/*-----------------------------------------------------------------------------------------
+									Procedimientos Province
+-----------------------------------------------------------------------------------------*/
+
+-- =============================================
+-- Author:		<Author, Luis Leiton>
+-- Create date: <Create Date, 17/5/22>
+-- Description:	<Description, Metodo utilizado obtener los datos de las provincias>
+-- =============================================
+
+GO 
+	CREATE OR ALTER PROCEDURE sp_List_Provinces
+	AS 
+	BEGIN
+		SET NOCOUNT ON
+        BEGIN TRANSACTION
+			BEGIN TRY
+
+				SELECT  [id], [description], [id_country]
+				FROM tb_provinces
+
+				-- Si por alguna razon no se pudo ejecutar el query se lanza el error.
+				IF @@ROWCOUNT = 0
+					THROW 51000, 'An SQL error has occurred.', 1;  
+				
+				-- Si hay una transaccion abierta y se ejecuto el query completa la transaccion.
+                IF @@TRANCOUNT > 0  
+                      BEGIN
+                      COMMIT TRANSACTION; 
+                      RETURN 1;
+                END
+			END TRY
+
+			BEGIN CATCH
+				-- Si habia abierta una transaccion se cierra haciendo rollback.
+				IF @@TRANCOUNT > 0  
+					BEGIN
+						ROLLBACK TRANSACTION;
+                        SELECT ERROR_MESSAGE() AS ErrorMessage;
+                        RETURN -1;
+                  END
+			END CATCH
+	END
+
+
+/*-----------------------------------------------------------------------------------------
+									Procedimientos Pais
+-----------------------------------------------------------------------------------------*/
+
+-- =============================================
+-- Author:		<Author, Luis Leiton>
+-- Create date: <Create Date, 17/5/22>
+-- Description:	<Description, Metodo utilizado obtener los datos de los paises>
+-- =============================================
+
+GO 
+	CREATE OR ALTER PROCEDURE sp_List_Countries
+	AS 
+	BEGIN
+		SET NOCOUNT ON
+        BEGIN TRANSACTION
+			BEGIN TRY
+
+				SELECT  [id], [description]
+				FROM tb_countries
+
+				-- Si por alguna razon no se pudo ejecutar el query se lanza el error.
+				IF @@ROWCOUNT = 0
+					THROW 51000, 'An SQL error has occurred.', 1;  
+				
+				-- Si hay una transaccion abierta y se ejecuto el query completa la transaccion.
+                IF @@TRANCOUNT > 0  
+                      BEGIN
+                      COMMIT TRANSACTION; 
+                      RETURN 1;
+                END
+			END TRY
+
+			BEGIN CATCH
+				-- Si habia abierta una transaccion se cierra haciendo rollback.
+				IF @@TRANCOUNT > 0  
+					BEGIN
+						ROLLBACK TRANSACTION;
+                        SELECT ERROR_MESSAGE() AS ErrorMessage;
+                        RETURN -1;
+                  END
+			END CATCH
+	END
+

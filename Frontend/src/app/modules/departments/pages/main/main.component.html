@@ -1,32 +1,46 @@
-<div class="container">
-    <table class="list__table">
-        <thead >
-            <tr>
-                <th>Nombre</th>
-                <th>Ubicación</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-    </table>
-    <div class="list__container">
+<form [formGroup]="form" (submit)="prepareRegister()">
+
+    <div class="input__group">
+        <i class="ico input__prefix i__department"></i>
+        <input type="text" placeholder=" " id="description" class="input__control" formControlName="description">
+        <label for="description" class="input__label">Departamento</label>
+        <ng-container *ngTemplateOutlet="department_error; context: {error: form.get('description')?.errors}"></ng-container>
+      </div>
+
+    <select name="country" formControlName="country" (change)="selectCountry()">
+        <option value="">Seleccione un país</option>
+        <option value="{{country['id']}}" *ngFor="let country of this.localizationService.countries | async">
+            {{country['description']}}</option>
+    </select>
+
+    <select name="province" formControlName="province" (change)="selectProvince()">
+        <option value="">Seleccione una provincia</option>
+        <option value="{{province['id']}}" *ngFor="let province of provinces">
+            {{province['description']}}</option>
+    </select>
+
+    <select name="canton" formControlName="canton" (change)="selectCanton()">
+        <option value="">Seleccione un canton</option>
+        <option value="{{canton['id']}}" *ngFor="let canton of cantons">
+            {{canton['description']}}</option>
+    </select>
+
+    <select name="district" formControlName="district">
+        <option value="">Seleccione un distrito</option>
+        <option value="{{district['id']}}" *ngFor="let district of districts">
+            {{district['description']}}</option>
+    </select>
+
+    <button class="input__login-button"> Registrar </button>
     
-        <table class="list__table">        
-            <tbody>
-                <tr *ngFor="let item of departmentsService.list.value" data-id="{{item.id}}">
-                    <td>{{item.description}}</td>
-                    <td>{{item.district}}</td>
-                    <td class="action__container">
-                        <button class="action__button edit" (click)="prepareEdit(item.id)">
-                            <i class="ico i__edit"></i>
-                        </button>
-        
-                        <button  class="action__button delete" (click)="prepareDelete(item)">
-                            <i class="ico i__delete"></i>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        
-    </div>
-</div>
+</form>
+
+
+<app-main-list></app-main-list>
+
+<ng-template #department_error let-error="error">
+    <ng-container *ngIf="form.get('description')?.dirty || form.get('description')?.touched">
+      <span class="input__hint" *ngIf="error?.required">El campo es requerido </span>
+    </ng-container>
+  </ng-template>
+  

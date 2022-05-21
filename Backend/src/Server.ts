@@ -6,7 +6,7 @@ import morgan from "morgan";
 import testRoutes from "./entities/test/routes"
 import classifierRoutes from "./entities/classifier/routes"
 import departmentRoutes from "./entities/department/routes"
-
+import localizationRoutes from "./entities/localization/routes"
 /**
  *  Esta clase contiene la configuracion necesaria para el
  *  lanzamiento del servidor
@@ -48,6 +48,7 @@ export class Server {
     this.app.use('/test', testRoutes);
     this.app.use('/classifier', classifierRoutes);
     this.app.use('/department', departmentRoutes);
+    this.app.use('', localizationRoutes);
   };
 
   /**

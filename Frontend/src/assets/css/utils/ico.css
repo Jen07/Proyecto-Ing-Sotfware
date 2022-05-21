@@ -71,3 +71,13 @@
   -webkit-mask-image: url(../../images/icons/delete.svg);
   mask-image: url(../../images/icons/delete.svg);
 }
+
+.i__department::after {
+  -webkit-mask-image: url(../../images/icons/department.svg);
+  mask-image: url(../../images/icons/department.svg);
+}
+
+.i__classifier::after {
+  -webkit-mask-image: url(../../images/icons/classifier.svg);
+  mask-image: url(../../images/icons/classifier.svg);
+}

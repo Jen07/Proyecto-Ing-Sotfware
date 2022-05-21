@@ -1,31 +1,21 @@
-<div class="container">
-    <table class="list__table">
-        <thead >
-            <tr>
-                <th>Nombre</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-    </table>
-    <div class="list__container">
-    
-        <table class="list__table">        
-            <tbody>
-                <tr *ngFor="let item of classifiersService.list.value" data-id="{{item.id}}">
-                    <td>{{item.description}}</td>
-                
-                    <td class="action__container">
-                        <button class="action__button edit" (click)="prepareEdit(item.id)">
-                            <i class="ico i__edit"></i>
-                        </button>
-        
-                        <button  class="action__button delete" (click)="prepareDelete(item)">
-                            <i class="ico i__delete"></i>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        
+<form [formGroup]="form" (submit)="prepareRegister()">
+
+    <div class="input__group">
+        <i class="ico input__prefix i__classifier"></i>
+        <input type="text" placeholder=" " id="description" class="input__control" formControlName="description">
+        <label for="description" class="input__label">Classificador</label>
+        <ng-container *ngTemplateOutlet="classifier_error; context: {error: form.get('description')?.errors}">
+        </ng-container>
     </div>
-</div>
+
+    <button class="input__login-button"> Registrar </button>
+
+</form>
+
+<app-main-list></app-main-list>
+
+<ng-template #classifier_error let-error="error">
+    <ng-container *ngIf="form.get('description')?.dirty || form.get('description')?.touched">
+        <span class="input__hint" *ngIf="error?.required">El campo es requerido </span>
+    </ng-container>
+</ng-template>

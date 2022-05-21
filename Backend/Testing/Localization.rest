@@ -1,0 +1,15 @@
+@hostname = localhost
+@port = 4000
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+
+###
+GET http://{{host}}/country HTTP/1.1
+###
+GET http://{{host}}/province HTTP/1.1
+###
+GET http://{{host}}/canton HTTP/1.1
+###
+GET http://{{host}}/district HTTP/1.1
+###
+GET http://{{host}}/district/2 HTTP/1.1
