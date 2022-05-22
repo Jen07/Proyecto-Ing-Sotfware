@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ToggleColorComponent } from './components/toggle-color/toggle-color.component';
@@ -15,7 +16,7 @@ import { FooterComponent } from './components/footer/footer.component';
     FooterComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,RouterModule
   ], 
   exports: [
     ToggleColorComponent,

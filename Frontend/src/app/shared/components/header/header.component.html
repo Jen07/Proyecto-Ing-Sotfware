@@ -3,9 +3,14 @@
     <app-toggle-color></app-toggle-color>
     <nav>
         <ul class="nav__list">
-            <li> Solicitudes </li>
+            <li  routerLink="/"> Solicitudes </li>
             <li> Mantenimiento </li>
-            <li> Reportes </li>
+            <ul class="nav__list">
+                <li>Personas</li>
+                <li  routerLink="/departments">Departamentos</li>
+                <li  routerLink="/classifiers">Clasificadores</li>
+            </ul>
+            <li  routerLink="/reports"> Reportes </li>
             <li> Cubo </li>
         </ul>
     </nav>

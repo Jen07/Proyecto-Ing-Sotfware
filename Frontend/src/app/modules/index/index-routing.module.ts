@@ -16,6 +16,11 @@ const routes: Routes = [
     path: "classifiers",
     canActivate: [MaintanceGuard],
     loadChildren:() => import('../classifiers/classifiers.module').then(m => m.ClassifiersModule),
+  },
+  {
+    path: "reports",
+    canActivate: [MaintanceGuard],
+    loadChildren:() => import('../reports/reports.module').then(m => m.ReportsModule),
   }
 
 ];
