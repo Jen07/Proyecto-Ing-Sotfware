@@ -8,10 +8,13 @@ import Classifier from '@core/models/classifier';
   providedIn: 'root',
 })
 export class ClassifiersService {
+
   /**
    * Endpoint al cual este servicio hara peticiones.
    */
   private endpoint: string;
+
+  public editing: BehaviorSubject<Classifier>;
 
   /**
    * Listado de clasificadores observable.
@@ -21,6 +24,7 @@ export class ClassifiersService {
   constructor(private http: HttpClient) {
     this.endpoint = `${environment.api}classifier/`;
     this.list = new BehaviorSubject<Classifier[]>([]);
+    this.editing = new BehaviorSubject<Classifier>({});
     this.getAll();
   }
 
@@ -31,11 +35,7 @@ export class ClassifiersService {
     await firstValueFrom(
       this.http.get(this.endpoint).pipe(
         map((data: any) => {
-          if (data.status === 200) {
-            return data.list;
-          } else {
-            return [];
-          }
+          return data.status === 200 ? data.list : [];
         }),
         catchError((err) => {
           return of([]);
@@ -54,11 +54,7 @@ export class ClassifiersService {
     return firstValueFrom(
       this.http.delete(`${this.endpoint}/${id}`).pipe(
         map((data: any) => {
-          if (data.status === 200) {
-            return true;
-          } else {
-            return false;
-          }
+          return (data.status === 200)
         }),
         catchError((err) => {
           return of(false);
@@ -66,4 +62,52 @@ export class ClassifiersService {
       )
     );
   }
+
+  /**
+   * Este metodo sirve para llamar al clasificador a editar.
+   */
+  async loadEdit(id: number) {
+    return firstValueFrom(
+      this.http.get(`${this.endpoint}/${id}`).pipe(
+        map((data: any) => {
+          return data.status === 200 ? this.editing.next(data.item) : this.editing.next({}); 
+        }),
+        catchError((err) => {
+          return of(undefined);
+        })
+      )
+    );
+  }
+
+   /**
+   * Este metodo sirve para crear un clasificador.
+   */
+     async create(classifier:Classifier) {
+      return firstValueFrom(
+        this.http.post(`${this.endpoint}`, classifier).pipe(
+          map((data: any) => {
+            return data.status === 200
+          }),
+          catchError((err) => {
+            return of(false);
+          })
+        )
+      );
+    }
+
+   /**
+   * Este metodo sirve para crear un clasificador.
+   */
+    async edit(classifier:Classifier) {
+      return firstValueFrom(
+        this.http.put(`${this.endpoint}/${classifier.id}`, classifier).pipe(
+          map((data: any) => {
+            return (data.status === 200)
+          }),
+          catchError((err) => {
+            return of(false);
+          })
+        )
+      );
+    }
 }

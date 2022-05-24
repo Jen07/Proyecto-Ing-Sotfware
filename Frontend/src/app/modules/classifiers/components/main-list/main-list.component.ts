@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import Classifier from '@core/models/classifier';
 import Alerts from '@core/utils/alerts';
 
+
 @Component({
   selector: 'app-main-list',
   templateUrl: './main-list.component.html',
@@ -21,7 +22,7 @@ export class MainListComponent implements OnInit {
    */
    prepareDelete(item: Classifier) {
     Alerts.promiseConfirm('Seguro deseas eliminar el clasificador', 'Esta accion no es revertible').then((result) => {
-      if (result.isConfirmed) {
+      if (item.id && result.isConfirmed) {
         this.deleteConfirmed(item.id);
       }
     })
@@ -31,8 +32,10 @@ export class MainListComponent implements OnInit {
    * Este metodo elimina un departamento despues de que el usuacio confirma.
    * @param id [number] ID de departamento a eliminar.
    */
-  deleteConfirmed(id: number) {
+  deleteConfirmed(id: number | undefined) {
+    if(!id) return;
     this.classifiersService.delete(id).then((result) => {
+      this.classifiersService.editing.next({})
       if (result) {
         Alerts.simpleAlert('Eliminado con éxito', 'Se eliminó correctamente el clasificador', 'success')
         this.classifiersService.getAll();
@@ -42,9 +45,14 @@ export class MainListComponent implements OnInit {
     });
   }
 
-  prepareEdit(id: number) {
-    alert(id);
+  prepareEdit(id: number  | undefined) {
+    if(!id) return;
+    this.classifiersService.loadEdit(id);
   }
+
+  
+
+  
 
 
 }

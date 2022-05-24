@@ -28,6 +28,7 @@ export class LocalizationService {
     this.districts = new BehaviorSubject<[]>([]);
 
     this.loadLocalizations();
+
   }
 
   loadLocalizations() {

@@ -29,7 +29,7 @@ export default class ClassifierService extends AbstractService {
     const outputData = await this.db.obtainData(procedure, inputData);
 
     if (outputData && outputData?.returnValue !== -1) {
-      this.result = { status: 200, list: outputData.recordset[0] };
+      this.result = { status: 200, item: outputData.recordset[0] };
     } else {
       this.result = { status: 404, message: "Los datos no son válidos." };
     }

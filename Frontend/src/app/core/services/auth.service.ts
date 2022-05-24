@@ -111,7 +111,6 @@ export class AuthService {
           department: data.payload.department,
           photo:data.payload.photo
         }
-        console.log(this.userData);
         
     }else{
       //  Si no se puede decodificar correctamente el token en memoria se elimina.

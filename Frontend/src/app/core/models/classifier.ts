@@ -1,4 +1,4 @@
 export default interface Classifier {
-    id:number,
-    description: string
+    id?:number,
+    description?: string
 }
