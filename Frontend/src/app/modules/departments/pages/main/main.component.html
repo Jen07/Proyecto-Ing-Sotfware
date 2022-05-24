@@ -31,8 +31,9 @@
             {{district['description']}}</option>
     </select>
 
-    <button class="input__login-button"> Registrar </button>
-    
+    <button class="input__login-button" type="submit"> {{service.editing.value.id ? 'Modificar': 'Registrar'}} </button>
+    <button class="input__login-button" (click)="cancelEdit()" *ngIf="service.editing.value.id"> Cancelar </button>
+
 </form>
 
 

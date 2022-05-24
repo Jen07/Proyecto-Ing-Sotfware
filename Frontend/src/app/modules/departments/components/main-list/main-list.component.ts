@@ -24,8 +24,8 @@ export class MainListComponent implements OnInit {
    * @param item [department] Departamento a eliminar.
    */
   prepareDelete(item: Department) {
-    Alerts.promiseConfirm('Seguro deseas eliminar el departamento', 'Esta accion no es revertible').then((result) => {
-      if (result.isConfirmed) {
+    Alerts.promiseConfirm('Seguro deseas eliminar el departamento', 'Esta accion no es reversible').then((result) => {
+      if (item.id && result.isConfirmed) {
         this.deleteConfirmed(item.id);
       }
     })
@@ -46,8 +46,9 @@ export class MainListComponent implements OnInit {
     });
   }
 
-  prepareEdit(id: number) {
-    alert(id);
+  prepareEdit(id: number  | undefined) {
+    if(!id) return;
+    this.departmentsService.loadEdit(id);
   }
 
 }

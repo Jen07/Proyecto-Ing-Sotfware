@@ -51,8 +51,9 @@ const validateDescription = (req: Request, res: Response) => {
 
 const validateDistrict = (req: Request, res: Response) => {
   const {district} = req.body;
-
-    if (district) {
+    console.log(req.body);
+    
+    if (!district) {
       res.status(406).json({ status: 406, message: "No se encontró un distrito." });
       return false
     }

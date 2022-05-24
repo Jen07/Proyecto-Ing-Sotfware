@@ -48,4 +48,19 @@ export class LocalizationService {
       });
     });
   }
+
+  async getDistrict(id:number | string | undefined){
+
+  
+      return firstValueFrom(
+        this.http.get(`${this.endpoint}/district/${id}`).pipe(
+          map((data: any) => {
+            return (data.status === 200) ? data.item : {}
+          }),
+          catchError((err) => {
+            return of({});
+          })
+        )
+      );
+    }
 }
