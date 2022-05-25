@@ -8,12 +8,16 @@
         </ng-container>
     </div>
 
-    <button class="simple__button" type="submit"> {{service.editing.value.id ? 'Modificar': 'Registrar'}} </button>
-    <button class="simple__button" (click)="cancelEdit()" *ngIf="service.editing.value.id"> Cancelar </button>
-    
+    <div class="button__container">
+        <button class="simple__button" type="submit"> {{service.editing.value.id ? 'Modificar': 'Registrar'}} </button>
+
+        <button class="simple__button" (click)="cancelEdit()" *ngIf="service.editing.value.id"> Cancelar </button>
+    </div>
 </form>
 
-<app-main-list></app-main-list>
+<div class="list">
+    <app-main-list></app-main-list>
+</div>
 
 <ng-template #classifier_error let-error="error">
     <ng-container *ngIf="form.get('description')?.dirty || form.get('description')?.touched">

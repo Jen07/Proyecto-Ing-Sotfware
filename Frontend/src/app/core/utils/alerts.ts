@@ -22,8 +22,8 @@ export default class Alerts {
       text: description,
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#51c007',
+      cancelButtonColor: '#e61111',
       confirmButtonText: 'Si',
       cancelButtonText: 'No',
     });

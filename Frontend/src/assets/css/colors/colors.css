@@ -2,10 +2,10 @@
     --primary: #e69f11;
     --accent: #e00e38;
 
-    --warning: #e2e611;
+    --warning: #eee022;
     --danger: #e61111;
-    --success: #0ee054;
-
+    --success: #51c007;
+    --cancel: #663399;
 
     --neutral-100: #fffafa;
     --neutral-200: #a3a29f;
@@ -20,6 +20,7 @@
     --actual-bg-color-2: #2c2c2c;
     --actual-bg-color-3: #202020;
 
+
     --actual-calendar-filter: invert(1);
 }
 
@@ -30,5 +31,6 @@
     --actual-bg-color-1: #a3a29f;
     --actual-bg-color-2: #f0efef;
     --actual-bg-color-3: #fffafa;
+
     --actual-calendar-filter: invert(0);
 }

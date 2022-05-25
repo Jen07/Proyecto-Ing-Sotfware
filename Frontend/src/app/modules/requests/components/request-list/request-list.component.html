@@ -1,39 +1,40 @@
 <div class="request__list">
-    
+    <form [formGroup]="form">
     <input type="checkbox" class="toggle-check__filter" id="check__filter">
-    <section class="message__filterer">
+    
+        <section class="message__filterer">
 
-        <label for="check__filter" class="toggle__filter">
-            <i class="bars"></i>
-        </label>
-        
-        Clasificador
-        <select class="select__input">
-            <option>Todos</option>
-            <option>Consulta general</option>
-            <option>Contrato proveedores</option>
-            <option>Contrato personal</option>
-            <option>Normativa nacional</option>
-            <option>Normativa internacional</option>
-        </select>
+            <label for="check__filter" class="toggle__filter">
+                <i class="bars"></i>
+            </label>
+            
+            Clasificador
+            <select class="select__input" formControlName="classifier">
+                <option value="0">Todos</option>
+                <option value="1">Consulta general</option>
+                <option value="2">Contrato proveedores</option>
+                <option value="3">Contrato personal</option>
+                <option value="4">Normativa nacional</option>
+                <option value="5">Normativa internacional</option>
+            </select>
 
-        <label>Estado</label>
-        <select class="select__input">
-            <option>Todos</option>
-            <option>Pendiente</option>
-            <option>Resuelto</option>
-            <option>Ampliado</option>
-        </select>
+            <label>Estado</label>
+            <select class="select__input" formControlName="state">
+                <option value="0">Todos</option>
+                <option value="1">Pendiente</option>
+                <option value="2">Resuelto</option>
+                <option value="3">Ampliado</option>
+            </select>
 
-        <label>Desde</label>
-        <input type="date" class="select__input">
+            <label>Desde</label>
+            <input type="date" class="select__input" formControlName="min" [max]="getMax()" min="2021-09-18">
 
-        <label>Hasta</label>
-        <input type="date" class="select__input">
+            <label>Hasta</label>
+            <input type="date" class="select__input" formControlName="max" [min]="getMin()" max="2022-09-18">
 
-        <button class="simple__button">Limpiar Filtros</button>
-    </section>
-
+            <button class="simple__button" (click)="clearFilters()">Limpiar</button>
+        </section>
+    </form>
     <div class="table__container">
         
     <table class="main__table">
@@ -46,7 +47,7 @@
                     <p class="message__classifier"> Consulta General</p>
                     <p class="message__title">Puedo realizar esto</p>
 
-                    <p class="message__status extended" title="Estado">Ampliado</p>
+                    <p class="message__status solved" title="Estado">Resuelto</p>
                     <span class="message__date">18/09/1995 - 08:37 a.m </span>
                 </td>
             </tr>   <tr title="Ver consulta" class="message">
@@ -56,7 +57,7 @@
                     <p class="message__classifier"> Consulta General</p>
                     <p class="message__title">Puedo realizar esto</p>
 
-                    <p class="message__status extended" title="Estado">Ampliado</p>
+                    <p class="message__status pending" title="Estado">Pendiente</p>
                     <span class="message__date">18/09/1995 - 08:37 a.m </span>
                 </td>
             </tr>   <tr title="Ver consulta" class="message">
