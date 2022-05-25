@@ -8,8 +8,8 @@
         </ng-container>
     </div>
 
-    <button class="input__login-button" type="submit"> {{service.editing.value.id ? 'Modificar': 'Registrar'}} </button>
-    <button class="input__login-button" (click)="cancelEdit()" *ngIf="service.editing.value.id"> Cancelar </button>
+    <button class="simple__button" type="submit"> {{service.editing.value.id ? 'Modificar': 'Registrar'}} </button>
+    <button class="simple__button" (click)="cancelEdit()" *ngIf="service.editing.value.id"> Cancelar </button>
     
 </form>
 

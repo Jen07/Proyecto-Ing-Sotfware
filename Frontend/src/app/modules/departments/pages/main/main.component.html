@@ -7,32 +7,35 @@
         <ng-container *ngTemplateOutlet="department_error; context: {error: form.get('description')?.errors}"></ng-container>
       </div>
 
-    <select name="country" formControlName="country" (change)="selectCountry()">
+      <div class="select__group">
+          
+    <select name="country" formControlName="country" (change)="selectCountry()"  class="select__input">
         <option value="">Seleccione un país</option>
         <option value="{{country['id']}}" *ngFor="let country of this.localizationService.countries | async">
             {{country['description']}}</option>
     </select>
 
-    <select name="province" formControlName="province" (change)="selectProvince()">
+    <select name="province" formControlName="province" (change)="selectProvince()" class="select__input">
         <option value="">Seleccione una provincia</option>
         <option value="{{province['id']}}" *ngFor="let province of provinces">
             {{province['description']}}</option>
     </select>
 
-    <select name="canton" formControlName="canton" (change)="selectCanton()">
+    <select name="canton" formControlName="canton" (change)="selectCanton()"  class="select__input">
         <option value="">Seleccione un canton</option>
         <option value="{{canton['id']}}" *ngFor="let canton of cantons">
             {{canton['description']}}</option>
     </select>
 
-    <select name="district" formControlName="district">
+    <select name="district" formControlName="district"  class="select__input">
         <option value="">Seleccione un distrito</option>
         <option value="{{district['id']}}" *ngFor="let district of districts">
             {{district['description']}}</option>
     </select>
+      </div>
 
-    <button class="input__login-button" type="submit"> {{service.editing.value.id ? 'Modificar': 'Registrar'}} </button>
-    <button class="input__login-button" (click)="cancelEdit()" *ngIf="service.editing.value.id"> Cancelar </button>
+    <button class="simple__button" type="submit"> {{service.editing.value.id ? 'Modificar': 'Registrar'}} </button>
+    <button class="simple__button" (click)="cancelEdit()" *ngIf="service.editing.value.id"> Cancelar </button>
 
 </form>
 

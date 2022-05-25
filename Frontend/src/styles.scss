@@ -161,6 +161,11 @@ input[type="number"] {
   background-color: var(--actual-bg-color-3);
   color: var(--actual-font-color);
   box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.15);
+  
+}
+
+::-webkit-calendar-picker-indicator {
+  filter: var(--actual-calendar-filter); 
 }
 
 .input__control:placeholder-shown + .input__label {
@@ -212,10 +217,27 @@ input[type="number"] {
   box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.15);
 }
 
+.simple__button {
+  background-color: var(--accent);
+  color: var(--neutral-100);
+  padding: 1em 2em;
+  width: 100%;
+  border-radius: 100em;
+  box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.15);
+  transition: transform 0.25s;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+
+
 /* Estilos para las tablas*/
 .list__container {
-  height: 60vh;
+  height: 50vh;
   overflow: auto;
+  background-color: var(--actual-bg-color-3);
 }
 
 .list__table {
@@ -256,14 +278,19 @@ input[type="number"] {
   }
 }
 
-.action__container {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
+
+
 .action__button {
   font-size: 1.5em;
   border-radius: 0.1em;
+
+  &:first-child{
+    margin-right: .25em;
+  }
+
+  &:last-child{
+    margin-left: .25em;
+  }
 
   &.edit {
     background-color: var(--warning);
