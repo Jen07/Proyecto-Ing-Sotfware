@@ -34,7 +34,7 @@ export class SecretFormComponent implements OnInit, AfterViewInit {
     this.form = this.formBuilder.group({
       secret: [
         '',
-        [Validators.required,Validators.min(1), Validators.max(999999)],
+        [Validators.required, Validators.min(1), Validators.max(999999)],
       ],
     });
   }
@@ -55,7 +55,7 @@ export class SecretFormComponent implements OnInit, AfterViewInit {
       }
 
       if (e.animationName === 'disappear') {
-        this.loginSteps.step.next(3)
+        this.loginSteps.step.next(3);
       }
     });
   }
@@ -73,23 +73,21 @@ export class SecretFormComponent implements OnInit, AfterViewInit {
       this.errorToast();
     }
   }
-  
+
   /**
    * Este metodo se encarga de verificar que
    * el secret brindado sea válido.
    */
-  validateLogin() {
-
+  async validateLogin() {
     this.loadingService.isLoading.next(true);
-    setTimeout(() => {
-      if (this.authService.doubleAuth(this.form.value.secret)) {
-        this.secretForm.classList.add('disappear_animation');
-        this.loadingService.isLoading.next(false);
-      } else {
-        this.loadingService.isLoading.next(false);
-        this.errorToast();
-      }
-    }, 1000);
+
+    if (await this.authService.doubleAuth(this.form.value.secret)) {
+      this.secretForm.classList.add('disappear_animation');
+      this.loadingService.isLoading.next(false);
+    } else {
+      this.loadingService.isLoading.next(false);
+      this.errorToast();
+    }
   }
 
   /**

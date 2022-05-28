@@ -65,19 +65,17 @@ export class FormComponent implements OnInit, AfterViewInit {
    * Este metodo se encarga de verificar que
    * las credenciales brindadas sean validas.
    */
-  private validateLogin() {
-    this.authService.loginUser(this.form.value.email, this.form.value.password);
+  private async validateLogin() {
 
-    /* Simula una peticion al servidor */
-    setTimeout(() => {
-      if (this.authService.isLogged()) {
-        this.mainForm.classList.add('disappear_animation');
-        this.loadingService.isLoading.next(false);
-      } else {
-        this.loadingService.isLoading.next(false);
-        this.errorToast();
-      }
-    }, 1000);
+    await this.authService.loginUser(this.form.value.email, this.form.value.password);
+
+    if (this.authService.isLogged()) {
+      this.mainForm.classList.add('disappear_animation');
+      this.loadingService.isLoading.next(false);
+    } else {
+      this.loadingService.isLoading.next(false);
+      this.errorToast();
+    }
   }
 
   /**
