@@ -1,0 +1,1 @@
+{"version":3,"file":"abstractService.js","sourceRoot":"","sources":["../../../src/utils/abstractService.ts"],"names":[],"mappings":";;;;;AAAA,kEAA0C;AAE1C;;GAEG;AACF,MAAqB,eAAe;IAQlC;QACE,IAAI,CAAC,MAAM,GAAG,EAAC,MAAM,EAAE,GAAG,EAAC,CAAA;QAC3B,IAAI,CAAC,EAAE,GAAG,kBAAQ,CAAC,WAAW,EAAE,CAAC;IACnC,CAAC;CAEF;AAbD,kCAaC"}

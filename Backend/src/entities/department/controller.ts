@@ -6,6 +6,7 @@ const service: DepartmentService = new DepartmentService();
 export default class DepartmentController {
     
   static async getAll(req: Request, res: Response) {
+    console.log("entraa");
     const data: ServiceResult<DepartmentModel> = await service.getAll();
     res.status(data.status).json(data);
   }

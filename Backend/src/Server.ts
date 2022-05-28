@@ -7,6 +7,7 @@ import testRoutes from "./entities/test/routes"
 import classifierRoutes from "./entities/classifier/routes"
 import departmentRoutes from "./entities/department/routes"
 import localizationRoutes from "./entities/localization/routes"
+import LoginRoutes from "./entities/login/routes"
 /**
  *  Esta clase contiene la configuracion necesaria para el
  *  lanzamiento del servidor
@@ -45,10 +46,13 @@ export class Server {
    * de los router por su endpoint.
    */
   private routes = () => {
+
     this.app.use('/test', testRoutes);
     this.app.use('/classifier', classifierRoutes);
     this.app.use('/department', departmentRoutes);
     this.app.use('', localizationRoutes);
+    this.app.use('/login',LoginRoutes);
+    this.app.use('/login/secret',LoginRoutes);
   };
 
   /**
