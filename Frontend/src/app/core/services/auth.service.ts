@@ -26,10 +26,13 @@ export class AuthService {
   async loginUser(email: string, password: string) {
     email = email.toLowerCase();
 
+    console.log(email);
+    console.log(password);
+
     return firstValueFrom(
-      this.http.post(`${this.endpoint}/login`, { email: email, password: password }).pipe(
+      this.http.post(`${this.endpoint}login`, { email: email, password: password }).pipe(
         map((data: any) => {
-          
+          console.log(data);
           this.userData = { email: email, password: password };
           return data.status === 200;
 

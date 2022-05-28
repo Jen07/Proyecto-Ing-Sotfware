@@ -55,6 +55,7 @@ export class FormComponent implements OnInit, AfterViewInit {
 
     if (this.form.valid) {
       this.loadingService.isLoading.next(true);
+      console.log("ccccccccccccccccccc");
       this.validateLogin();
     } else {
       this.errorToast();
@@ -100,7 +101,7 @@ export class FormComponent implements OnInit, AfterViewInit {
         [
           Validators.required,
           Validators.maxLength(20),
-          Validators.minLength(8),
+          Validators.minLength(4),//cambiar a cantidad mas adelante
         ],
       ],
     });
