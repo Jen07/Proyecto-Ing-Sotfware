@@ -717,3 +717,55 @@ GO
 			END CATCH
 	END
 
+--************************************************
+USE [db_ing]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_Login]    Script Date: 30/05/2022 13:40:54 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,Jennifer>
+-- Create date: <Create Date,25/05/2022>
+-- Description:	<Description,Verificar Login>
+-- =============================================
+ALTER PROCEDURE [dbo].[sp_Login]
+	@email nchar(50),
+	@password nchar(12)
+AS
+BEGIN
+	-- SET NOCOUNT on;
+
+	 SELECT u.id, u.identification ,u.name,u.lastname,u.email,s.description,d.description,u.picture 
+	 FROM tb_users u inner join tb_departments d
+	 on u.id_department = d.id
+	 inner join tb_sexes s
+	 on u.id_sex = s.id
+	 where u.email = @email and (PWDCOMPARE(@password, u.password) =1);
+   
+	END
+
+USE [db_ing]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_VerifyCode]    Script Date: 30/05/2022 13:42:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,Jennifer>
+-- Create date: <Create Date,25/05/2022>
+-- Description:	<Description,Verificar Secrect>
+-- =============================================
+ALTER PROCEDURE  [dbo].[sp_VerifyCode]
+	@id int
+AS
+BEGIN
+	-- SET NOCOUNT off;
+
+	 SELECT a.secret
+	 FROM tb_users u inner join tb_authenticators a
+	 on u.id = a.id
+   
+END
