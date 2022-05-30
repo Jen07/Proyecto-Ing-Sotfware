@@ -49,4 +49,21 @@ export default class LoginService extends AbstractService {
     return this.result;
   }
 
+  async userGet(id: string): Promise<ServiceResult<UserModel>> {
+    const procedure: string = "sp_GetAuthenticatedUser";
+
+    const inputData: Array<DataField> = [
+      { name: "id", type: Int, data: id }, // cedula ver despues
+    ];
+
+    const outputData = await this.db.obtainData(procedure, inputData);
+
+    if (outputData && outputData?.returnValue !== -1) {
+      this.result = { status: 200, item: outputData.recordset[0] };
+    } else {
+      this.result = { status: 404, message: "Los datos no son válidos." };
+    }
+    return this.result;
+  }
+
 }

@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const tokenAuth_1 = __importDefault(require("../../utils/tokenAuth"));
 const service_1 = __importDefault(require("./service"));
 const service = new service_1.default();
 class LoginController {
@@ -25,6 +26,22 @@ class LoginController {
         return __awaiter(this, void 0, void 0, function* () {
             const data = yield service.codePost(req.body.secret);
             res.status(data.status).json(data);
+        });
+    }
+    static validateToken(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // Si paso por los 2 middleware el token es valido.
+            res.status(200).json({ status: 200 });
+        });
+    }
+    static getToken(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const data = yield service.userGet(req.body.id);
+            if (data.status !== 200) {
+                return res.status(data.status).json(data);
+            }
+            const token = yield tokenAuth_1.default.getToken(data);
+            res.status(data.status).json(token);
         });
     }
 }

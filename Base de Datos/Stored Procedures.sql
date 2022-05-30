@@ -769,3 +769,46 @@ BEGIN
 	 on u.id = a.id
    
 END
+
+
+-- =============================================
+-- Author:		<Author, Luis Leiton>
+-- Create date: <Create Date, 30/5/22>
+-- Description:	<Description, Metodo utilizado obtener los datos de un usuario debidamente autenticado>
+-- =============================================
+
+GO 
+	CREATE OR ALTER PROCEDURE sp_GetAuthenticatedUser
+	@id VARCHAR(9)
+	AS 
+	BEGIN
+		SET NOCOUNT ON
+        BEGIN TRANSACTION
+			BEGIN TRY
+
+				SELECT u.[id], u.[identification], u.[name], u.[surName], u.[lastName], u.[picture], u.[birthdate], u.[email], u.[phone], u.[id_sex], d.[description] as [department]
+				FROM tb_users u, tb_departments d
+				WHERE u.id_department = d.id AND u.id = @id
+
+				-- Si por alguna razon no se pudo ejecutar el query se lanza el error.
+				IF @@ROWCOUNT = 0
+					THROW 51000, 'An SQL error has occurred.', 1;  
+				
+				-- Si hay una transaccion abierta y se ejecuto el query completa la transaccion.
+                IF @@TRANCOUNT > 0  
+                      BEGIN
+                      COMMIT TRANSACTION; 
+                      RETURN 1;
+                END
+			END TRY
+
+			BEGIN CATCH
+				-- Si habia abierta una transaccion se cierra haciendo rollback.
+				IF @@TRANCOUNT > 0  
+					BEGIN
+						ROLLBACK TRANSACTION;
+                        SELECT ERROR_MESSAGE() AS ErrorMessage;
+                        RETURN -1;
+                  END
+			END CATCH
+	END

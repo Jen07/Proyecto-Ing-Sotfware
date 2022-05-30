@@ -54,6 +54,22 @@ class LoginService extends abstractService_1.default {
             return this.result;
         });
     }
+    userGet(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const procedure = "sp_GetAuthenticatedUser";
+            const inputData = [
+                { name: "id", type: mssql_1.Int, data: id }, // cedula ver despues
+            ];
+            const outputData = yield this.db.obtainData(procedure, inputData);
+            if (outputData && (outputData === null || outputData === void 0 ? void 0 : outputData.returnValue) !== -1) {
+                this.result = { status: 200, item: outputData.recordset[0] };
+            }
+            else {
+                this.result = { status: 404, message: "Los datos no son válidos." };
+            }
+            return this.result;
+        });
+    }
 }
 exports.default = LoginService;
 //# sourceMappingURL=service.js.map
