@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mssql_1 = require("mssql");
 const abstractService_1 = __importDefault(require("../../utils/abstractService"));
+const doubleAuth_1 = __importDefault(require("../../utils/doubleAuth"));
 class LoginService extends abstractService_1.default {
     constructor() {
         super();
@@ -27,12 +28,29 @@ class LoginService extends abstractService_1.default {
             ];
             const outputData = yield this.db.obtainData(procedure, inputData);
             if (outputData && (outputData === null || outputData === void 0 ? void 0 : outputData.returnValue) !== -1) {
+                this.result = { status: 200 }; //enviar datos del user outputData?.recordset
+            }
+            else {
+                this.result = { status: 404, message: "Los datos no son válidos." };
+            }
+            return this.result;
+        });
+    }
+    codePost(code) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const procedure = "sp_VerifyCode";
+            const inputData = [
+                { name: "id", type: mssql_1.Int, data: 979020 }, //quedamo cedula ver despues
+            ];
+            const outputData = yield this.db.obtainData(procedure, inputData);
+            var secret = outputData === null || outputData === void 0 ? void 0 : outputData.recordset[0].secret; //validar haya un secret
+            const verify = doubleAuth_1.default.verifySecret(secret, code);
+            if (verify) {
                 this.result = { status: 200 };
             }
             else {
                 this.result = { status: 404, message: "Los datos no son válidos." };
             }
-            console.log(this.result);
             return this.result;
         });
     }

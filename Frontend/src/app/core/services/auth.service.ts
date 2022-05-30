@@ -68,9 +68,9 @@ export class AuthService {
   async doubleAuth(secret: number) {
 
     return firstValueFrom(
-      this.http.post(`${this.endpoint}/login/secret`, { secret: secret }).pipe(
+      this.http.post(`${this.endpoint}login/secret`, { secret: secret }).pipe(
         map((data: any) => {
-    
+          console.log(data);
           this.authenticated = true;
           this.obtainToken();         //  Por ahora se guarda un token quemado 
           return data.status === 200;

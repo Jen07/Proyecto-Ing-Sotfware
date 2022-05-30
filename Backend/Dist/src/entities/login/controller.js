@@ -21,6 +21,12 @@ class LoginController {
             res.status(data.status).json(data);
         });
     }
+    static codePost(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const data = yield service.codePost(req.body.secret);
+            res.status(data.status).json(data);
+        });
+    }
 }
 exports.default = LoginController;
 //# sourceMappingURL=controller.js.map

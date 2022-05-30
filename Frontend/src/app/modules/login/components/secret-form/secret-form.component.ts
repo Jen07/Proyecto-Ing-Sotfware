@@ -69,6 +69,7 @@ export class SecretFormComponent implements OnInit, AfterViewInit {
 
     if (this.form.valid) {
       this.validateLogin();
+      console.log("-------------------");
     } else {
       this.errorToast();
     }

@@ -1,9 +1,10 @@
 import { Router } from 'express';
 import LoginController from './controller';
-import LoginValidation from './validation';
+import Validation from './validation';
 
 const router: Router = Router();
 
-router.post('/', LoginValidation.validatePost, LoginController.post);
+router.post('/', Validation.LoginValidation.validatePost, LoginController.post);
+router.post('/secret', Validation.CodeValidation.codePost, LoginController.codePost);
 
 export default router;

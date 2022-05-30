@@ -5,3 +5,7 @@
     email:string,
     password: string
 }
+
+interface CodeModel {
+    code:string
+}

@@ -55,7 +55,6 @@ export class FormComponent implements OnInit, AfterViewInit {
 
     if (this.form.valid) {
       this.loadingService.isLoading.next(true);
-      console.log("ccccccccccccccccccc");
       this.validateLogin();
     } else {
       this.errorToast();
