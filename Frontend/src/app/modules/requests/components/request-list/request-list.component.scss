@@ -79,7 +79,7 @@ p {
   color: var(--actual-font-color);
   overflow: hidden;
   position: absolute;
-  z-index: 10;
+  z-index: 100;
   box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.15);
   max-height: 2em;
   display: flex;
@@ -190,4 +190,3 @@ p {
     outline: 1px solid var(--accent);
   }
 }
-

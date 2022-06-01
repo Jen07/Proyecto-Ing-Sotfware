@@ -27,8 +27,8 @@ class LoginService extends abstractService_1.default {
                 { name: "password", type: (0, mssql_1.VarChar)(12), data: password },
             ];
             const outputData = yield this.db.obtainData(procedure, inputData);
-            if (outputData && (outputData === null || outputData === void 0 ? void 0 : outputData.returnValue) !== -1) {
-                this.result = { status: 200 }; //enviar datos del user outputData?.recordset
+            if (outputData && (outputData === null || outputData === void 0 ? void 0 : outputData.recordset[0])) {
+                this.result = { status: 200, item: outputData.recordset[0] }; //enviar datos del user outputData?.recordset
             }
             else {
                 this.result = { status: 404, message: "Los datos no son válidos." };
@@ -57,6 +57,22 @@ class LoginService extends abstractService_1.default {
     userGet(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const procedure = "sp_GetAuthenticatedUser";
+            const inputData = [
+                { name: "id", type: mssql_1.Int, data: id }, // cedula ver despues
+            ];
+            const outputData = yield this.db.obtainData(procedure, inputData);
+            if (outputData && (outputData === null || outputData === void 0 ? void 0 : outputData.returnValue) !== -1) {
+                this.result = { status: 200, item: outputData.recordset[0] };
+            }
+            else {
+                this.result = { status: 404, message: "Los datos no son válidos." };
+            }
+            return this.result;
+        });
+    }
+    pictureGet(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const procedure = "sp_GetAuthenticatedPicture";
             const inputData = [
                 { name: "id", type: mssql_1.Int, data: id }, // cedula ver despues
             ];

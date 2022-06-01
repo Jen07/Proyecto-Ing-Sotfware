@@ -3,15 +3,32 @@
     <app-toggle-color></app-toggle-color>
     <nav>
         <ul class="nav__list">
-            <li  routerLink="/"> Solicitudes </li>
-            <li> Mantenimiento </li>
-            <ul class="nav__list">
-                <li>Personas</li>
-                <li  routerLink="/departments">Departamentos</li>
-                <li  routerLink="/classifiers">Clasificadores</li>
-            </ul>
-            <li  routerLink="/reports"> Reportes </li>
-            <li> Cubo </li>
+            <li routerLink="/"> Solicitudes </li>
+
+            <ng-container *ngIf="authService.isLegal()">
+               
+                <div class="dropper">
+                    <li class="dropdown__toggle"> Mantenimiento </li>
+                    <div class="dropdown">
+                        <ul class="nav__dropdown">
+                            <li>Personas</li>
+                            <li routerLink="/departments">Departamentos</li>
+                            <li routerLink="/classifiers">Clasificadores</li>
+                        </ul>
+                    </div>
+                </div>
+               
+
+                <li routerLink="/reports"> Reportes </li>
+
+                <li> Cubo </li>
+            </ng-container> 
+            <img [src]="domSanitizer.bypassSecurityTrustResourceUrl(authService.userData?.picture||'')" class="user__image">
+
+        <!-- Temporal -->
+        <button  (click)="logout()">Logout</button>
+        <!-- -->
+
         </ul>
     </nav>
 

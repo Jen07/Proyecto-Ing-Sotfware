@@ -2,7 +2,6 @@ import { LoadingService } from '@core/services/loading.service';
 
 import { LoginStepsService } from './../../services/login-steps.service';
 import Alerts from 'src/app/core/utils/alerts';
-import { Router } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
@@ -69,7 +68,6 @@ export class SecretFormComponent implements OnInit, AfterViewInit {
 
     if (this.form.valid) {
       this.validateLogin();
-      console.log("-------------------");
     } else {
       this.errorToast();
     }

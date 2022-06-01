@@ -28,20 +28,43 @@ class LoginController {
             res.status(data.status).json(data);
         });
     }
+    /**
+     * Este metodo se encarga de validar que un token ingresado sea correcto.
+     * @param req Solicitud del usuario
+     * @param res Respuesta al usuario
+     */
     static validateToken(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             // Si paso por los 2 middleware el token es valido.
             res.status(200).json({ status: 200 });
         });
     }
+    /**
+     *  Este metodo se encarga de obtener un token con los datos de usuario.
+     * @param req Solicitud del usuario
+     * @param res Respuesta al usuario
+     * @returns Estado con el token o un error
+     */
     static getToken(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const data = yield service.userGet(req.body.id);
             if (data.status !== 200) {
                 return res.status(data.status).json(data);
             }
-            const token = yield tokenAuth_1.default.getToken(data);
-            res.status(data.status).json(token);
+            const token = yield tokenAuth_1.default.getToken(data.item);
+            res.status(data.status).json({ status: data.status, token: token.item });
+        });
+    }
+    /**
+     *  Este metodo se encarga de obtener la foto de un usuario autenticado.
+     * @param req Solicitud del usuario
+     * @param res Respuesta al usuario
+     * @returns Estado con la foto o un error
+     */
+    static getPicture(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const data = yield service.pictureGet(req.body.id);
+            return res.status(data.status).json(data);
         });
     }
 }

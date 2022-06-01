@@ -19,9 +19,10 @@ export default class LoginService extends AbstractService {
     ];
 
     const outputData = await this.db.obtainData(procedure, inputData);
+    
 
-    if (outputData && outputData?.returnValue !== -1) {
-      this.result = { status: 200 }; //enviar datos del user outputData?.recordset
+    if (outputData && outputData?.recordset[0] ) {
+      this.result = { status: 200, item: outputData.recordset[0]}; //enviar datos del user outputData?.recordset
     } else {
       this.result = { status: 404, message: "Los datos no son válidos." };
     }
@@ -51,6 +52,23 @@ export default class LoginService extends AbstractService {
 
   async userGet(id: string): Promise<ServiceResult<UserModel>> {
     const procedure: string = "sp_GetAuthenticatedUser";
+
+    const inputData: Array<DataField> = [
+      { name: "id", type: Int, data: id }, // cedula ver despues
+    ];
+
+    const outputData = await this.db.obtainData(procedure, inputData);
+
+    if (outputData && outputData?.returnValue !== -1) {
+      this.result = { status: 200, item: outputData.recordset[0] };
+    } else {
+      this.result = { status: 404, message: "Los datos no son válidos." };
+    }
+    return this.result;
+  }
+
+  async pictureGet(id: string): Promise<ServiceResult<UserModel>> {
+    const procedure: string = "sp_GetAuthenticatedPicture";
 
     const inputData: Array<DataField> = [
       { name: "id", type: Int, data: id }, // cedula ver despues

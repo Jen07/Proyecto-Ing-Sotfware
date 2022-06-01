@@ -731,17 +731,14 @@ GO
 -- Description:	<Description,Verificar Login>
 -- =============================================
 ALTER PROCEDURE [dbo].[sp_Login]
-	@email nchar(50),
-	@password nchar(12)
+	@email VARCHAR(50),
+	@password VARCHAR(12)
 AS
 BEGIN
 	-- SET NOCOUNT on;
 
-	 SELECT u.id, u.identification ,u.name,u.lastname,u.email,s.description,d.description,u.picture 
-	 FROM tb_users u inner join tb_departments d
-	 on u.id_department = d.id
-	 inner join tb_sexes s
-	 on u.id_sex = s.id
+	 SELECT u.id
+	 FROM tb_users u 
 	 where u.email = @email and (PWDCOMPARE(@password, u.password) =1);
    
 	END
@@ -786,9 +783,57 @@ GO
         BEGIN TRANSACTION
 			BEGIN TRY
 
-				SELECT u.[id], u.[identification], u.[name], u.[surName], u.[lastName], u.[picture], u.[birthdate], u.[email], u.[phone], u.[id_sex], d.[description] as [department]
+				SELECT u.[id], u.[identification], u.[name], u.[surName], u.[lastName], u.[birthdate], u.[email], u.[phone], u.[id_sex], d.[description] as [department]
 				FROM tb_users u, tb_departments d
 				WHERE u.id_department = d.id AND u.id = @id
+
+				-- Si por alguna razon no se pudo ejecutar el query se lanza el error.
+				IF @@ROWCOUNT = 0
+					THROW 51000, 'An SQL error has occurred.', 1;  
+				
+				-- Si hay una transaccion abierta y se ejecuto el query completa la transaccion.
+                IF @@TRANCOUNT > 0  
+                      BEGIN
+                      COMMIT TRANSACTION; 
+                      RETURN 1;
+                END
+			END TRY
+
+			BEGIN CATCH
+				-- Si habia abierta una transaccion se cierra haciendo rollback.
+				IF @@TRANCOUNT > 0  
+					BEGIN
+						ROLLBACK TRANSACTION;
+                        SELECT ERROR_MESSAGE() AS ErrorMessage;
+                        RETURN -1;
+                  END
+			END CATCH
+	END
+
+
+
+
+
+
+
+-- =============================================
+-- Author:		<Author, Luis Leiton>
+-- Create date: <Create Date, 30/5/22>
+-- Description:	<Description, Metodo utilizado obtener la foto de un usuario debidamente autenticado>
+-- =============================================
+
+GO 
+	CREATE OR ALTER PROCEDURE sp_GetAuthenticatedPicture
+	@id VARCHAR(9)
+	AS 
+	BEGIN
+		SET NOCOUNT ON
+        BEGIN TRANSACTION
+			BEGIN TRY
+
+				SELECT u.[picture]
+				FROM tb_users u
+				WHERE u.id = @id
 
 				-- Si por alguna razon no se pudo ejecutar el query se lanza el error.
 				IF @@ROWCOUNT = 0

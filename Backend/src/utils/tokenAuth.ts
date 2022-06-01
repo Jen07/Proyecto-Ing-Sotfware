@@ -27,7 +27,6 @@ export default class TokenAuth {
             
         })
 
-       
     }
     
     /**
@@ -41,7 +40,6 @@ export default class TokenAuth {
      static recoverToken = (req:Request, res:Response, next:Next) => {
         // Obtener del lado del cliente los datos de authorization
         const bearerHeader = req.headers['authorization'];
-    
         if (!bearerHeader) {
             return res.status(403).json({status:403});
         }
@@ -61,6 +59,7 @@ export default class TokenAuth {
      * @param next Paso a siguiente middleware
     */
     static verifyToken = (req:Request, res:Response, next:Next) => {
+       
         // La información de authData debe ser la enviada al getToken
         jwt.verify(req.token, `${process.env.TOKEN_KEY}`, (err:any, data:any) => {
           

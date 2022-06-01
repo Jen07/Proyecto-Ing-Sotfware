@@ -1,5 +1,7 @@
+import { AuthService } from '@core/services/auth.service';
 import { Component, OnInit } from '@angular/core';
-
+import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public authService:AuthService,
+    public domSanitizer: DomSanitizer,
+    private router:Router
+    ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  logout(){
+    this.authService.destroyUser();
+    this.router.navigate(["/login"]);
   }
 
 }

@@ -51,6 +51,7 @@ TokenAuth.getToken = (data) => __awaiter(void 0, void 0, void 0, function* () {
 TokenAuth.recoverToken = (req, res, next) => {
     // Obtener del lado del cliente los datos de authorization
     const bearerHeader = req.headers['authorization'];
+    console.log(req.headers);
     if (!bearerHeader) {
         return res.status(403).json({ status: 403 });
     }

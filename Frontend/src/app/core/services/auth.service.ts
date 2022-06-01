@@ -1,6 +1,7 @@
+import Tokenizer from '@core/utils/tokenizer';
+
 import { environment } from '@environments/environment';
 import { firstValueFrom, of, catchError, map } from 'rxjs';
-import Tokenizer from '@core/utils/tokenizer';
 import { User } from './../models/user';
 import { Injectable, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -16,7 +17,7 @@ export class AuthService {
   /**
    * Endpoint al cual este servicio hara peticiones.
    */
-   private endpoint: string;
+  private endpoint: string;
 
   constructor(private http: HttpClient) {
     this.endpoint = `${environment.api}`;
@@ -26,21 +27,19 @@ export class AuthService {
   async loginUser(email: string, password: string) {
     email = email.toLowerCase();
 
-    console.log(email);
-    console.log(password);
-
     return firstValueFrom(
-      this.http.post(`${this.endpoint}login`, { email: email, password: password }).pipe(
-        map((data: any) => {
-          console.log(data);
-          this.userData = { email: email, password: password };
-          return data.status === 200;
+      this.http
+        .post(`${this.endpoint}login`, { email: email, password: password })
+        .pipe(
+          map((data: any) => {
+            this.userData = { id: data.item.id, email: email };
 
-        }),
-        catchError((err) => {
-          return of(false);
-        })
-      )
+            return data.status === 200;
+          }),
+          catchError((err) => {
+            return of(false);
+          })
+        )
     );
   }
 
@@ -65,23 +64,19 @@ export class AuthService {
    * @param secret [number] número ingresado por el usuario.
    * @returns [boolean] indicando si la clave fue valida o no.
    */
-  async doubleAuth(secret: number) {
-
+  async doubleAuth(secret: string) {
     return firstValueFrom(
-      this.http.post(`${this.endpoint}login/secret`, { secret: secret }).pipe(
+      this.http.post(`${this.endpoint}login/secret`, { secret: `${secret}` }).pipe(
         map((data: any) => {
-          console.log(data);
           this.authenticated = true;
-          this.obtainToken();         //  Por ahora se guarda un token quemado 
+          this.obtainToken();
           return data.status === 200;
-
         }),
         catchError((err) => {
           return of(false);
         })
       )
     );
-
   }
 
   /**
@@ -99,23 +94,27 @@ export class AuthService {
    * Este método se encarga de obtener el token para
    * sesion luego de haber hecho el login exitoso.
    */
-  obtainToken() {
+  async obtainToken() {
     if (this.userData && this.authenticated) {
-      // Pedir el token al servidor con user data.
-      // Departamento legal
-      const token =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyMzQ1Njc4OTAiLCJuYW1lIjoiSm9obiBEb2UgV2FsbG93aXR6IiwiZW1haWwiOiJXYW9AZ21haWwuY29tIiwiZGVwYXJ0bWVudCI6IkxlZ2FsIiwicGhvdG8iOiJodHRwczovL3d3dy5lbHNvbGRlZHVyYW5nby5jb20ubXgvZG9ibGUtdmlhLzhvNjJubS1idXp6LWxpZ2h0eWVhci9BTFRFUk5BVEVTL0xBTkRTQ0FQRV8xMTQwL0J1enolMjBMaWdodHllYXIifQ.1o8vgkTy0G_mxg6WfkhtVQwu_uzjDIITRr6c-_I2nJA';
+      return firstValueFrom(
+        this.http
+          .post(`${this.endpoint}login/get_token`, { id: this.userData.id })
+          .pipe(
+            map((data: any) => {
+              if (data.status === 200) {
+                const token = data.token;
+                const payload = Tokenizer.decode(token);
+                this.token = token;
+                localStorage.setItem('id_token', this.token || '');
 
-      // Departamento otro
-      //const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyMzQ1Njc4OTAiLCJuYW1lIjoiSm9obiBEb2UgV2FsbG93aXR6IiwiZW1haWwiOiJXYW9AZ21haWwuY29tIiwiZGVwYXJ0bWVudCI6Ik90cm8iLCJwaG90byI6Imh0dHBzOi8vd3d3LmVsc29sZGVkdXJhbmdvLmNvbS5teC9kb2JsZS12aWEvOG82Mm5tLWJ1enotbGlnaHR5ZWFyL0FMVEVSTkFURVMvTEFORFNDQVBFXzExNDAvQnV6eiUyMExpZ2h0eWVhciJ9.b5uTpnzGwcYWlR1TQ4_ZKImL5agPiD8IDxyqYlWrKKE"
-
-      // Se decodifica y verifica si es valido.
-      const data = Tokenizer.decode(token);
-
-      if (data.state === 'success') {
-        this.token = token;
-        localStorage.setItem('id_token', this.token);
-      }
+                this.loadToken();
+              }
+            }),
+            catchError((err) => {
+              return of(false);
+            })
+          )
+      );
     }
   }
 
@@ -123,24 +122,72 @@ export class AuthService {
    * Este método se encarga de cargar a memoria los datos
    * de un token para iniciar una sesion.
    */
-  loadToken() {
-    const token = localStorage.getItem('id_token');
-    const data = Tokenizer.decode(token || '');
-    if (data.state === 'success') {
-      this.userData = {
-        id: data.payload.id,
-        email: data.payload.email,
-        name: data.payload.name,
-        department: data.payload.department,
-        photo: data.payload.photo,
-      };
+  async loadToken() {
+    /* Valida el token guardado en el servidor*/
+    const validity = await this.validateToken();
+
+    if (validity) {
+      // Se asignan los datos de usuario.
+      this.setTokenData();
+
+      // Se asigna la foto del usuario.
+      this.loadPicture();
     } else {
-      //  Si no se puede decodificar correctamente el token en memoria se elimina.
+      //  Si el servidor no pudo validar el token se elimina.
       localStorage.removeItem('id_token');
     }
+  }
 
-    if (token) {
+  setTokenData() {
+    const token = localStorage.getItem('id_token');
+    const { payload, state } = Tokenizer.decode(token || '');
+
+    if (state === 'success') {
+      this.userData = {
+        id: payload.data.id,
+        email: payload.data.email,
+        name: payload.data.name,
+        department: payload.data.department,
+        picture: this.userData?.picture,
+      };
+
       this.authenticated = true;
+    } else {
+      //  Si no se puede decodificar correctamente el token se elimina.
+      localStorage.removeItem('id_token');
     }
+  }
+
+  async validateToken() {
+    return firstValueFrom(
+      this.http.get(`${this.endpoint}login/validate_token`).pipe(
+        map((data: any) => {
+          this.authenticated = true;
+          return data.status === 200;
+        }),
+        catchError((err) => {
+          return of(false);
+        })
+      )
+    );
+  }
+
+  async loadPicture() {
+    firstValueFrom(
+      this.http
+        .post(`${this.endpoint}login/get_picture`, { id: this.userData!.id })
+        .pipe(
+          map((data: any) => {
+            if (data.status === 200) {
+              this.userData!.picture = data.item.picture;
+            }
+
+            return of(true);
+          }),
+          catchError((err) => {
+            return of(false);
+          })
+        )
+    );
   }
 }

@@ -14,7 +14,13 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     // Se verifica por la posible existencia de un token de session.
-    this.authService.loadToken()
+    const tokenId = localStorage.getItem("id_token");
+
+    if(tokenId){
+    
+      this.authService.loadToken()
+    }
+   
   }
 
 }

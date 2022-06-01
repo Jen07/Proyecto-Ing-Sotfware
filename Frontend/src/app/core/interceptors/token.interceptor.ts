@@ -16,13 +16,12 @@ export class TokenInterceptor implements HttpInterceptor {
     next: HttpHandler): Observable<HttpEvent<any>> {
 
     // Obtiene el token del storage.
-    const tokenId = localStorage.getItem("token_id");
+    const tokenId = localStorage.getItem("id_token");
 
     // Si existe lo adjunta al request mediante un header de Bearer.
     if (tokenId) {
-      const cloned = req.clone({
-        headers: req.headers.set("Authorization",
-          "Bearer " + tokenId)
+      const cloned = req.clone({ 
+        headers: req.headers.set("Authorization", `Bearer ${tokenId}`)
       });
 
       return next.handle(cloned);
