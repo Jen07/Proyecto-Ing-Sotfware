@@ -12,7 +12,6 @@ router.post('/', validation_1.default.LoginValidation.validatePost, controller_1
 router.post('/secret', validation_1.default.CodeValidation.codePost, controller_1.default.codePost);
 router.get('/validate_token', tokenAuth_1.default.recoverToken, tokenAuth_1.default.verifyToken, controller_1.default.validateToken);
 router.post('/get_token', controller_1.default.getToken);
-//TODO: Separar la ruta de la foto para no sobrecargar el token.
 router.post('/get_picture', controller_1.default.getPicture);
 exports.default = router;
 //# sourceMappingURL=routes.js.map

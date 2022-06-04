@@ -19,7 +19,7 @@ body {
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  background-color: var(--actual-bg-color-2);
+  background-color: var(--actual-bg-color-4);
   overflow: hidden;
   min-height: 100vh;
 }
@@ -31,6 +31,11 @@ button {
 
 footer {
   margin-top: auto;
+  z-index: 150;
+}
+
+header{
+  z-index: 150;
 }
 
 /* Remover flechas del input number */

@@ -20,7 +20,7 @@ class CodeValidation {
 }
 exports.default = {
     LoginValidation,
-    CodeValidation
+    CodeValidation,
 };
 const validateMail = (req, res) => {
     const { email } = req.body;
@@ -37,7 +37,9 @@ const validateMail = (req, res) => {
 const validatePassword = (req, res) => {
     const { password } = req.body;
     if (!password) {
-        res.status(406).json({ status: 406, message: "No se encontró la contraseña." });
+        res
+            .status(406)
+            .json({ status: 406, message: "No se encontró la contraseña." });
         return false;
     }
     if (password === "") {

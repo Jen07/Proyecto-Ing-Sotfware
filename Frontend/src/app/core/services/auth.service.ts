@@ -66,7 +66,7 @@ export class AuthService {
    */
   async doubleAuth(secret: string) {
     return firstValueFrom(
-      this.http.post(`${this.endpoint}login/secret`, { secret: `${secret}` }).pipe(
+      this.http.post(`${this.endpoint}login/secret`, { secret: `${secret}`, id:this.userData!.id }).pipe(
         map((data: any) => {
           this.authenticated = true;
           this.obtainToken();

@@ -28,7 +28,7 @@ TokenAuth.getToken = (data) => __awaiter(void 0, void 0, void 0, function* () {
     const result = { status: 200 };
     return new Promise((res, rej) => {
         // Recibimos la data y creamos un token con la misma.
-        jsonwebtoken_1.default.sign({ data }, `${process.env.TOKEN_KEY}`, { expiresIn: '10h' }, (err, token) => {
+        jsonwebtoken_1.default.sign({ data }, `${process.env.TOKEN_KEY}`, { expiresIn: "10h" }, (err, token) => {
             if (err) {
                 result.status = 404;
                 return res(result);
@@ -50,8 +50,7 @@ TokenAuth.getToken = (data) => __awaiter(void 0, void 0, void 0, function* () {
  */
 TokenAuth.recoverToken = (req, res, next) => {
     // Obtener del lado del cliente los datos de authorization
-    const bearerHeader = req.headers['authorization'];
-    console.log(req.headers);
+    const bearerHeader = req.headers["authorization"];
     if (!bearerHeader) {
         return res.status(403).json({ status: 403 });
     }
@@ -66,7 +65,7 @@ TokenAuth.recoverToken = (req, res, next) => {
  * @param req Solicitud del usuario
  * @param res Respuesta al usuario
  * @param next Paso a siguiente middleware
-*/
+ */
 TokenAuth.verifyToken = (req, res, next) => {
     // La información de authData debe ser la enviada al getToken
     jsonwebtoken_1.default.verify(req.token, `${process.env.TOKEN_KEY}`, (err, data) => {

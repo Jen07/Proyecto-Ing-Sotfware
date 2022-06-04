@@ -16,15 +16,25 @@ const tokenAuth_1 = __importDefault(require("../../utils/tokenAuth"));
 const service_1 = __importDefault(require("./service"));
 const service = new service_1.default();
 class LoginController {
+    /**
+     * Este metodo se encarga de verificar la validez de las credenciales ingresadas.
+     * @param req Solicitud del usuario
+     * @param res Respuesta al usuario
+     */
     static post(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const data = yield service.post(req.body.email, req.body.password);
             res.status(data.status).json(data);
         });
     }
+    /**
+     * Este metodo se encarga de verificar la doble autenticacion.
+     * @param req Solicitud del usuario
+     * @param res Respuesta al usuario
+     */
     static codePost(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const data = yield service.codePost(req.body.secret);
+            const data = yield service.codePost(req.body.secret, req.body.id);
             res.status(data.status).json(data);
         });
     }

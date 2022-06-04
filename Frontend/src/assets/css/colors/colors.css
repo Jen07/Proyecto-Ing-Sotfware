@@ -19,7 +19,7 @@
     --actual-bg-color-1: #424140;
     --actual-bg-color-2: #2c2c2c;
     --actual-bg-color-3: #202020;
-
+    --actual-bg-color-4: #1b1919;
 
     --actual-calendar-filter: invert(1);
 }
@@ -31,6 +31,7 @@
     --actual-bg-color-1: #a3a29f;
     --actual-bg-color-2: #f0efef;
     --actual-bg-color-3: #fffafa;
+    --actual-bg-color-4: #f0efef;
 
     --actual-calendar-filter: invert(0);
 }

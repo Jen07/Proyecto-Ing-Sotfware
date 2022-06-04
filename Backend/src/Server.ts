@@ -52,7 +52,7 @@ export class Server {
     this.app.use('/department', departmentRoutes);
     this.app.use('', localizationRoutes);
     this.app.use('/login',LoginRoutes);
-    //this.app.use('/login/secret',LoginRoutes);
+    
   };
 
   /**

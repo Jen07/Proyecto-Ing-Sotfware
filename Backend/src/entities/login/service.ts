@@ -19,10 +19,9 @@ export default class LoginService extends AbstractService {
     ];
 
     const outputData = await this.db.obtainData(procedure, inputData);
-    
 
-    if (outputData && outputData?.recordset[0] ) {
-      this.result = { status: 200, item: outputData.recordset[0]}; //enviar datos del user outputData?.recordset
+    if (outputData && outputData?.recordset[0]) {
+      this.result = { status: 200, item: outputData.recordset[0] }; //enviar datos del user outputData?.recordset
     } else {
       this.result = { status: 404, message: "Los datos no son válidos." };
     }
@@ -30,16 +29,17 @@ export default class LoginService extends AbstractService {
     return this.result;
   }
 
-  async codePost(code: string): Promise<ServiceResult<CodeModel>> {
+  async codePost(code: string, id:number): Promise<ServiceResult<CodeModel>> {
     const procedure: string = "sp_VerifyCode";
 
     const inputData: Array<DataField> = [
-      { name: "id", type: Int, data: 979020 }, //quedamo cedula ver despues
+      { name: "id", type: Int, data: id }, 
     ];
 
     const outputData = await this.db.obtainData(procedure, inputData);
-
-    var secret = outputData?.recordset[0].secret; //validar haya un secret
+    console.log(outputData);
+    
+    const secret = outputData?.recordset[0].secret; // Validar que retorne un secret
     const verify = DoubleAuth.verifySecret(secret, code);
 
     if (verify) {
@@ -54,7 +54,7 @@ export default class LoginService extends AbstractService {
     const procedure: string = "sp_GetAuthenticatedUser";
 
     const inputData: Array<DataField> = [
-      { name: "id", type: Int, data: id }, // cedula ver despues
+      { name: "id", type: Int, data: id }, 
     ];
 
     const outputData = await this.db.obtainData(procedure, inputData);
@@ -71,7 +71,7 @@ export default class LoginService extends AbstractService {
     const procedure: string = "sp_GetAuthenticatedPicture";
 
     const inputData: Array<DataField> = [
-      { name: "id", type: Int, data: id }, // cedula ver despues
+      { name: "id", type: Int, data: id }, 
     ];
 
     const outputData = await this.db.obtainData(procedure, inputData);
@@ -83,5 +83,4 @@ export default class LoginService extends AbstractService {
     }
     return this.result;
   }
-
 }

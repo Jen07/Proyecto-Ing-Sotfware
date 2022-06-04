@@ -11,7 +11,6 @@ router.post('/secret', Validation.CodeValidation.codePost, LoginController.codeP
 router.get('/validate_token', TokenAuth.recoverToken,TokenAuth.verifyToken, LoginController.validateToken);
 router.post('/get_token',  LoginController.getToken);
 
-//TODO: Separar la ruta de la foto para no sobrecargar el token.
 router.post('/get_picture',  LoginController.getPicture);
 
 export default router;

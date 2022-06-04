@@ -23,6 +23,3 @@ interface UserModel {
     sex:number,
     department:string | number
 }
-
-
-

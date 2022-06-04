@@ -764,6 +764,7 @@ BEGIN
 	 SELECT a.secret
 	 FROM tb_users u inner join tb_authenticators a
 	 on u.id = a.id
+	 and u.id = @id
    
 END
 

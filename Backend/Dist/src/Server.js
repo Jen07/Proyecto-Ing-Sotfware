@@ -29,7 +29,6 @@ class Server {
             this.app.use('/department', routes_3.default);
             this.app.use('', routes_4.default);
             this.app.use('/login', routes_5.default);
-            //this.app.use('/login/secret',LoginRoutes);
         };
         /**
          * Este método se encarga de realizar le lanzamiento del servidor
