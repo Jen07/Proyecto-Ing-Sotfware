@@ -38,7 +38,7 @@ export class Server {
    */
   private middlewares() {
     this.app.use(morgan("dev"));
-    this.app.use(express.json());
+    this.app.use(express.json({limit: "50mb"}));
     this.app.use(cors());
     this.app.use(express.static("./app/public"));
   }

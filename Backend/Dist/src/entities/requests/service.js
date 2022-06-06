@@ -22,11 +22,50 @@ class RequestService extends abstractService_1.default {
         return __awaiter(this, void 0, void 0, function* () {
             const procedure = "sp_List_User_Requests";
             const inputData = [
-                { name: "id", type: (0, mssql_1.VarChar)(9), data: `${id}` }
+                { name: "id", type: (0, mssql_1.VarChar)(9), data: `${id}` },
             ];
             const outputData = yield this.db.obtainData(procedure, inputData);
             if (outputData && (outputData === null || outputData === void 0 ? void 0 : outputData.returnValue) !== -1) {
                 this.result = { status: 200, list: outputData.recordset };
+            }
+            else {
+                this.result = { status: 404, message: "Los datos no son válidos." };
+            }
+            return this.result;
+        });
+    }
+    postRequest(user_id, issue, classifier, keyword, attachments) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const procedure = "sp_Create_Request";
+            const inputData = [
+                { name: "user_id", type: mssql_1.Int, data: `${user_id}` },
+                { name: "issue", type: (0, mssql_1.VarChar)(60), data: `${issue}` },
+                { name: "classifier", type: mssql_1.SmallInt, data: `${classifier}` },
+                { name: "keyword", type: (0, mssql_1.VarChar)(30), data: `${keyword}` },
+                { name: "attachments", type: mssql_1.SmallInt, data: `${attachments}` },
+            ];
+            const outputData = yield this.db.obtainData(procedure, inputData);
+            if (outputData && (outputData === null || outputData === void 0 ? void 0 : outputData.returnValue) !== -1) {
+                this.result = { status: 200, item: outputData.recordset[0] };
+            }
+            else {
+                this.result = { status: 404, message: "Los datos no son válidos." };
+            }
+            return this.result;
+        });
+    }
+    postAttachment(request_id, line, file, comment) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const procedure = "sp_Create_Attachment";
+            const inputData = [
+                { name: "request_id", type: mssql_1.Int, data: `${request_id}` },
+                { name: "line", type: mssql_1.SmallInt, data: `${line}` },
+                { name: "file", type: (0, mssql_1.VarChar)(mssql_1.MAX), data: `${file}` },
+                { name: "comment", type: (0, mssql_1.VarChar)(50), data: `${comment}` }
+            ];
+            const outputData = yield this.db.obtainData(procedure, inputData);
+            if (outputData && (outputData === null || outputData === void 0 ? void 0 : outputData.returnValue) !== -1) {
+                this.result = { status: 200 };
             }
             else {
                 this.result = { status: 404, message: "Los datos no son válidos." };

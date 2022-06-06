@@ -81,3 +81,18 @@
   -webkit-mask-image: url(../../images/icons/classifier.svg);
   mask-image: url(../../images/icons/classifier.svg);
 }
+
+.i__issue::after {
+  -webkit-mask-image: url(../../images/icons/issue.svg);
+  mask-image: url(../../images/icons/issue.svg);
+}
+
+.i__keyword::after {
+  -webkit-mask-image: url(../../images/icons/keyword.svg);
+  mask-image: url(../../images/icons/keyword.svg);
+}
+
+.i__files::after {
+  -webkit-mask-image: url(../../images/icons/files.svg);
+  mask-image: url(../../images/icons/files.svg);
+}

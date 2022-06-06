@@ -12,8 +12,6 @@
             <select class="select__input" formControlName="classifier">
                 <option value="0">Todos</option>
                 <option *ngFor="let classifier of classifierService.list.value" [value]="classifier.id"> {{classifier.description}}</option>
-                
-              
             </select>
 
             <label>Estado</label>
@@ -30,7 +28,8 @@
             <label>Hasta</label>
             <input type="date" class="select__input" formControlName="max" [min]="getMin()" max="2022-09-18">
 
-            <button class="simple__button" (click)="clearFilters()">Limpiar</button>
+            <input class="simple__button" type="submit" (click)="clearFilters()" value="Limpiar">
+            <button class="simple__button create__btn" (click)="createRequest()" *ngIf="authService.userData?.department !== 'legal'">Crear solicitud</button>
         </section>
     </form>
     <div class="table__container">

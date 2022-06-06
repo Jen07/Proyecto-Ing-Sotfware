@@ -1,0 +1,55 @@
+.select__input {
+    border-radius: 0.5em;
+    cursor: pointer;
+    width: 100%;
+    background-color: var(--actual-bg-color-3);
+    color: var(--actual-font-color);
+    padding: 0.5em;
+   
+    border: none;
+    box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.15);
+    transition: outline 0.5s;
+    outline: 1px solid var(--actual-bg-color-3);
+   
+  }
+  .select__input:focus + .input__label{
+    color: var(--accent);
+  }
+
+  .input__textarea{
+      height: 6em;
+      resize: none;
+  }
+
+
+  .simple__button.delete{
+    background-color: var(--accent);
+  }
+
+  .button__container{
+      margin-top: 2em;
+  }
+
+  .input__group.issue{
+    height: 6em;
+  }
+
+  .form__title{
+      text-align: center;
+      font-size: 2em;
+      padding: 1em;
+      color: var(--actual-font-color);
+  }
+
+  .list__table{
+    height: 100%;
+  }
+
+  .attachment__container{
+    height: 10em;
+    overflow: auto;
+  }
+
+  .files__input_label{
+    cursor: pointer;
+  }

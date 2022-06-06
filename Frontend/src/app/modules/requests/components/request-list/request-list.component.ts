@@ -1,3 +1,4 @@
+import { AuthService } from './../../../../core/services/auth.service';
 import { ClassifiersService } from './../../../classifiers/services/classifiers.service';
 import { RequestService } from './../../services/request.service';
 
@@ -16,6 +17,7 @@ export class RequestListComponent implements OnInit {
 
   constructor(
     public requestService:RequestService,
+    public authService:AuthService,
     private router:Router,
     private formBuilder:FormBuilder,
     public classifierService:ClassifiersService
@@ -37,6 +39,10 @@ export class RequestListComponent implements OnInit {
    this.form.reset();
     this.form.get("classifier")?.setValue(0);
     this.form.get("state")?.setValue(0);
+  }
+
+  createRequest(){
+    this.router.navigate(["/request/create"])
   }
 
   selectRequest(id:number | undefined){

@@ -1,0 +1,83 @@
+
+<h2 class="form__title">Registro de solicitud</h2>
+
+<form [formGroup]="form" (submit)="prepareSubmit()" >
+
+    <div class="input__group">
+      <i class="ico input__prefix  i__keyword"></i>
+      <input type="text" placeholder=" " id="keyword" class="input__control" formControlName="keyword">
+      <label for="keyword" class="input__label">Palabra clave</label>
+      <ng-container *ngTemplateOutlet="keyword_error; context: {error: form.get('keyword')?.errors}"></ng-container>
+    </div>
+   
+   
+    <div class="select__group">
+      <div class="input__group">
+        <i class="ico input__prefix i__classifier"></i>
+        <select name="classifier" formControlName="classifier"  class="select__input">
+          <option selected value="" disabled>Seleccione un clasificador</option>
+          <option *ngFor="let classifier of classifierService.list.value" selected value="{{classifier.id}}">{{classifier.description}}</option>
+        </select>
+        <label for="issue" class="input__label">Clasificador</label>
+        <ng-container *ngTemplateOutlet="classifier_error; context: {error: form.get('classifier')?.errors}"></ng-container>
+      </div>
+     </div>
+
+    <div class="input__group issue">
+        <i class="ico input__prefix  i__issue"></i>
+        <textarea type="text" placeholder=" " id="issue" class="input__control input__textarea" formControlName="issue" > </textarea>
+        <label for="issue" class="input__label">Asunto</label>
+        <ng-container *ngTemplateOutlet="issue_error; context: {error: form.get('issue')?.errors}"></ng-container>
+      </div>
+  
+    
+      <div class="input__group">
+        <i class="ico input__prefix  i__files"></i>
+        <input type="file" placeholder=" " id="file"  name="file" id="file" hidden (change)="addAttachment($event)" formControlName="attachment">
+        <label class="input__control files__input_label" for="file" > + Adjuntar</label>
+        <label for="attachments" class="input__label">Adjuntos (Opcional)</label>
+      </div>
+
+     <div class="attachment__container">
+      <table class="list__table">
+        <tbody>
+          <tr *ngFor="let attachment of attachments; let i = index">
+            <td>{{attachment.name}}</td>
+            <td>{{(attachment.size/1048576).toFixed(2)}} mb</td>
+            <td >
+              <button class="simple__button delete" (click)="deleteAttachment(i)"><i class="ico i__delete" title="Eliminar"></i></button>
+            </td>
+          </tr>
+        
+        </tbody>
+      </table>
+     </div>
+  
+    <div class="button__container">
+      <button class="simple__button" type="submit">Registrar</button>
+    </div>
+  </form>
+  
+
+  
+  <ng-template #classifier_error let-error="error">
+    <ng-container *ngIf="form.get('classifier')?.dirty || form.get('classifier')?.touched">
+      <span class="input__hint" *ngIf="error?.required">El campo es requerido </span>
+    </ng-container>
+  </ng-template>
+
+    
+  <ng-template #issue_error let-error="error">
+    <ng-container *ngIf="form.get('issue')?.dirty || form.get('issue')?.touched">
+      <span class="input__hint" *ngIf="error?.required">El campo es requerido </span>
+      <span class="input__hint" *ngIf="error?.maxlength && !error?.pattern">Longitud máxima {{error.maxlength.requiredLength}}, actual {{error.maxlength.actualLength}}  </span>
+    </ng-container>
+  </ng-template>
+  
+  
+  <ng-template #keyword_error let-error="error">
+    <ng-container *ngIf="form.get('keyword')?.dirty || form.get('keyword')?.touched">
+      <span class="input__hint" *ngIf="error?.required">El campo es requerido </span>
+      <span class="input__hint" *ngIf="error?.maxlength">Longitud máxima {{error.maxlength.requiredLength}}, actual {{error.maxlength.actualLength}}  </span>
+  </ng-container>
+  </ng-template>

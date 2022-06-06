@@ -717,7 +717,7 @@ GO
 			END CATCH
 	END
 
-
+	GO
 -- =============================================
 -- Author:		<Author,Jennifer>
 -- Create date: <Create Date,25/05/2022>
@@ -737,7 +737,7 @@ BEGIN
 	END
 
 
-
+Go
 -- =============================================
 -- Author:		<Author,Jennifer>
 -- Create date: <Create Date,25/05/2022>
@@ -874,6 +874,157 @@ GO
 				IF @@ROWCOUNT = 0
 					THROW 51000, 'An SQL error has occurred.', 1;  
 				
+				-- Si hay una transaccion abierta y se ejecuto el query completa la transaccion.
+                IF @@TRANCOUNT > 0  
+                      BEGIN
+                      COMMIT TRANSACTION; 
+                      RETURN 1;
+                END
+			END TRY
+
+			BEGIN CATCH
+				-- Si habia abierta una transaccion se cierra haciendo rollback.
+				IF @@TRANCOUNT > 0  
+					BEGIN
+						ROLLBACK TRANSACTION;
+                        SELECT ERROR_MESSAGE() AS ErrorMessage;
+                        RETURN -1;
+                  END
+			END CATCH
+	END
+
+/*--------------------------------------------------------------------------------------------------*/
+	
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		<Author, Luis Leiton>
+-- Create date: <Create Date, 17/5/22>
+-- Description:	<Description, Metodo utilizado para crear una solicitud.>
+-- =============================================
+
+GO 
+	CREATE OR ALTER PROCEDURE sp_Create_Request
+	@user_id INT,
+	@issue VARCHAR(60),
+	@classifier SMALLINT,
+	@keyword VARCHAR(30),
+	@attachments SMALLINT
+	AS 
+    BEGIN
+		SET NOCOUNT ON
+			BEGIN TRANSACTION
+				BEGIN TRY
+					INSERT INTO tb_requests([date],[keyword],[issue],[changes],[attachments],[id_user],[id_classifier],[id_legal_response]) 
+					VALUES (GETDATE(),@keyword,@issue,0,@attachments,@user_id,@classifier,2)
+					SELECT SCOPE_IDENTITY () AS id
+				
+				-- Si por alguna razon no se pudo ejecutar el query se lanza el error.
+				IF @@ROWCOUNT = 0
+					THROW 51000, 'An SQL error has occurred.', 1;  
+
+				-- Si hay una transaccion abierta y se ejecuto el query completa la transaccion.
+                IF @@TRANCOUNT > 0  
+                      BEGIN
+                      COMMIT TRANSACTION; 
+                      RETURN 1;
+                END
+			END TRY
+
+			BEGIN CATCH
+				-- Si habia abierta una transaccion se cierra haciendo rollback.
+				IF @@TRANCOUNT > 0  
+					BEGIN
+						ROLLBACK TRANSACTION;
+                        SELECT ERROR_MESSAGE() AS ErrorMessage;
+                        RETURN -1;
+                  END
+			END CATCH
+	END
+
+	
+/*--------------------------------------------------------------------------------------------------*/
+	
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		<Author, Luis Leiton>
+-- Create date: <Create Date, 17/5/22>
+-- Description:	<Description, Metodo utilizado para agregar adjuntos a la solicitud.>
+-- =============================================
+
+GO 
+	CREATE OR ALTER PROCEDURE sp_Create_Attachment
+	@request_id INT,
+	@line SMALLINT,
+	@file VARCHAR(MAX),
+	@comment VARCHAR(50)
+	AS 
+    BEGIN
+		SET NOCOUNT ON
+			BEGIN TRANSACTION
+				BEGIN TRY
+					INSERT INTO tb_request_attachments([id_request],[line],[file],[comment]) 
+					VALUES (@request_id, @line, @file, @comment)
+  
+				-- Si por alguna razon no se pudo ejecutar el query se lanza el error.
+				IF @@ROWCOUNT = 0
+					THROW 51000, 'An SQL error has occurred.', 1;  
+
+				-- Si hay una transaccion abierta y se ejecuto el query completa la transaccion.
+                IF @@TRANCOUNT > 0  
+                      BEGIN
+                      COMMIT TRANSACTION; 
+                      RETURN 1;
+                END
+			END TRY
+
+			BEGIN CATCH
+				-- Si habia abierta una transaccion se cierra haciendo rollback.
+				IF @@TRANCOUNT > 0  
+					BEGIN
+						ROLLBACK TRANSACTION;
+                        SELECT ERROR_MESSAGE() AS ErrorMessage;
+                        RETURN -1;
+                  END
+			END CATCH
+	END
+
+
+	
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		<Author, Luis Leiton>
+-- Create date: <Create Date, 17/5/22>
+-- Description:	<Description, Metodo utilizado para eliminar una solicitud y sus adjuntos>
+-- =============================================
+
+GO 
+	CREATE OR ALTER PROCEDURE sp_Delete_Request
+	@request_id INT
+	
+	AS 
+    BEGIN
+		SET NOCOUNT ON
+			BEGIN TRANSACTION
+				BEGIN TRY
+					DELETE FROM tb_request_attachments WHERE id_request = @request_id
+					DELETE FROM tb_requests WHERE id = @request_id
+  
+				-- Si por alguna razon no se pudo ejecutar el query se lanza el error.
+				IF @@ROWCOUNT = 0
+					THROW 51000, 'An SQL error has occurred.', 1;  
+
 				-- Si hay una transaccion abierta y se ejecuto el query completa la transaccion.
                 IF @@TRANCOUNT > 0  
                       BEGIN

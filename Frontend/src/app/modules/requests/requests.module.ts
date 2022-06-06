@@ -8,13 +8,15 @@ import { RequestsRoutingModule } from './requests-routing.module';
 import { RequestListComponent } from './components/request-list/request-list.component';
 import { MainComponent } from './pages/main/main.component';
 import { RequestDetailComponent } from './components/request-detail/request-detail.component';
+import { CreateComponent } from './pages/create/create.component';
 
 
 @NgModule({
   declarations: [
     RequestListComponent,
     MainComponent,
-    RequestDetailComponent
+    RequestDetailComponent,
+    CreateComponent
   ],
   imports: [
     CommonModule,

@@ -29,13 +29,13 @@ class DepartmentController {
     }
     static post(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const data = yield service.post(req.body.description, req.body.district);
+            const data = yield service.post(parseInt(req.params.id), req.params.identification, req.body.name, req.body.surName, req.body.lastName, req.body.picture, req.body.birthdate, req.body.email, req.body.phone, req.body.password, req.body.id_sex, req.body.id_department, req.body.id_district);
             res.status(data.status).json(data);
         });
     }
     static put(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const data = yield service.put(parseInt(req.params.id), req.body.description, req.body.district);
+            const data = yield service.put(parseInt(req.params.id), req.params.identification, req.body.name, req.body.surName, req.body.lastName, req.body.picture, req.body.birthdate, req.body.email, req.body.phone, req.body.password, req.body.id_sex, req.body.id_department, req.body.id_district);
             res.status(data.status).json(data);
         });
     }

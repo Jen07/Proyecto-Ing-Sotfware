@@ -80,6 +80,7 @@ export class SecretFormComponent implements OnInit, AfterViewInit {
   async validateLogin() {
     this.loadingService.isLoading.next(true);
 
+    //TODO: ACTIVAR ESTO NUEVAMENTE
     if (await this.authService.doubleAuth(this.form.value.secret)) {
       this.secretForm.classList.add('disappear_animation');
       this.loadingService.isLoading.next(false);

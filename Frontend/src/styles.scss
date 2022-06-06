@@ -3,15 +3,12 @@
 @import "./assets/css/colors/alerts.css";
 @import "./assets/css/fonts/roboto.css";
 
-* {
-  font-size: clamp(12px, 2vw, 16px);
-  font-family: "Roboto", sans-serif;
-  transition: background-color 500ms;
-}
-
 *,
 *::after,
 *::before {
+  font-size: clamp(12px, 2vw, 16px);
+  font-family: "Roboto", sans-serif;
+  transition: background-color 500ms,  border-top 500ms,  border-right 500ms;
   box-sizing: border-box;
 }
 

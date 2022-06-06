@@ -21,6 +21,18 @@ class ClassifierController {
             res.status(data.status).json(data);
         });
     }
+    static postNewRequests(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const data = yield service.postRequest(req.body.user_id, req.body.issue, req.body.classifier, req.body.keyword, req.body.attachments.length);
+            if (req.body.attachments.length > 0) {
+                req.body.attachments.forEach((file, index) => __awaiter(this, void 0, void 0, function* () {
+                    var _a;
+                    yield service.postAttachment(((_a = data.item) === null || _a === void 0 ? void 0 : _a.id) || 0, index, file.data, file.name);
+                }));
+            }
+            res.json("");
+        });
+    }
 }
 exports.default = ClassifierController;
 //# sourceMappingURL=controller.js.map
