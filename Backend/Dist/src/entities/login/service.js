@@ -39,11 +39,8 @@ class LoginService extends abstractService_1.default {
     codePost(code, id) {
         return __awaiter(this, void 0, void 0, function* () {
             const procedure = "sp_VerifyCode";
-            const inputData = [
-                { name: "id", type: mssql_1.Int, data: id },
-            ];
+            const inputData = [{ name: "id", type: mssql_1.Int, data: id }];
             const outputData = yield this.db.obtainData(procedure, inputData);
-            console.log(outputData);
             const secret = outputData === null || outputData === void 0 ? void 0 : outputData.recordset[0].secret; // Validar que retorne un secret
             const verify = doubleAuth_1.default.verifySecret(secret, code);
             if (verify) {
@@ -58,9 +55,7 @@ class LoginService extends abstractService_1.default {
     userGet(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const procedure = "sp_GetAuthenticatedUser";
-            const inputData = [
-                { name: "id", type: mssql_1.Int, data: id },
-            ];
+            const inputData = [{ name: "id", type: mssql_1.Int, data: id }];
             const outputData = yield this.db.obtainData(procedure, inputData);
             if (outputData && (outputData === null || outputData === void 0 ? void 0 : outputData.returnValue) !== -1) {
                 this.result = { status: 200, item: outputData.recordset[0] };
@@ -74,9 +69,7 @@ class LoginService extends abstractService_1.default {
     pictureGet(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const procedure = "sp_GetAuthenticatedPicture";
-            const inputData = [
-                { name: "id", type: mssql_1.Int, data: id },
-            ];
+            const inputData = [{ name: "id", type: mssql_1.Int, data: id }];
             const outputData = yield this.db.obtainData(procedure, inputData);
             if (outputData && (outputData === null || outputData === void 0 ? void 0 : outputData.returnValue) !== -1) {
                 this.result = { status: 200, item: outputData.recordset[0] };

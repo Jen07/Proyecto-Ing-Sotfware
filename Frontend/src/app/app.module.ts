@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
+import { LegalResponsePipe } from './core/pipes/legal-response.pipe';
 
 
 @NgModule({

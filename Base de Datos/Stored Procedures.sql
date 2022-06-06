@@ -717,20 +717,13 @@ GO
 			END CATCH
 	END
 
---************************************************
-USE [db_ing]
-GO
-/****** Object:  StoredProcedure [dbo].[sp_Login]    Script Date: 30/05/2022 13:40:54 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+
 -- =============================================
 -- Author:		<Author,Jennifer>
 -- Create date: <Create Date,25/05/2022>
 -- Description:	<Description,Verificar Login>
 -- =============================================
-ALTER PROCEDURE [dbo].[sp_Login]
+CREATE OR ALTER PROCEDURE [dbo].[sp_Login]
 	@email VARCHAR(50),
 	@password VARCHAR(12)
 AS
@@ -743,19 +736,14 @@ BEGIN
    
 	END
 
-USE [db_ing]
-GO
-/****** Object:  StoredProcedure [dbo].[sp_VerifyCode]    Script Date: 30/05/2022 13:42:21 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+
+
 -- =============================================
 -- Author:		<Author,Jennifer>
 -- Create date: <Create Date,25/05/2022>
 -- Description:	<Description,Verificar Secrect>
 -- =============================================
-ALTER PROCEDURE  [dbo].[sp_VerifyCode]
+CREATE OR ALTER PROCEDURE  [dbo].[sp_VerifyCode]
 	@id int
 AS
 BEGIN
@@ -836,6 +824,52 @@ GO
 				FROM tb_users u
 				WHERE u.id = @id
 
+				-- Si por alguna razon no se pudo ejecutar el query se lanza el error.
+				IF @@ROWCOUNT = 0
+					THROW 51000, 'An SQL error has occurred.', 1;  
+				
+				-- Si hay una transaccion abierta y se ejecuto el query completa la transaccion.
+                IF @@TRANCOUNT > 0  
+                      BEGIN
+                      COMMIT TRANSACTION; 
+                      RETURN 1;
+                END
+			END TRY
+
+			BEGIN CATCH
+				-- Si habia abierta una transaccion se cierra haciendo rollback.
+				IF @@TRANCOUNT > 0  
+					BEGIN
+						ROLLBACK TRANSACTION;
+                        SELECT ERROR_MESSAGE() AS ErrorMessage;
+                        RETURN -1;
+                  END
+			END CATCH
+	END
+
+
+
+
+-- =============================================
+-- Author:		<Author, Luis Leiton>
+-- Create date: <Create Date, 5/6/22>
+-- Description:	<Description, Metodo utilizado para listar todas las solicitudes de un usuario>
+-- =============================================
+
+GO 
+	CREATE OR ALTER PROCEDURE sp_List_User_Requests
+	@id VARCHAR(9)
+	AS 
+	BEGIN
+		SET NOCOUNT ON
+        BEGIN TRANSACTION
+			BEGIN TRY
+
+				SELECT r.[id], r.[date], r.[keyword], r.[issue], r.[changes], r.[response_detail], r.[response_date], r.[attachments], r.[id_classifier], r.[id_legal_response], r.[id_response_user], CONCAT(TRIM(s.name),' ',TRIM(s.surname),' ',TRIM(s.lastname)) as username, c.description as classifier
+				FROM tb_requests r, tb_users s, tb_classifiers c
+				WHERE id_user = @id AND r.id_user = s.id AND c.id = r.id_classifier
+				ORDER BY [date] desc
+				
 				-- Si por alguna razon no se pudo ejecutar el query se lanza el error.
 				IF @@ROWCOUNT = 0
 					THROW 51000, 'An SQL error has occurred.', 1;  

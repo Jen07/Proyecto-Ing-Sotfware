@@ -1,0 +1,15 @@
+export default interface RequestData{
+    id?: number,
+    username?: string,
+    keyword?: string,
+    id_legal_response?:number,
+    issue?:string,
+    response_detail?:string,
+    classifier?:string,
+    id_classifier?:number,
+    date?:Date,
+    response_date?:Date,
+    changes?:number,
+    attachments?:number,
+    id_response_user?:number,
+}

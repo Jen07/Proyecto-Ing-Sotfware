@@ -1,0 +1,62 @@
+<div class="message">
+    <section class="message__heading">
+        <button class="btn back__btn">
+            <i class="fa-solid fa-circle-chevron-left"></i>
+        </button>
+        <p class="message__title" title="Titulo">
+            {{requestService.selected.value.keyword}}
+        </p>
+        <p class="message__classifier" title="Clasificador">Consulta general </p>
+    </section>
+
+    <ng-container *ngIf="requestService.requestFirst()">
+        <ng-container *ngTemplateOutlet="request"></ng-container>
+        <ng-container *ngTemplateOutlet="response"></ng-container>
+    </ng-container>
+   
+    <ng-container *ngIf="!requestService.requestFirst()">
+        <ng-container *ngTemplateOutlet="response"></ng-container>
+        <ng-container *ngTemplateOutlet="request"></ng-container>
+    </ng-container>
+
+    <section class="message__status">
+        <p class="status">
+            <span>{{requestService.selected.value.id_legal_response|legalResponse}}</span>
+        </p>
+
+        <p class="changes">
+            Cambios: <span> {{ requestService.selected.value.changes }}</span>
+        </p>
+
+
+
+    </section>
+
+</div>
+
+<ng-template #response>
+    <ng-container *ngIf="requestService.selected.value.id_response_user">
+        <section class="message__text message__received">
+            <p>{{requestService.selected.value.response_detail}} </p>
+            <span class="message__time"> {{requestService.selected.value.response_date | date:"short"}} </span>
+        </section>
+    </ng-container>
+
+</ng-template>
+
+<ng-template #request>
+    <section class="message__text message__sended">
+        <p>
+            {{ requestService.selected.value.issue }}
+        </p>
+
+        <div class="message__attachments">
+            <button title="{{requestService.selected.value.attachments!  > 0 ? 'Ver adjuntos' : 'Sin adjuntos'}}"class="message__attachments-btn">
+                <i class="fa-solid fa-paperclip"></i> <span> {{requestService.selected.value.attachments}}</span>
+            </button>
+        </div>
+
+        <span class="message__time"> {{requestService.selected.value.date | date:"short"}} </span>
+    </section>
+
+</ng-template>

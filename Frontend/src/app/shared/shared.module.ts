@@ -1,3 +1,4 @@
+import { LegalResponsePipe } from './../core/pipes/legal-response.pipe';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -13,7 +14,8 @@ import { FooterComponent } from './components/footer/footer.component';
     LoadingComponent,
     ParticlesComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    LegalResponsePipe,
   ],
   imports: [
     CommonModule,RouterModule
@@ -23,7 +25,8 @@ import { FooterComponent } from './components/footer/footer.component';
     LoadingComponent,
     ParticlesComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    LegalResponsePipe
   ]
 })
 export class SharedModule { }

@@ -13,6 +13,7 @@ const routes_2 = __importDefault(require("./entities/classifier/routes"));
 const routes_3 = __importDefault(require("./entities/department/routes"));
 const routes_4 = __importDefault(require("./entities/localization/routes"));
 const routes_5 = __importDefault(require("./entities/login/routes"));
+const routes_6 = __importDefault(require("./entities/requests/routes"));
 /**
  *  Esta clase contiene la configuracion necesaria para el
  *  lanzamiento del servidor
@@ -29,6 +30,7 @@ class Server {
             this.app.use('/department', routes_3.default);
             this.app.use('', routes_4.default);
             this.app.use('/login', routes_5.default);
+            this.app.use('/requests', routes_6.default);
         };
         /**
          * Este método se encarga de realizar le lanzamiento del servidor

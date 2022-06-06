@@ -1,6 +1,9 @@
+import { ClassifiersService } from './../../../classifiers/services/classifiers.service';
+import { RequestService } from './../../services/request.service';
 
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-request-list',
@@ -8,11 +11,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./request-list.component.scss']
 })
 export class RequestListComponent implements OnInit {
-
+  
   public form!: FormGroup;
 
   constructor(
-    private formBuilder:FormBuilder
+    public requestService:RequestService,
+    private router:Router,
+    private formBuilder:FormBuilder,
+    public classifierService:ClassifiersService
   ) {
     this.form = this.createForm();
   }
@@ -33,6 +39,11 @@ export class RequestListComponent implements OnInit {
     this.form.get("state")?.setValue(0);
   }
 
+  selectRequest(id:number | undefined){
+    this.requestService.selected.next(this.requestService.list.value.find(data =>  data.id === id) || {});
+    this.router.navigate([`request`]);
+  }
+
   private createForm(): FormGroup {
     return this.formBuilder.group({
       classifier: [0],
@@ -41,5 +52,5 @@ export class RequestListComponent implements OnInit {
       max: [''],
     });
   }
-
+  
 }

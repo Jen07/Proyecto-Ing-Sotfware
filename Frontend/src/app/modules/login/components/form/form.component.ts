@@ -92,11 +92,11 @@ export class FormComponent implements OnInit, AfterViewInit {
   private createForm(): FormGroup {
     return this.formBuilder.group({
       email: [
-        'test@gmail.com',
+        '',
         [Validators.required, Validators.email, Validators.maxLength(50)],
       ],
       password: [
-        '1234',
+        '',
         [
           Validators.required,
           Validators.maxLength(20),

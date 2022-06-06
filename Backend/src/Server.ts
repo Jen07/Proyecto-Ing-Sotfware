@@ -8,6 +8,8 @@ import classifierRoutes from "./entities/classifier/routes"
 import departmentRoutes from "./entities/department/routes"
 import localizationRoutes from "./entities/localization/routes"
 import LoginRoutes from "./entities/login/routes"
+import RequestRoutes from "./entities/requests/routes"
+
 /**
  *  Esta clase contiene la configuracion necesaria para el
  *  lanzamiento del servidor
@@ -52,7 +54,7 @@ export class Server {
     this.app.use('/department', departmentRoutes);
     this.app.use('', localizationRoutes);
     this.app.use('/login',LoginRoutes);
-    
+    this.app.use('/requests',RequestRoutes);
   };
 
   /**

@@ -11,19 +11,17 @@
             Clasificador
             <select class="select__input" formControlName="classifier">
                 <option value="0">Todos</option>
-                <option value="1">Consulta general</option>
-                <option value="2">Contrato proveedores</option>
-                <option value="3">Contrato personal</option>
-                <option value="4">Normativa nacional</option>
-                <option value="5">Normativa internacional</option>
+                <option *ngFor="let classifier of classifierService.list.value" [value]="classifier.id"> {{classifier.description}}</option>
+                
+              
             </select>
 
             <label>Estado</label>
             <select class="select__input" formControlName="state">
                 <option value="0">Todos</option>
-                <option value="1">Pendiente</option>
-                <option value="2">Resuelto</option>
-                <option value="3">Ampliado</option>
+                <option value="1">{{1|legalResponse}}</option>
+                <option value="2">{{2|legalResponse}}</option>
+                <option value="3">{{3|legalResponse}}</option>
             </select>
 
             <label>Desde</label>
@@ -39,142 +37,18 @@
         
     <table class="main__table">
 
-        <tbody>
-            <tr title="Ver consulta" class="message">
+        <tbody >
+            <tr *ngFor="let item of requestService.list.value" data-id="{{item.id}}" title="Ver consulta" class="message" (click)="selectRequest(item.id)">
                 <td>
-                    <p> Luis Fernando Leiton Iglesias</p>
+                    <p> {{item.username|titlecase}} </p>
 
-                    <p class="message__classifier"> Consulta General</p>
-                    <p class="message__title">Puedo realizar esto</p>
+                    <p class="message__classifier"> {{item.classifier}}</p>
+                    <p class="message__title">{{item.issue}}</p>
 
-                    <p class="message__status solved" title="Estado">Resuelto</p>
-                    <span class="message__date">18/09/1995 - 08:37 a.m </span>
+                    <p class="message__status {{item.id_legal_response|legalResponse}}" title="Estado">{{item.id_legal_response|legalResponse}}</p>
+                    <span class="message__date">{{item.date | date:'short'}} </span>
                 </td>
-            </tr>   <tr title="Ver consulta" class="message">
-                <td>
-                    <p> Luis Fernando Leiton Iglesias</p>
-
-                    <p class="message__classifier"> Consulta General</p>
-                    <p class="message__title">Puedo realizar esto</p>
-
-                    <p class="message__status pending" title="Estado">Pendiente</p>
-                    <span class="message__date">18/09/1995 - 08:37 a.m </span>
-                </td>
-            </tr>   <tr title="Ver consulta" class="message">
-                <td>
-                    <p> Luis Fernando Leiton Iglesias</p>
-
-                    <p class="message__classifier"> Consulta General</p>
-                    <p class="message__title">Puedo realizar esto</p>
-
-                    <p class="message__status extended" title="Estado">Ampliado</p>
-                    <span class="message__date">18/09/1995 - 08:37 a.m </span>
-                </td>
-            </tr>   <tr title="Ver consulta" class="message">
-                <td>
-                    <p> Luis Fernando Leiton Iglesias</p>
-
-                    <p class="message__classifier"> Consulta General</p>
-                    <p class="message__title">Puedo realizar esto</p>
-
-                    <p class="message__status extended" title="Estado">Ampliado</p>
-                    <span class="message__date">18/09/1995 - 08:37 a.m </span>
-                </td>
-            </tr>   <tr title="Ver consulta" class="message">
-                <td>
-                    <p> Luis Fernando Leiton Iglesias</p>
-
-                    <p class="message__classifier"> Consulta General</p>
-                    <p class="message__title">Puedo realizar esto</p>
-
-                    <p class="message__status extended" title="Estado">Ampliado</p>
-                    <span class="message__date">18/09/1995 - 08:37 a.m </span>
-                </td>
-            </tr>   <tr title="Ver consulta" class="message">
-                <td>
-                    <p> Luis Fernando Leiton Iglesias</p>
-
-                    <p class="message__classifier"> Consulta General</p>
-                    <p class="message__title">Puedo realizar esto</p>
-
-                    <p class="message__status extended" title="Estado">Ampliado</p>
-                    <span class="message__date">18/09/1995 - 08:37 a.m </span>
-                </td>
-            </tr>   <tr title="Ver consulta" class="message">
-                <td>
-                    <p> Luis Fernando Leiton Iglesias</p>
-
-                    <p class="message__classifier"> Consulta General</p>
-                    <p class="message__title">Puedo realizar esto</p>
-
-                    <p class="message__status extended" title="Estado">Ampliado</p>
-                    <span class="message__date">18/09/1995 - 08:37 a.m </span>
-                </td>
-            </tr>   <tr title="Ver consulta" class="message">
-                <td>
-                    <p> Luis Fernando Leiton Iglesias</p>
-
-                    <p class="message__classifier"> Consulta General</p>
-                    <p class="message__title">Puedo realizar esto</p>
-
-                    <p class="message__status extended" title="Estado">Ampliado</p>
-                    <span class="message__date">18/09/1995 - 08:37 a.m </span>
-                </td>
-            </tr>   <tr title="Ver consulta" class="message">
-                <td>
-                    <p> Luis Fernando Leiton Iglesias</p>
-
-                    <p class="message__classifier"> Consulta General</p>
-                    <p class="message__title">Puedo realizar esto</p>
-
-                    <p class="message__status extended" title="Estado">Ampliado</p>
-                    <span class="message__date">18/09/1995 - 08:37 a.m </span>
-                </td>
-            </tr>   <tr title="Ver consulta" class="message">
-                <td>
-                    <p> Luis Fernando Leiton Iglesias</p>
-
-                    <p class="message__classifier"> Consulta General</p>
-                    <p class="message__title">Puedo realizar esto</p>
-
-                    <p class="message__status extended" title="Estado">Ampliado</p>
-                    <span class="message__date">18/09/1995 - 08:37 a.m </span>
-                </td>
-            </tr>   <tr title="Ver consulta" class="message">
-                <td>
-                    <p> Luis Fernando Leiton Iglesias</p>
-
-                    <p class="message__classifier"> Consulta General</p>
-                    <p class="message__title">Puedo realizar esto</p>
-
-                    <p class="message__status extended" title="Estado">Ampliado</p>
-                    <span class="message__date">18/09/1995 - 08:37 a.m </span>
-                </td>
-            </tr>
-
-            <tr title="Ver consulta" class="message">
-                <td>
-                    <p> Luis Fernando Leiton Iglesias</p>
-
-                    <p class="message__classifier"> Consulta General</p>
-                    <p class="message__title">Puedo realizar esto</p>
-
-                    <p class="message__status solved" title="Estado">Resuelto</p>
-                    <span class="message__date">18/09/1995 - 08:37 a.m </span>
-                </td>
-            </tr>
-
-            <tr title="Ver consulta" class="message">
-                <td>
-                    <p> Luis Fernando Leiton Iglesias</p>
-
-                    <p class="message__classifier"> Consulta General</p>
-                    <p class="message__title">Puedo realizar esto</p>
-
-                    <p class="message__status pending" title="Estado">Pendiente</p>
-                    <span class="message__date">18/09/1995 - 08:37 a.m </span>
-                </td>
-            </tr>
+            </tr>   
 
         </tbody>
     </table>

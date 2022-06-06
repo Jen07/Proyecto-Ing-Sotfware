@@ -116,8 +116,8 @@ CREATE TABLE tb_requests(
 	[keyword] VARCHAR(30) NOT NULL,
 	[issue] VARCHAR(60) NOT NULL,
 	[changes] TINYINT NOT NULL,
-	[response_detail] VARCHAR(60) NOT NULL,
-	[response_date] SMALLDATETIME NOT NULL,
+	[response_detail] VARCHAR(60),
+	[response_date] SMALLDATETIME,
 	[attachments] TINYINT NOT NULL,
 
 	[id_user] INT NOT NULL,
@@ -135,7 +135,7 @@ CREATE TABLE tb_requests(
 	FOREIGN KEY ([id_legal_response]) 
 	REFERENCES tb_legal_responses([id]),
 
-	[id_response_user] INT NOT NULL,
+	[id_response_user] INT,
 	CONSTRAINT fk_response_user_request
 	FOREIGN KEY ([id_response_user]) 
 	REFERENCES tb_users([id])

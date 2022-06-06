@@ -29,16 +29,13 @@ export default class LoginService extends AbstractService {
     return this.result;
   }
 
-  async codePost(code: string, id:number): Promise<ServiceResult<CodeModel>> {
+  async codePost(code: string, id: number): Promise<ServiceResult<CodeModel>> {
     const procedure: string = "sp_VerifyCode";
 
-    const inputData: Array<DataField> = [
-      { name: "id", type: Int, data: id }, 
-    ];
+    const inputData: Array<DataField> = [{ name: "id", type: Int, data: id }];
 
     const outputData = await this.db.obtainData(procedure, inputData);
-    console.log(outputData);
-    
+
     const secret = outputData?.recordset[0].secret; // Validar que retorne un secret
     const verify = DoubleAuth.verifySecret(secret, code);
 
@@ -53,9 +50,7 @@ export default class LoginService extends AbstractService {
   async userGet(id: string): Promise<ServiceResult<UserModel>> {
     const procedure: string = "sp_GetAuthenticatedUser";
 
-    const inputData: Array<DataField> = [
-      { name: "id", type: Int, data: id }, 
-    ];
+    const inputData: Array<DataField> = [{ name: "id", type: Int, data: id }];
 
     const outputData = await this.db.obtainData(procedure, inputData);
 
@@ -70,9 +65,7 @@ export default class LoginService extends AbstractService {
   async pictureGet(id: string): Promise<ServiceResult<UserModel>> {
     const procedure: string = "sp_GetAuthenticatedPicture";
 
-    const inputData: Array<DataField> = [
-      { name: "id", type: Int, data: id }, 
-    ];
+    const inputData: Array<DataField> = [{ name: "id", type: Int, data: id }];
 
     const outputData = await this.db.obtainData(procedure, inputData);
 
