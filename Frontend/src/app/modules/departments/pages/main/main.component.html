@@ -10,29 +10,47 @@
 
   <div class="select__group">
 
-    <select name="country" formControlName="country" (change)="selectCountry()" class="select__input">
-      <option value="">Seleccione un país</option>
-      <option value="{{country['id']}}" *ngFor="let country of this.localizationService.countries | async">
-        {{country['description']}}</option>
-    </select>
+    <div class="input__group">
+      <select name="country" formControlName="country" (change)="selectCountry()" class="select__input">
+        <option value="">Seleccione un país</option>
+        <option value="{{country['id']}}" *ngFor="let country of this.localizationService.countries | async">
+          {{country['description']}}</option>
+      </select>
+      <ng-container *ngTemplateOutlet="country_error; context: {error: form.get('country')?.errors}">
+      </ng-container>
+    </div>
 
-    <select name="province" formControlName="province" (change)="selectProvince()" class="select__input">
-      <option value="">Seleccione una provincia</option>
-      <option value="{{province['id']}}" *ngFor="let province of provinces">
-        {{province['description']}}</option>
-    </select>
+    <div class="input__group">
+      <select name="province" formControlName="province" (change)="selectProvince()" class="select__input">
+        <option value="">Seleccione una provincia</option>
+        <option value="{{province['id']}}" *ngFor="let province of provinces">
+          {{province['description']}}</option>
+      </select>
+      <ng-container *ngTemplateOutlet="province_error; context: {error: form.get('province')?.errors}">
+      </ng-container>
+    </div>
 
-    <select name="canton" formControlName="canton" (change)="selectCanton()" class="select__input">
-      <option value="">Seleccione un canton</option>
-      <option value="{{canton['id']}}" *ngFor="let canton of cantons">
-        {{canton['description']}}</option>
-    </select>
+    <div class="input__group">
+      <select name="canton" formControlName="canton" (change)="selectCanton()" class="select__input">
+        <option value="">Seleccione un canton</option>
+        <option value="{{canton['id']}}" *ngFor="let canton of cantons">
+          {{canton['description']}}</option>
+      </select>
+      <ng-container *ngTemplateOutlet="canton_error; context: {error: form.get('canton')?.errors}">
+      </ng-container>
+    </div>
 
-    <select name="district" formControlName="district" class="select__input">
-      <option value="">Seleccione un distrito</option>
-      <option value="{{district['id']}}" *ngFor="let district of districts">
-        {{district['description']}}</option>
-    </select>
+    <div class="input__group">
+      <select name="district" formControlName="district" class="select__input">
+        <option value="">Seleccione un distrito</option>
+        <option value="{{district['id']}}" *ngFor="let district of districts">
+          {{district['description']}}</option>
+      </select>
+      <ng-container *ngTemplateOutlet="district_error; context: {error: form.get('district')?.errors}">
+      </ng-container>
+    </div>
+
+
   </div>
   <div class="button__container">
     <button class="simple__button" type="submit"> {{service.editing.value.id ? 'Modificar': 'Registrar'}} </button>
@@ -40,11 +58,37 @@
   </div>
 </form>
 
-
 <app-main-list></app-main-list>
 
 <ng-template #department_error let-error="error">
   <ng-container *ngIf="form.get('description')?.dirty || form.get('description')?.touched">
+    <span class="input__hint" *ngIf="error?.required">El campo es requerido </span>
+  </ng-container>
+</ng-template>
+
+
+<ng-template #country_error let-error="error">
+  <ng-container *ngIf="form.get('description')?.dirty || form.get('country')?.touched">
+    <span class="input__hint" *ngIf="error?.required">El campo es requerido </span>
+  </ng-container>
+</ng-template>
+
+
+<ng-template #province_error let-error="error">
+  <ng-container *ngIf="form.get('description')?.dirty || form.get('province')?.touched">
+    <span class="input__hint" *ngIf="error?.required">El campo es requerido </span>
+  </ng-container>
+</ng-template>
+
+
+<ng-template #canton_error let-error="error">
+  <ng-container *ngIf="form.get('description')?.dirty || form.get('canton')?.touched">
+    <span class="input__hint" *ngIf="error?.required">El campo es requerido </span>
+  </ng-container>
+</ng-template>
+
+<ng-template #district_error let-error="error">
+  <ng-container *ngIf="form.get('description')?.dirty || form.get('district')?.touched">
     <span class="input__hint" *ngIf="error?.required">El campo es requerido </span>
   </ng-container>
 </ng-template>

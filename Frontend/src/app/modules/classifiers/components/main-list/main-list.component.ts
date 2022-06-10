@@ -40,7 +40,7 @@ export class MainListComponent implements OnInit {
         Alerts.simpleAlert('Eliminado con éxito', 'Se eliminó correctamente el clasificador', 'success')
         this.classifiersService.getAll();
       } else {
-        Alerts.simpleAlert('No se pudo eliminar', 'Verifique su conexión e intentelo nuevamente', 'error')
+        Alerts.simpleAlert('No se pudo eliminar', 'Existen solicitudes vinculadas a este clasificador', 'error')
       }
     });
   }
@@ -49,10 +49,5 @@ export class MainListComponent implements OnInit {
     if(!id) return;
     this.classifiersService.loadEdit(id);
   }
-
   
-
-  
-
-
 }

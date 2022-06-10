@@ -1,4 +1,4 @@
-import { LoadingService } from './../../../../core/services/loading.service';
+import { LoadingService } from '@core/services/loading.service';
 import { RequestService } from './../../services/request.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -91,6 +91,7 @@ export class CreateComponent implements OnInit {
 
     this.loading.isLoading.next(true);
     const state = await this.makeSubmit()
+    this.requestService.getAll();
     this.loading.isLoading.next(false);
     
     if (!state){
@@ -103,7 +104,6 @@ export class CreateComponent implements OnInit {
   }
 
   async makeSubmit() {
-
     return await this.requestService.postRequest(
       {
         issue: this.form.get('issue')?.value,

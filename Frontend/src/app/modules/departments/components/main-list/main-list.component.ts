@@ -41,7 +41,7 @@ export class MainListComponent implements OnInit {
         Alerts.simpleAlert('Eliminado con éxito', 'Se eliminó correctamente el departamento', 'success')
         this.departmentsService.getAll();
       } else {
-        Alerts.simpleAlert('No se pudo eliminar', 'Verifique su conexión e intentelo nuevamente', 'error')
+        Alerts.simpleAlert('No se pudo eliminar', 'Existen personas vinculadas a este departamento', 'error')
       }
     });
   }
