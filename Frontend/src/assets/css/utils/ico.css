@@ -96,3 +96,8 @@
   -webkit-mask-image: url(../../images/icons/files.svg);
   mask-image: url(../../images/icons/files.svg);
 }
+
+.i__filter::after {
+  -webkit-mask-image: url(../../images/icons/filter.svg);
+  mask-image: url(../../images/icons/filter.svg);
+}

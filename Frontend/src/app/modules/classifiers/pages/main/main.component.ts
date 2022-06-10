@@ -97,4 +97,9 @@ export class MainComponent implements OnInit, OnDestroy {
   cancelEdit() {
     this.service.editing.next({});
   }
+
+  filterList(e:Event){
+    const filter = (e.target as HTMLInputElement).value;
+    this.service.filterList(filter);
+  }
 }

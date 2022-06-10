@@ -10,8 +10,14 @@
 
     <div class="button__container">
         <button class="simple__button" type="submit"> {{service.editing.value.id ? 'Modificar': 'Registrar'}} </button>
-
         <button class="simple__button" (click)="cancelEdit()" *ngIf="service.editing.value.id"> Cancelar </button>
+
+        <div class="input__group">
+            <i class="ico input__prefix i__filter"></i>
+            <input type="text" placeholder=" " id="filter" class="input__control" (input)="filterList($event);">
+            <label for="filter" class="input__label">Filtrar</label>
+          </div>
+
     </div>
 </form>
 

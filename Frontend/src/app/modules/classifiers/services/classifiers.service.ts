@@ -20,10 +20,12 @@ export class ClassifiersService {
    * Listado de clasificadores observable.
    */
   public list: BehaviorSubject<Classifier[]>;
+    public fullList:Classifier[];
 
   constructor(private http: HttpClient) {
     this.endpoint = `${environment.api}classifier/`;
     this.list = new BehaviorSubject<Classifier[]>([]);
+    this.fullList = [];
     this.editing = new BehaviorSubject<Classifier>({});
     this.getAll();
   }
@@ -42,6 +44,7 @@ export class ClassifiersService {
         })
       )
     ).then((data) => {
+      this.fullList = data;
       this.list?.next(data);
     });
   }
@@ -110,4 +113,19 @@ export class ClassifiersService {
         )
       );
     }
+
+
+    filterList(filter: string) {
+      if (filter.length === 0) {
+        this.list.next(this.fullList)
+        return;
+      }
+  
+      this.list.next(
+        this.fullList.filter((item) =>
+          item.description?.toUpperCase()?.includes(filter.toUpperCase())
+        )
+      );
+    }
+
 }

@@ -35,5 +35,20 @@
 }
 
 .button__container {
-  margin-top: 1em;
+  display: grid;
+  grid-template-columns: repeat(4,calc(25% - 1em));
+  align-items: center;
+  gap: 1em;
+}
+
+.button__container > * {
+  width: 100%;
+}
+
+.button__container > button {
+  height: 3em;
+}
+
+.button__container > .input__group{
+  grid-column: 4;
 }

@@ -134,9 +134,6 @@ export class MainComponent implements OnInit, OnDestroy  {
     }
   }
 
-
-
-
   confirmRegister() {
     Alerts.simpleToast('Registrado correctamente', 'success')
   }
@@ -162,5 +159,11 @@ export class MainComponent implements OnInit, OnDestroy  {
     this.form.get("country")?.setValue("");
     this.selectCountry();
   }
+
+  filterList(e:Event){
+    const filter = (e.target as HTMLInputElement).value;
+    this.service.filterList(filter);
+  }
+
   
 }
