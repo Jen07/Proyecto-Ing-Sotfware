@@ -10,7 +10,7 @@ export class LoginStepsService {
   step!: BehaviorSubject<number>;
 
   /**
-   * Este servicio controla el paso por el cual va la accion de login.
+   * Este servicio controla el paso por el cual va la acción de login.
    * - Principal
    * - Doble auth
    * - Extras de ser necesarios

@@ -3,7 +3,7 @@ import UserService from "./service";
 
 const service: UserService = new UserService();
 
-export default class DepartmentController {
+export default class UserController {
 
     static async getAll(req: Request, res: Response) {
         const data: ServiceResult<UserModel> = await service.getAll();

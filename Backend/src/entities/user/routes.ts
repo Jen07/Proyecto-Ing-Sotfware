@@ -1,14 +1,14 @@
 import { Router } from 'express';
-import DepartmentController from './controller';
-import DepartmentValidation from './validation';
+import UserController from './controller';
+import UserValidation from './validation';
 
 const router: Router = Router();
 
-router.get('/', DepartmentController.getAll);
+router.get('/', UserController.getAll);
 
-router.get('/:id', DepartmentValidation.validateGet, DepartmentController.getOne);
-router.post('/', DepartmentValidation.validatePost, DepartmentController.post);
-router.put('/:id', DepartmentValidation.validatePut, DepartmentController.put);
-router.delete('/:id', DepartmentValidation.validateGet, DepartmentController.delete);
+router.get('/:id', UserValidation.validateGet, UserController.getOne);
+router.post('/', UserValidation.validatePost, UserController.post);
+router.put('/:id', UserValidation.validatePut, UserController.put);
+router.delete('/:id', UserValidation.validateGet, UserController.delete);
 
 export default router;

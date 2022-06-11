@@ -718,6 +718,11 @@ GO
 	END
 
 	GO
+/*-----------------------------------------------------------------------------------------
+									Procedimientos Login
+-----------------------------------------------------------------------------------------*/
+
+
 -- =============================================
 -- Author:		<Author,Jennifer>
 -- Create date: <Create Date,25/05/2022>
@@ -1043,3 +1048,41 @@ GO
                   END
 			END CATCH
 	END
+-- =============================================
+-- Author:		<Author,Jennifer>
+-- Create date: <Create 11/06/2022>
+-- Description:	<Lista los Usuarios>
+-- =============================================
+Create PROCEDURE [dbo].[sp_List_User]
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT top 1000 u.id, u.identification, (u.name+''+u.surname+' '+u.lastname) as name ,d.description as department, phone from tb_users u
+	inner join tb_departments d
+	on u.id_department = d.id
+	
+END
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+Create PROCEDURE sp_Delete_User
+	@id int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	delete from tb_authenticators where id = @id;
+	delete from tb_users where id = @id;
+
+END
+GO
