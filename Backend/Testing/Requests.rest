@@ -11,3 +11,14 @@ content-type:  {{contentType}}
 {
     "id": 3
 }
+
+###
+GET http://{{host}}/{{entity}} HTTP/1.1
+
+
+
+
+
+
+
+

@@ -33,7 +33,7 @@
     
       <div class="input__group">
         <i class="ico input__prefix  i__files"></i>
-        <input type="file" placeholder=" " id="file"  name="file" id="file" hidden (change)="addAttachment($event)" formControlName="attachment">
+        <input type="file" placeholder=" " id="file"  name="file" id="file" accept="application/pdf, image/png, image/jpg, image/jpeg, image/jpeg" hidden (change)="addAttachment($event)" formControlName="attachment">
         <label class="input__control files__input_label" for="file" > + Adjuntar</label>
         <label for="attachments" class="input__label">Adjuntos (Opcional)</label>
       </div>

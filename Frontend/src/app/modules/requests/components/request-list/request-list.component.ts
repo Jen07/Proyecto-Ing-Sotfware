@@ -9,44 +9,48 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-request-list',
   templateUrl: './request-list.component.html',
-  styleUrls: ['./request-list.component.scss']
+  styleUrls: ['./request-list.component.scss'],
 })
 export class RequestListComponent implements OnInit {
-  
   public form!: FormGroup;
 
   constructor(
-    public requestService:RequestService,
-    public authService:AuthService,
-    private router:Router,
-    private formBuilder:FormBuilder,
-    public classifierService:ClassifiersService
+    public requestService: RequestService,
+    public authService: AuthService,
+    private router: Router,
+    private formBuilder: FormBuilder,
+    public classifierService: ClassifiersService
   ) {
     this.form = this.createForm();
   }
 
-  ngOnInit(): void {}
-
-  getMax(){
-    return this.form.get("max")?.value || "2022-09-18"
+  ngOnInit(): void {
+    this.requestService.getAll();
   }
 
-  getMin(){
-    return this.form.get("min")?.value || "2021-09-18"
+  getMax() {
+    return this.form.get('max')?.value || '2022-09-18';
   }
 
-  clearFilters(){
-   this.form.reset();
-    this.form.get("classifier")?.setValue(0);
-    this.form.get("state")?.setValue(0);
+  getMin() {
+    return this.form.get('min')?.value || '2021-09-18';
   }
 
-  createRequest(){
-    this.router.navigate(["/request/create"])
+  clearFilters() {
+    this.form.reset();
+    this.form.get('classifier')?.setValue(0);
+    this.form.get('state')?.setValue(0);
+    this.filterRequests()
   }
 
-  selectRequest(id:number | undefined){
-    this.requestService.selected.next(this.requestService.list.value.find(data =>  data.id === id) || {});
+  createRequest() {
+    this.router.navigate(['/request/create']);
+  }
+
+  selectRequest(id: number | undefined) {
+    this.requestService.selected.next(
+      this.requestService.list.value.find((data) => data.id === id) || {}
+    );
     this.router.navigate([`request`]);
   }
 
@@ -58,5 +62,13 @@ export class RequestListComponent implements OnInit {
       max: [''],
     });
   }
-  
+
+  filterRequests() {
+    this.requestService.filterList(
+      this.form.get('classifier')!.value,
+      this.form.get('state')!.value,
+      this.form.get('min')!.value,
+      this.form.get('max')!.value
+    );
+  }
 }

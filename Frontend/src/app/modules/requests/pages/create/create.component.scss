@@ -21,7 +21,6 @@
       resize: none;
   }
 
-
   .simple__button.delete{
     background-color: var(--accent);
   }
@@ -35,9 +34,11 @@
   }
 
   .form__title{
+      margin: 0;
+      padding: .5em;
       text-align: center;
       font-size: 2em;
-      padding: 1em;
+ 
       color: var(--actual-font-color);
   }
 
@@ -46,10 +47,16 @@
   }
 
   .attachment__container{
-    height: 10em;
+    height: 6em;
     overflow: auto;
   }
 
   .files__input_label{
     cursor: pointer;
+  }
+
+  @media screen and (max-height:800px) {
+    .form__title{
+      display: none;
+    }
   }

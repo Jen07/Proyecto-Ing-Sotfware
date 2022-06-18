@@ -21,6 +21,7 @@ export class RequestService {
   /**
    * Listado de departamentos observable.
    */
+  public completeList:Array<RequestData> = [];
   public list: BehaviorSubject<RequestData[]>;
 
   constructor(private authService: AuthService, private http: HttpClient) {
@@ -41,7 +42,16 @@ export class RequestService {
   /**
    * Este metodo obtiene todas las solicitudes.
    */
-  async getAll() {
+   getAll() {
+    if(this.authService.isLegal()){
+      this.getAllLegal();
+    }else{
+      this.getAllUser();
+    }
+  }
+
+
+  async getAllUser(){
     await firstValueFrom(
       this.http.post(this.endpoint, { id: this.authService.userData?.id }).pipe(
         map((data: any) => {
@@ -52,6 +62,23 @@ export class RequestService {
         })
       )
     ).then((data) => {
+      this.completeList = data
+      this.list?.next(data);
+    });
+  }
+
+  async getAllLegal(){
+    await firstValueFrom(
+      this.http.get(this.endpoint).pipe(
+        map((data: any) => {
+          return data.status === 200 ? data.list : [];
+        }),
+        catchError((err) => {
+          return of([]);
+        })
+      )
+    ).then((data) => {
+      this.completeList = data
       this.list?.next(data);
     });
   }
@@ -81,4 +108,32 @@ export class RequestService {
       return data;
     });
   }
+
+
+  filterList(classifier:number, state:number, min:Date, max:Date){
+
+    let filteredList = this.completeList;
+
+   
+
+    if(classifier > 0){
+      filteredList = filteredList.filter((element: RequestData)=> element.id_classifier == classifier);
+    }
+
+    if(state  > 0){
+      filteredList = filteredList.filter((element)=> element.id_legal_response == state);
+    }
+
+    if(min){
+      filteredList = filteredList.filter((element)=> element.date && element.date > min);
+    }
+
+    if(max){
+      filteredList = filteredList.filter((element)=> element.date  && element.date < max);
+    }
+
+    this.list.next(filteredList);
+
+  }
+
 }

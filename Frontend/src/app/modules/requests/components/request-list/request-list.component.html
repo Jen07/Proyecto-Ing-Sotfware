@@ -1,56 +1,62 @@
 <div class="request__list">
     <form [formGroup]="form">
-    <input type="checkbox" class="toggle-check__filter" id="check__filter">
-    
+        <input type="checkbox" class="toggle-check__filter" id="check__filter">
+
         <section class="message__filterer">
 
             <label for="check__filter" class="toggle__filter">
                 <i class="bars"></i>
             </label>
-            
+
             Clasificador
-            <select class="select__input" formControlName="classifier">
-                <option value="0">Todos</option>
-                <option *ngFor="let classifier of classifierService.list.value" [value]="classifier.id"> {{classifier.description}}</option>
+            <select class="select__input" formControlName="classifier" (change)="filterRequests()">
+                <option value="0" selected>Todos</option>
+                <option *ngFor="let classifier of classifierService.list.value" [value]="classifier.id">
+                    {{classifier.description}}</option>
             </select>
 
             <label>Estado</label>
-            <select class="select__input" formControlName="state">
-                <option value="0">Todos</option>
+            <select class="select__input" formControlName="state" (change)="filterRequests()">
+                <option value="0" selected>Todos</option>
                 <option value="1">{{1|legalResponse}}</option>
                 <option value="2">{{2|legalResponse}}</option>
                 <option value="3">{{3|legalResponse}}</option>
             </select>
 
             <label>Desde</label>
-            <input type="date" class="select__input" formControlName="min" [max]="getMax()" min="2021-09-18">
+            <input type="date" class="select__input" formControlName="min" [max]="getMax()" min="2021-09-18"
+                (change)="filterRequests()">
 
             <label>Hasta</label>
-            <input type="date" class="select__input" formControlName="max" [min]="getMin()" max="2022-09-18">
+            <input type="date" class="select__input" formControlName="max" [min]="getMin()" max="2022-09-18"
+                (change)="filterRequests()">
 
             <input class="simple__button" type="submit" (click)="clearFilters()" value="Limpiar">
-            <button class="simple__button create__btn" (click)="createRequest()" *ngIf="authService.userData?.department !== 'legal'">Crear solicitud</button>
+            <button class="simple__button create__btn" (click)="createRequest()" *ngIf="!authService.isLegal()">Crear
+                solicitud</button>
         </section>
     </form>
     <div class="table__container">
-        
-    <table class="main__table">
 
-        <tbody >
-            <tr *ngFor="let item of requestService.list.value" data-id="{{item.id}}" title="Ver consulta" class="message" (click)="selectRequest(item.id)">
-                <td>
-                    <p> {{item.username|titlecase}} </p>
+        <table class="main__table">
 
-                    <p class="message__classifier"> {{item.classifier}}</p>
-                    <p class="message__title">{{item.issue}}</p>
+            <tbody>
+                <tr *ngFor="let item of requestService.list.value" data-id="{{item.id}}" title="Ver consulta"
+                    class="message" (click)="selectRequest(item.id)">
+                    <td>
+                        <p> {{item.username|titlecase}} </p>
 
-                    <p class="message__status {{item.id_legal_response|legalResponse}}" title="Estado">{{item.id_legal_response|legalResponse}}</p>
-                    <span class="message__date">{{item.date | date:'short'}} </span>
-                </td>
-            </tr>   
+                        <p class="message__classifier"> {{item.classifier}}</p>
+                        <p class="message__title">{{item.issue}}</p>
 
-        </tbody>
-    </table>
+                        <p class="message__status {{item.id_legal_response|legalResponse}}" title="Estado">
+                            {{item.id_legal_response|legalResponse}}</p>
+                        <span class="message__date">{{item.date | date:'d/M/yyyy, h:mm a'}} </span>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
     </div>
 
 </div>

@@ -1043,3 +1043,48 @@ GO
                   END
 			END CATCH
 	END
+
+
+-- =============================================
+-- Author:		<Author, Luis Leiton>
+-- Create date: <Create Date, 13/6/22>
+-- Description:	<Description, Metodo utilizado para listar todas las solicitudes>
+-- =============================================
+
+GO 
+	CREATE OR ALTER PROCEDURE sp_List_All_Requests
+	AS 
+	BEGIN
+		SET NOCOUNT ON
+        BEGIN TRANSACTION
+			BEGIN TRY
+
+				SELECT r.[id], r.[date], r.[keyword], r.[issue], r.[changes], r.[response_detail], r.[response_date], r.[attachments], r.[id_classifier], r.[id_legal_response], r.[id_response_user], CONCAT(TRIM(s.name),' ',TRIM(s.surname),' ',TRIM(s.lastname)) as username, c.description as classifier
+				FROM tb_requests r, tb_users s, tb_classifiers c
+				WHERE r.id_user = s.id AND c.id = r.id_classifier
+				ORDER BY [date] desc
+				
+				-- Si por alguna razon no se pudo ejecutar el query se lanza el error.
+				IF @@ROWCOUNT = 0
+					THROW 51000, 'An SQL error has occurred.', 1;  
+				
+				-- Si hay una transaccion abierta y se ejecuto el query completa la transaccion.
+                IF @@TRANCOUNT > 0  
+                      BEGIN
+                      COMMIT TRANSACTION; 
+                      RETURN 1;
+                END
+			END TRY
+
+			BEGIN CATCH
+				-- Si habia abierta una transaccion se cierra haciendo rollback.
+				IF @@TRANCOUNT > 0  
+					BEGIN
+						ROLLBACK TRANSACTION;
+                        SELECT ERROR_MESSAGE() AS ErrorMessage;
+                        RETURN -1;
+                  END
+			END CATCH
+	END
+
+/*--------------------------------------------------------------------------------------------------*/

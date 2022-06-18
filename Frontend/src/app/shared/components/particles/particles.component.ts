@@ -23,7 +23,6 @@ export class ParticlesComponent implements OnInit, AfterViewInit, OnDestroy {
     this.particles = this.rawParticles.nativeElement;
   }
 
-
   ngOnInit(): void {
 
     this.observers.push(

@@ -18,13 +18,26 @@ class RequestService extends abstractService_1.default {
     constructor() {
         super();
     }
-    getAll(id) {
+    getUser(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const procedure = "sp_List_User_Requests";
             const inputData = [
                 { name: "id", type: (0, mssql_1.VarChar)(9), data: `${id}` },
             ];
             const outputData = yield this.db.obtainData(procedure, inputData);
+            if (outputData && (outputData === null || outputData === void 0 ? void 0 : outputData.returnValue) !== -1) {
+                this.result = { status: 200, list: outputData.recordset };
+            }
+            else {
+                this.result = { status: 200, list: [] };
+            }
+            return this.result;
+        });
+    }
+    getAll(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const procedure = "sp_List_All_Requests";
+            const outputData = yield this.db.obtainData(procedure);
             if (outputData && (outputData === null || outputData === void 0 ? void 0 : outputData.returnValue) !== -1) {
                 this.result = { status: 200, list: outputData.recordset };
             }

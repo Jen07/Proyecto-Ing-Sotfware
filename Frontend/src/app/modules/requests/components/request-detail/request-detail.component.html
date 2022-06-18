@@ -36,7 +36,7 @@
     <ng-container *ngIf="requestService.selected.value.id_response_user">
         <section class="message__text message__received">
             <p>{{requestService.selected.value.response_detail}} </p>
-            <span class="message__time"> {{requestService.selected.value.response_date | date:"short"}} </span>
+            <span class="message__time"> {{requestService.selected.value.response_date | date:'d/M/yyyy, h:mm a'}} </span>
         </section>
     </ng-container>
 
@@ -54,7 +54,7 @@
             </button>
         </div>
 
-        <span class="message__time"> {{requestService.selected.value.date | date:"short"}} </span>
+        <span class="message__time"> {{requestService.selected.value.date | date:'d/M/yyyy, h:mm a'}} </span>
     </section>
 
 </ng-template>

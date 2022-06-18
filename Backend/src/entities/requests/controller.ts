@@ -6,9 +6,15 @@ const service: RequestService = new RequestService();
 export default class ClassifierController {
 
   static async getUserRequests(req: Request, res: Response) {
+    const data: ServiceResult<RequestModel> = await service.getUser(req.body.id);
+    res.status(data.status).json(data);
+  }
+
+  static async getAllRequests(req: Request, res: Response) {
     const data: ServiceResult<RequestModel> = await service.getAll(req.body.id);
     res.status(data.status).json(data);
   }
+
 
   static async postNewRequests(req: Request, res: Response){
     

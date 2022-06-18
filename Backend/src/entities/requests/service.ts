@@ -6,7 +6,7 @@ export default class RequestService extends AbstractService {
     super();
   }
 
-  async getAll(id: number): Promise<ServiceResult<RequestModel>> {
+  async getUser(id: number): Promise<ServiceResult<RequestModel>> {
     const procedure: string = "sp_List_User_Requests";
 
     const inputData: Array<DataField> = [
@@ -18,10 +18,23 @@ export default class RequestService extends AbstractService {
     if (outputData && outputData?.returnValue !== -1) {
       this.result = { status: 200, list: outputData.recordset };
     } else {
+      this.result = { status: 200, list: [] };
+    }
+    return this.result;
+  }
+
+  async getAll(id: number): Promise<ServiceResult<RequestModel>> {
+    const procedure: string = "sp_List_All_Requests";
+    const outputData = await this.db.obtainData(procedure);
+
+    if (outputData && outputData?.returnValue !== -1) {
+      this.result = { status: 200, list: outputData.recordset };
+    } else {
       this.result = { status: 404, message: "Los datos no son válidos." };
     }
     return this.result;
   }
+  
 
   async postRequest(
     user_id: number,
@@ -74,6 +87,7 @@ export default class RequestService extends AbstractService {
       this.result = { status: 404, message: "Los datos no son válidos." };
     }
     return this.result;
+    
   }
 
 }

@@ -17,6 +17,12 @@ const service = new service_1.default();
 class ClassifierController {
     static getUserRequests(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const data = yield service.getUser(req.body.id);
+            res.status(data.status).json(data);
+        });
+    }
+    static getAllRequests(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
             const data = yield service.getAll(req.body.id);
             res.status(data.status).json(data);
         });

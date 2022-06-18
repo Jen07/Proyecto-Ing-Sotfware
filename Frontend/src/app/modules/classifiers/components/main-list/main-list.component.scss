@@ -1,46 +1,51 @@
-.list__table thead tr{
-    & th:first-child{
-        width: 75%;
-    }
+.list__table thead tr {
+  & th:first-child {
+    width: 75%;
+  }
 
-    & th:last-child{
-        width: 25%;
-    }
-
+  & th:last-child {
+    width: 25%;
+  }
 }
 
-.list__table tbody tr{
-    & td:first-child{
-        width: 75%;
-    }
+.list__table tbody tr {
+  & td:first-child {
+    width: 75%;
+  }
 
-    & td:last-child{
-        width: 25%;
-    }
-
+  & td:last-child {
+    width: 25%;
+  }
 }
 
-@media (min-width:1000px) {
-    .list__table thead tr{
-        & th:first-child{
-            width: 90%;
-        }
-    
-        & th:last-child{
-            width: 10%;
-        }
-    
+@media (min-width: 1000px) {
+  .list__table thead tr {
+    & th:first-child {
+      width: 90%;
     }
-    
-    .list__table tbody tr{
-        & td:first-child{
-            width: 90%;
-        }
-    
-        & td:last-child{
-            width: 10%;
-        }
-    
+
+    & th:last-child {
+      width: 10%;
     }
+  }
+
+  .list__table tbody tr {
+    & td:first-child {
+      width: 90%;
+    }
+
+    & td:last-child {
+      width: 10%;
+    }
+  }
 }
 
+.list__container {
+  height: 45vh;
+}
+
+@media screen and (max-height: 800px) {
+  .list__container {
+    height: 30vh;
+  }
+}
