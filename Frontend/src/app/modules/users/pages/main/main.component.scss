@@ -1,3 +1,14 @@
+.input__control {
+  width: 30%;
+  padding: 1em;
+  border: none;
+  outline: none;
+  border-radius: 0 0.5em 0.5em 0;
+  background-color: var(--actual-bg-color-3);
+  color: var(--actual-font-color);
+  box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.15);
+}
+
 .select__group {
   display: flex;
   justify-content: space-evenly;
@@ -21,14 +32,14 @@
 
   .input__group {
     margin-top: 0;
-    width: 100%;
+    width: 40%;
 
     &+.input__group {
         margin-left: 1em;
       }
 
     & select {
-      width: 100%;
+      width: 50%;
      
     }
   }
@@ -52,3 +63,59 @@
 .button__container > .input__group{
   grid-column: 4;
 }
+
+/**/@at-root.select__input {
+    border-radius: 0.5em;
+    cursor: pointer;
+    width: 100%;
+    background-color: var(--actual-bg-color-3);
+    color: var(--actual-font-color);
+    padding: 0.5em;
+   
+    border: none;
+    box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.15);
+    transition: outline 0.5s;
+    outline: 1px solid var(--actual-bg-color-3);
+   
+  }
+  .select__input:focus + .input__label{
+    color: var(--accent);
+  }
+
+  .input__textarea{
+      height: 4em;
+      resize: none;
+  }
+
+
+  .simple__button.delete{
+    background-color: var(--accent);
+  }
+
+  .button__container{
+      margin-top: 1em;
+  }
+
+  .input__group.issue{
+    height: 4em;
+  }
+
+  .form__title{
+      text-align: center;
+      font-size: 2em;
+      padding: 1em;
+      color: var(--actual-font-color);
+  }
+
+  .list__table{
+    height: 100%;
+  }
+
+  .attachment__container{
+    height: 10em;
+    overflow: auto;
+  }
+
+  .files__input_label{
+    cursor: pointer;
+  }

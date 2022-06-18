@@ -1,7 +1,78 @@
 <br>
 
 <div class="button__container">
-  <button class="simple__button" (click)="prepareAdd()">Agregar</button>
+  <button class="simple__button" (click)="open(content)"><b>Agregar </b> <i class="fas fa-user-plus"></i></button>
 </div>
+<!-- (click)="prepareAdd()" -->
 
-<app-main-list></app-main-list>
+<!-- <app-main-list></app-main-list> -->
+
+<!-- Modal de insertar y modificar -->
+<ng-template #content let-modal style="z-index: 100 ;">
+  <div class="modal-header">
+    <label class="modal-title" id="modal-basic-title"><b>Formulario</b></label>
+    <button type="button" class="bg-danger close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true"><b>&times;</b></span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <h1>jennifer</h1>
+    <h3>granados</h3>
+  </div>
+</ng-template>
+
+<!-- Dentro modal -->
+<form [formGroup]="form" (submit)="prepareSubmit()">
+
+  <div class="row">
+    <div class="col-md-4 mb-1">
+      <div class="input__group">
+        <i class="ico input__prefix  i__keyword"></i>
+        <input type="text" placeholder=" " id="keyword" class="input__control" formControlName="keyword">
+        <label for="keyword" class="input__label">Palabra clave</label>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="input__group">
+        <i class="ico input__prefix  i__keyword"></i>
+        <input type="text" placeholder=" " id="keyword" class="input__control" formControlName="keyword">
+        <label for="keyword" class="input__label">Palabra clave</label>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="input__group">
+        <i class="ico input__prefix  i__keyword"></i>
+        <input type="text" placeholder=" " id="keyword" class="input__control" formControlName="keyword">
+        <label for="keyword" class="input__label">Palabra clave</label>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <div class="select__group">
+    <div class="input__group">
+      <i class="ico input__prefix i__classifier"></i>
+      <select name="classifier" formControlName="classifier" class="select__input">
+        <option selected value="" disabled>Seleccione un clasificador</option>
+        <option selected value=""></option>
+      </select>
+      <label for="issue" class="input__label">Clasificador</label>
+    </div>
+  </div>
+
+  <div class="input__group issue">
+    <i class="ico input__prefix  i__issue"></i>
+    <textarea type="text" placeholder=" " id="issue" class="input__control input__textarea"
+      formControlName="issue"> </textarea>
+    <label for="issue" class="input__label">Asunto</label>
+  </div>
+
+  <div class="button__container">
+    <button class="simple__button" type="submit">Registrar</button>
+  </div>
+</form>

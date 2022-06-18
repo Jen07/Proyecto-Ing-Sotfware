@@ -101,3 +101,13 @@
   -webkit-mask-image: url(../../images/icons/filter.svg);
   mask-image: url(../../images/icons/filter.svg);
 }
+
+.i__user::after {
+  -webkit-mask-image: url(../../images/icons/user.svg);
+  mask-image: url(../../images/icons/user.svg);
+}
+
+.i__clip::after {
+  -webkit-mask-image: url(../../images/icons/clip.svg);
+  mask-image: url(../../images/icons/clip.svg);
+}

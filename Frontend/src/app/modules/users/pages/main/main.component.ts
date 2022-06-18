@@ -4,6 +4,8 @@ import { UserService } from '../../services/users.service';
 import { Subscription } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LocalizationService } from '@core/services/localization.service';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
@@ -14,6 +16,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 })
 export class MainComponent implements OnInit, OnDestroy  {
   public form!: FormGroup;
+  public modalB: boolean = false;
 
   /**
    * Lista de observadores suscritos.
@@ -23,7 +26,9 @@ export class MainComponent implements OnInit, OnDestroy  {
   constructor(
     public service: UserService,
     public localizationService: LocalizationService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private modall: NgbModal,
+    private modalService: NgbModal
   ) {
     //this.form = this.createForm();
   }
@@ -61,6 +66,9 @@ export class MainComponent implements OnInit, OnDestroy  {
   }
 
 
+  async prepareSubmit() {
+  }
+
   // Este metodo valida que el formulario sea correcto, de lo contrario muestra una alerta.
   validateForm() {
     this.form.markAllAsTouched();
@@ -76,5 +84,29 @@ export class MainComponent implements OnInit, OnDestroy  {
     this.service.filterList(filter);
   }
 
-  
+  //*************** */
+
+  closeResult = '';
+  /* Abrir el modal */
+  async open(content : any) {
+
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'lg', backdrop: 'static' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+
+  }
+
+  /* Propiedades del modal */
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
 }
