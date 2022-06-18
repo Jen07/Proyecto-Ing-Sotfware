@@ -107,7 +107,7 @@ export class MainComponent implements OnInit, OnDestroy  {
 
 
   /**
-   * Este metodo se ejecuta al enviar el formulario, valida que se haya podido hacer la accion.
+   * Este metodo se ejecuta al enviar el formulario, valida que se haya podido hacer la acción.
    * @returns void
    */
    async prepareRegister() {

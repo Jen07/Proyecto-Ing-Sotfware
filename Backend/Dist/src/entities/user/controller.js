@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const service_1 = __importDefault(require("./service"));
 const service = new service_1.default();
-class DepartmentController {
+class UserController {
     static getAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const data = yield service.getAll();
@@ -46,5 +46,5 @@ class DepartmentController {
         });
     }
 }
-exports.default = DepartmentController;
+exports.default = UserController;
 //# sourceMappingURL=controller.js.map

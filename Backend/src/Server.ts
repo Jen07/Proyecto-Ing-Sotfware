@@ -9,6 +9,7 @@ import departmentRoutes from "./entities/department/routes"
 import localizationRoutes from "./entities/localization/routes"
 import LoginRoutes from "./entities/login/routes"
 import RequestRoutes from "./entities/requests/routes"
+import UserRoutes from "./entities/user/routes"
 
 /**
  *  Esta clase contiene la configuracion necesaria para el
@@ -55,6 +56,7 @@ export class Server {
     this.app.use('', localizationRoutes);
     this.app.use('/login',LoginRoutes);
     this.app.use('/requests',RequestRoutes);
+    this.app.use('/user',UserRoutes);
   };
 
   /**

@@ -8,6 +8,11 @@ const routes: Routes = [
     loadChildren:() => import('../requests/requests.module').then(m => m.RequestsModule),
   },
   {
+    path: "users",
+    canActivate: [MaintanceGuard],
+    loadChildren:() => import('../users/users.module').then(m => m.UsersModule),
+  },
+  {
     path: "departments",
     canActivate: [MaintanceGuard],
     loadChildren:() => import('../departments/departments.module').then(m => m.DepartmentsModule),

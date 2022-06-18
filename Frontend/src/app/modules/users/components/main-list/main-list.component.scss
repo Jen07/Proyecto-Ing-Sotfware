@@ -1,0 +1,49 @@
+.list__table thead tr{
+    & th:first-child{
+        width: 10%;
+    }
+
+    & th:nth-child(2){
+        width: 40%;
+    }
+
+    & th:nth-child(3){
+        width: 30%;
+    }
+
+    & th:nth-child(4){
+        width: 10%;
+    }
+
+    & th:last-child{
+        width: 8%;
+    }
+
+}
+
+.list__table tbody tr{
+    & td:first-child{
+        width: 10%;
+    }
+
+    & td:nth-child(2){
+        width: 40%;
+    }
+
+    & td:nth-child(3){
+        width: 30%;
+    }
+
+    & td:nth-child(4){
+        width: 10%;
+    }
+
+    & td:last-child{
+        width: 8%;
+    }
+
+}
+
+.list__container {
+    height: 45vh;
+}

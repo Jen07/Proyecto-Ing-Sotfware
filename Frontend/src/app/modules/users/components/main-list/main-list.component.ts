@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import Alerts from 'src/app/core/utils/alerts';
 import Department from '@core/models/department';
 import { Subscription } from 'rxjs';
-import { DepartmentsService } from './../../services/departments.service';
+import { UserService } from '../../services/users.service';
 
 @Component({
   selector: 'app-main-list',
@@ -14,7 +14,7 @@ export class MainListComponent implements OnInit {
   private observers: Subscription[] = [];
 
   constructor(
-    public departmentsService: DepartmentsService,
+    public userService: UserService,
     ) {}
 
   ngOnInit(): void {}
@@ -24,7 +24,7 @@ export class MainListComponent implements OnInit {
    * @param item [department] Departamento a eliminar.
    */
   prepareDelete(item: Department) {
-    Alerts.promiseConfirm('Seguro deseas eliminar el departamento', 'Esta acción no es reversible').then((result) => {
+    Alerts.promiseConfirm('Seguro deseas eliminar esta persona', 'Esta acción no es reversible').then((result) => {
       if (item.id && result.isConfirmed) {
         this.deleteConfirmed(item.id);
       }
@@ -36,19 +36,20 @@ export class MainListComponent implements OnInit {
    * @param id [number] ID de departamento a eliminar.
    */
   deleteConfirmed(id: number) {
-    this.departmentsService.delete(id).then((result) => {
+    this.userService.delete(id).then((result) => {
       if (result) {
         Alerts.simpleAlert('Eliminado con éxito', 'Se eliminó correctamente el departamento', 'success')
-        this.departmentsService.getAll();
+        this.userService.getAll();
       } else {
-        Alerts.simpleAlert('No se pudo eliminar', 'Existen personas vinculadas a este departamento', 'error')
+        Alerts.simpleAlert('No se pudo eliminar', 'La persona esta relaciona en otra parte', 'error')
       }
     });
   }
 
   prepareEdit(id: number  | undefined) {
-    if(!id) return;
-    this.departmentsService.loadEdit(id);
+    // if(!id) return;
+    // this.userService.loadEdit(id);
+    Alerts.simpleAlert('Mensaje Aletando', 'Esta en Proceso', 'success')
   }
 
 }

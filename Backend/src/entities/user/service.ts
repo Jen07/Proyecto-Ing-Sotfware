@@ -42,7 +42,7 @@ export default class UserService extends AbstractService {
     const procedure: string = "sp_Delete_User";
 
     const inputData: Array<DataField> = [
-      { name: "id", type: SmallInt, data: id },
+      { name: "id", type: Int, data: id },
     ];
 
     const outputData = await this.db.obtainData(procedure, inputData);
