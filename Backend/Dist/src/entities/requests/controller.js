@@ -27,6 +27,12 @@ class ClassifierController {
             res.status(data.status).json(data);
         });
     }
+    static deleteRequest(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const data = yield service.delete(parseInt(req.params.id));
+            res.status(data.status).json(data);
+        });
+    }
     static postNewRequests(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const data = yield service.postRequest(req.body.user_id, req.body.issue, req.body.classifier, req.body.keyword, req.body.attachments.length);

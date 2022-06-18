@@ -24,7 +24,7 @@ export class MainListComponent implements OnInit {
    * @param item [department] Departamento a eliminar.
    */
   prepareDelete(item: Department) {
-    Alerts.promiseConfirm('Seguro deseas eliminar el departamento', 'Esta acción no es reversible').then((result) => {
+    Alerts.promiseConfirm( `Seguro deseas eliminar el departamento ${item.description}`, 'Esta acción no es reversible').then((result) => {
       if (item.id && result.isConfirmed) {
         this.deleteConfirmed(item.id);
       }

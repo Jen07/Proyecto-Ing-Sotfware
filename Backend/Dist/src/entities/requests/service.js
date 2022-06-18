@@ -34,6 +34,22 @@ class RequestService extends abstractService_1.default {
             return this.result;
         });
     }
+    delete(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const procedure = "sp_Delete_Request";
+            const inputData = [
+                { name: "request_id", type: mssql_1.Int, data: id },
+            ];
+            const outputData = yield this.db.obtainData(procedure, inputData);
+            if (outputData && (outputData === null || outputData === void 0 ? void 0 : outputData.returnValue) !== -1) {
+                this.result = { status: 200, list: outputData.recordset };
+            }
+            else {
+                this.result = { status: 200, list: [] };
+            }
+            return this.result;
+        });
+    }
     getAll(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const procedure = "sp_List_All_Requests";

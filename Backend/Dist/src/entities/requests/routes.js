@@ -9,7 +9,7 @@ const validation_1 = __importDefault(require("./validation"));
 const router = (0, express_1.Router)();
 router.get('/', controller_1.default.getAllRequests);
 router.post('/', validation_1.default.validateGet, controller_1.default.getUserRequests);
-// TODO: VALIDAR BIEN EL POSTEO
+router.delete('/:id', validation_1.default.validateGet, controller_1.default.deleteRequest);
 router.post('/new', validation_1.default.validatePost, controller_1.default.postNewRequests);
 exports.default = router;
 //# sourceMappingURL=routes.js.map

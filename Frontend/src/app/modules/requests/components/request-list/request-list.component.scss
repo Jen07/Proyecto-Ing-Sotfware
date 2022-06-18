@@ -41,9 +41,21 @@ p {
 
 .message__status {
   bottom: 0.5em;
-  padding:.2em;
+  padding:.5em;
   margin: 0;
   position: absolute;
+}
+
+.message__delete {
+  bottom: 0.5em;
+  left: 10em;
+ 
+  margin: 0;
+  position: absolute;
+  border-radius: 100vw;
+  align-items: center;
+  padding: .5em;
+  background-color: rgba(255, 0, 0, 0.6);
 }
 
 .message__date {

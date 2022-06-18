@@ -16,8 +16,13 @@ content-type:  {{contentType}}
 GET http://{{host}}/{{entity}} HTTP/1.1
 
 
+###
+DELETE  http://{{host}}/{{entity}} HTTP/1.1
+content-type:  {{contentType}}
 
-
+{
+    "id": 1002
+}
 
 
 

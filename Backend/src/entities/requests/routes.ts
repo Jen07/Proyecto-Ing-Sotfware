@@ -6,8 +6,9 @@ const router: Router = Router();
 
 router.get('/', RequestController.getAllRequests);
 router.post('/', RequestValidation.validateGet, RequestController.getUserRequests);
+router.delete('/:id', RequestValidation.validateGet, RequestController.deleteRequest);
 
-// TODO: VALIDAR BIEN EL POSTEO
 router.post('/new', RequestValidation.validatePost, RequestController.postNewRequests);
+
 
 export default router;

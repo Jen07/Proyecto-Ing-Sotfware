@@ -1,3 +1,5 @@
+import  Alerts  from '@core/utils/alerts';
+import  RequestData from '@core/models/requestData';
 import { AuthService } from './../../../../core/services/auth.service';
 import { ClassifiersService } from './../../../classifiers/services/classifiers.service';
 import { RequestService } from './../../services/request.service';
@@ -71,4 +73,34 @@ export class RequestListComponent implements OnInit {
       this.form.get('max')!.value
     );
   }
+
+
+    /**
+   * Este metodo solicita la confirmacion para la eliminacion de un departamento.
+   * @param item [department] Departamento a eliminar.
+   */
+     prepareDelete(event:Event, item: number|undefined) {
+      event.stopPropagation();
+      Alerts.promiseConfirm( `Seguro deseas eliminar esta solicitud`, 'Esta acción no es reversible').then((result: { isConfirmed: any; }) => {
+        if (item && result.isConfirmed) {
+          this.deleteConfirmed(item);
+        }
+      })
+    }
+  
+    /**
+     * Este metodo elimina un departamento despues de que el usuacio confirma.
+     * @param id [number] ID de departamento a eliminar.
+     */
+    deleteConfirmed(id: number) {
+      this.requestService.delete(id).then((result: boolean) => {
+        if (result) {
+          Alerts.simpleAlert('Eliminado con éxito', 'Se eliminó correctamente el departamento', 'success')
+          this.requestService.getAll();
+        } else {
+          Alerts.simpleAlert('No se pudo eliminar', 'Existen personas vinculadas a este departamento', 'error')
+        }
+      });
+    }
+  
 }

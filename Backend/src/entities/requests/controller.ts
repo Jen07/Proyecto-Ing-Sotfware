@@ -15,6 +15,11 @@ export default class ClassifierController {
     res.status(data.status).json(data);
   }
 
+  static async deleteRequest(req:Request, res: Response){
+    const data: ServiceResult<RequestModel> = await service.delete(parseInt(req.params.id));
+    res.status(data.status).json(data);
+  }
+
 
   static async postNewRequests(req: Request, res: Response){
     

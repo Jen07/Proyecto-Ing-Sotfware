@@ -51,6 +51,12 @@
 
                         <p class="message__status {{item.id_legal_response|legalResponse}}" title="Estado">
                             {{item.id_legal_response|legalResponse}}</p>
+                           
+
+                            <p (click)="prepareDelete($event, item.id)"  *ngIf="item.id_legal_response === 2" class="message__delete {{item.id_legal_response|legalResponse}}" title="Estado">
+                                <i class="ico i__delete"></i> Eliminar
+                            </p>
+
                         <span class="message__date">{{item.date | date:'d/M/yyyy, h:mm a'}} </span>
                     </td>
                 </tr>

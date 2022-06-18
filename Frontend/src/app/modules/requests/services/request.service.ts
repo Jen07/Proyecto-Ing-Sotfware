@@ -62,7 +62,7 @@ export class RequestService {
         })
       )
     ).then((data) => {
-      this.completeList = data
+      this.completeList = data;
       this.list?.next(data);
     });
   }
@@ -78,7 +78,7 @@ export class RequestService {
         })
       )
     ).then((data) => {
-      this.completeList = data
+      this.completeList = data;
       this.list?.next(data);
     });
   }
@@ -114,8 +114,6 @@ export class RequestService {
 
     let filteredList = this.completeList;
 
-   
-
     if(classifier > 0){
       filteredList = filteredList.filter((element: RequestData)=> element.id_classifier == classifier);
     }
@@ -134,6 +132,19 @@ export class RequestService {
 
     this.list.next(filteredList);
 
+  }
+
+  async delete(id: number) {
+    return firstValueFrom(
+      this.http.delete(`${this.endpoint}/${id}`).pipe(
+        map((data: any) => {
+          return data.status === 200;
+        }),
+        catchError((err) => {
+          return of(false);
+        })
+      )
+    );
   }
 
 }

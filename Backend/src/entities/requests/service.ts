@@ -10,7 +10,7 @@ export default class RequestService extends AbstractService {
     const procedure: string = "sp_List_User_Requests";
 
     const inputData: Array<DataField> = [
-      { name: "id", type: VarChar(9), data: `${id}` },
+      { name: "id", type: VarChar(9) , data: `${id}` },
     ];
 
     const outputData = await this.db.obtainData(procedure, inputData);
@@ -22,6 +22,24 @@ export default class RequestService extends AbstractService {
     }
     return this.result;
   }
+
+  async delete(id: number): Promise<ServiceResult<RequestModel>> {
+    const procedure: string = "sp_Delete_Request";
+
+    const inputData: Array<DataField> = [
+      { name: "request_id", type: Int, data: id },
+    ];
+
+    const outputData = await this.db.obtainData(procedure, inputData);
+
+    if (outputData && outputData?.returnValue !== -1) {
+      this.result = { status: 200, list: outputData.recordset };
+    } else {
+      this.result = { status: 200, list: [] };
+    }
+    return this.result;
+  }
+
 
   async getAll(id: number): Promise<ServiceResult<RequestModel>> {
     const procedure: string = "sp_List_All_Requests";
