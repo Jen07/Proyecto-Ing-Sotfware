@@ -9,6 +9,8 @@ router.post('/', RequestValidation.validateGet, RequestController.getUserRequest
 router.delete('/:id', RequestValidation.validateGet, RequestController.deleteRequest);
 
 router.post('/new', RequestValidation.validatePost, RequestController.postNewRequests);
+router.put('/edit', RequestValidation.validateEdit, RequestController.putRequest);
+
 
 
 export default router;

@@ -33,6 +33,12 @@ class ClassifierController {
             res.status(data.status).json(data);
         });
     }
+    static putRequest(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const data = yield service.put(parseInt(req.body.id_response_user), req.body.response_detail, parseInt(req.body.id_legal_response), parseInt(req.body.id));
+            res.status(data.status).json(data);
+        });
+    }
     static postNewRequests(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const data = yield service.postRequest(req.body.user_id, req.body.issue, req.body.classifier, req.body.keyword, req.body.attachments.length);

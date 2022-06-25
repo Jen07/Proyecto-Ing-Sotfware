@@ -17,6 +17,7 @@ export class RequestService {
    * Endpoint al cual este servicio hara peticiones.
    */
   private endpoint: string;
+  private endpoint2: string;
 
   /**
    * Listado de departamentos observable.
@@ -26,6 +27,7 @@ export class RequestService {
 
   constructor(private authService: AuthService, private http: HttpClient) {
     this.endpoint = `${environment.api}requests/`;
+    this.endpoint2 = `${environment.api}attachment/`;
     this.list = new BehaviorSubject<RequestData[]>([]);
     this.selected = new BehaviorSubject<RequestData>({});
     this.getAll();
@@ -95,6 +97,47 @@ export class RequestService {
           classifier: request.classifier,
           keyword: request.keyword,
           attachments: attachments,
+        })
+        .pipe(
+          map((data: any) => {
+            return of( data.status === 200);
+          }),
+          catchError((err) => {
+            return of(false);
+          })
+        )
+    ).then((data) => {
+      return data;
+    });
+  }
+
+  async listAttachment() {
+    console.log(this.selected.value?.id);
+    return await firstValueFrom(
+      this.http.post(`${this.endpoint2}list`, {
+        id_request: this.selected.value?.id || 0
+      }).pipe(
+          map((data: any) => {
+            return data.status === 200 ? data.list : [];
+          }),
+          catchError((err) => {
+            return of([]);
+          })
+        )
+      ).then((data) => {
+        return data;
+      });
+    }
+  
+  //Edit
+  async editRequest(request: RequestData) {
+    return await firstValueFrom(
+      this.http
+        .put(`${this.endpoint}edit`, {
+          id_response_user: this.authService.userData?.id || 4,
+          response_detail: request.response_detail,
+          id_legal_response: request.id_legal_response,
+          id: request.id
         })
         .pipe(
           map((data: any) => {

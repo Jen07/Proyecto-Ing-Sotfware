@@ -16,6 +16,10 @@ class ClassifierValidation {
             return;
         next();
     }
+    static validateEdit(req, res, next) {
+        //no valido nada
+        next();
+    }
 }
 exports.default = ClassifierValidation;
 const validateIssue = (req, res) => {

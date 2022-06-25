@@ -50,6 +50,26 @@ class RequestService extends abstractService_1.default {
             return this.result;
         });
     }
+    //Editar la solicitud para agregar los datos de la respuesta
+    put(id_response_user, response_detail, id_legal_response, id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const procedure = "sp_Update_Request";
+            const inputData = [
+                { name: "id_response_user", type: mssql_1.Int, data: id_response_user },
+                { name: "response_detail", type: (0, mssql_1.VarChar)(60), data: response_detail },
+                { name: "id_legal_response", type: mssql_1.TinyInt, data: id_legal_response },
+                { name: "id", type: mssql_1.Int, data: id }
+            ];
+            const outputData = yield this.db.obtainData(procedure, inputData);
+            if (outputData && (outputData === null || outputData === void 0 ? void 0 : outputData.returnValue) !== -1) {
+                this.result = { status: 200 };
+            }
+            else {
+                this.result = { status: 404, message: "Los datos no son válidos." };
+            }
+            return this.result;
+        });
+    }
     getAll(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const procedure = "sp_List_All_Requests";

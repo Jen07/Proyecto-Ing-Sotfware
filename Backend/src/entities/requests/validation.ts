@@ -20,6 +20,11 @@ export default class ClassifierValidation {
     next();
   }
 
+  static validateEdit(req: Request, res: Response, next: NextFunction) {
+      //no valido nada
+    next();
+  }
+
 }
 
 const validateIssue = (req: Request, res: Response) => {

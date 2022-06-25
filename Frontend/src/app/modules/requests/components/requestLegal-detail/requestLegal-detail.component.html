@@ -1,0 +1,128 @@
+<div class="body_container">
+
+    <div class="message">
+        <section class="message__heading">
+            <button class="btn back__btn">
+                <i class="fa-solid fa-circle-chevron-left"></i>
+            </button>
+            <p class="message__title" title="Titulo">
+                {{requestService.selected.value.keyword}}
+            </p>
+            <p class="message__classifier" title="Clasificador"> {{requestService.selected.value.classifier}}</p>
+        </section>
+
+        <ng-container *ngIf="requestService.requestFirst()">
+            <ng-container *ngTemplateOutlet="request"></ng-container>
+            <ng-container *ngTemplateOutlet="response"></ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="!requestService.requestFirst()">
+            <ng-container *ngTemplateOutlet="response"></ng-container>
+            <ng-container *ngTemplateOutlet="request"></ng-container>
+        </ng-container>
+
+        <section class="message__status">
+            <p class="status {{requestService.selected.value.id_legal_response|legalResponse}}">
+                <span>{{requestService.selected.value.id_legal_response|legalResponse}}</span>
+            </p>
+
+            <p class="changes">
+                Cambios: <span> {{ requestService.selected.value.changes }}</span>
+            </p>
+
+            <p class="respontL">
+                <button class="simple__button create__btn" (click)="open(content)">Responder</button>
+            </p>
+        </section>
+
+    </div>
+
+    <ng-template #response>
+        <ng-container *ngIf="requestService.selected.value.id_response_user">
+            <section class="message__text message__sended">
+                <p>{{requestService.selected.value.response_detail}} </p>
+                <span class="message__time"> {{requestService.selected.value.response_date | date:'d/M/yyyy, h:mm a'}}
+                </span>
+            </section>
+        </ng-container>
+    </ng-template>
+
+    <ng-template #request>
+        <section class="message__text message__received">
+            <p style="margin-bottom: 12px;">
+                {{ requestService.selected.value.issue }}
+            </p>
+
+            <div class="message__attachments">
+                <button (click)="downloadAttachment(requestService.selected.value.attachments)" title="{{requestService.selected.value.attachments!  > 0 ? 'Ver adjuntos' : 'Sin adjuntos'}}"
+                    class="message__attachments-btn">
+                    <i class="ico  i__clip"></i>
+                    <span> {{requestService.selected.value.attachments}}</span>
+                </button>
+            </div>
+            <span class="message__time"> {{requestService.selected.value.date | date:'d/M/yyyy, h:mm a'}} </span>
+        </section>
+
+    </ng-template>
+
+
+    <!-- Modal de insertar y modificar -->
+    <ng-template #content let-modal>
+        <div class="modalL">
+            <div class="modal-header">
+                <label class="modal-title" id="modal-basic-title">Formulario</label>
+                <button type="button" class="bg-danger close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span class="close">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form [formGroup]="form" (submit)="prepareSubmit()">
+
+                    <div class="select__group">
+                        <div class="input__group">
+                            <i class="ico input__prefix i__classifier"></i>
+                            <select name="classifier" formControlName="classifier" class="select__input">
+                                <option selected value="" disabled>Seleccione un clasificador</option>
+                                <option selected value="1">Resuelto</option>
+                                <option selected value="3">Ampliada</option>
+                            </select>
+                            <label for="issue" class="input__label">Clasificador</label>
+                            <ng-container
+                                *ngTemplateOutlet="classifier_error; context: {error: form.get('classifier')?.errors}">
+                            </ng-container>
+                        </div>
+                    </div>
+
+                    <div class="input__group issue">
+                        <i class="ico input__prefix  i__issue"></i>
+                        <textarea type="text" placeholder=" " id="issue" class="input__control input__textarea"
+                            formControlName="issue"> </textarea>
+                        <label for="issue" class="input__label">Asunto</label>
+                        <ng-container *ngTemplateOutlet="issue_error; context: {error: form.get('issue')?.errors}">
+                        </ng-container>
+                    </div>
+
+                    <div class="button__container">
+                        <button class="simple__button" type="submit">Registrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template #classifier_error let-error="error">
+        <ng-container *ngIf="form.get('classifier')?.dirty || form.get('classifier')?.touched">
+            <span class="input__hint" *ngIf="error?.required">El campo es requerido </span>
+        </ng-container>
+    </ng-template>
+
+
+    <ng-template #issue_error let-error="error">
+        <ng-container *ngIf="form.get('issue')?.dirty || form.get('issue')?.touched">
+            <span class="input__hint" *ngIf="error?.required">El campo es requerido </span>
+            <span class="input__hint" *ngIf="error?.maxlength && !error?.pattern">Longitud máxima
+                {{error.maxlength.requiredLength}}, actual {{error.maxlength.actualLength}} </span>
+        </ng-container>
+    </ng-template>
+</div>

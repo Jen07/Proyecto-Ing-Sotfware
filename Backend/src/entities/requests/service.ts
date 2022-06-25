@@ -1,4 +1,4 @@
-import { Int, MAX, SmallInt, VarChar } from "mssql";
+import { Int, MAX, SmallInt, TinyInt, VarChar } from "mssql";
 import AbstractService from "../../utils/abstractService";
 
 export default class RequestService extends AbstractService {
@@ -36,6 +36,29 @@ export default class RequestService extends AbstractService {
       this.result = { status: 200, list: outputData.recordset };
     } else {
       this.result = { status: 200, list: [] };
+    }
+    return this.result;
+  }
+
+
+  //Editar la solicitud para agregar los datos de la respuesta
+  async put( id_response_user: number, response_detail: string, id_legal_response:number,
+    id:number): Promise<ServiceResult<RequestModel>> {
+    const procedure: string = "sp_Update_Request";
+
+    const inputData: Array<DataField> = [
+      { name: "id_response_user", type: Int, data: id_response_user },
+      { name: "response_detail", type: VarChar(60), data: response_detail },
+      { name: "id_legal_response", type: TinyInt, data:id_legal_response },
+      { name: "id", type: Int, data: id }
+    ];
+
+    const outputData = await this.db.obtainData(procedure, inputData);
+
+    if (outputData && outputData?.returnValue !== -1) {
+      this.result = { status: 200 };
+    } else {
+      this.result = { status: 404, message: "Los datos no son válidos." };
     }
     return this.result;
   }

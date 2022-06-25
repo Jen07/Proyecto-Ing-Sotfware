@@ -10,7 +10,6 @@
       <ng-container *ngTemplateOutlet="keyword_error; context: {error: form.get('keyword')?.errors}"></ng-container>
     </div>
    
-   
     <div class="select__group">
       <div class="input__group">
         <i class="ico input__prefix i__classifier"></i>
@@ -57,9 +56,7 @@
       <button class="simple__button" type="submit">Registrar</button>
     </div>
   </form>
-  
-
-  
+ 
   <ng-template #classifier_error let-error="error">
     <ng-container *ngIf="form.get('classifier')?.dirty || form.get('classifier')?.touched">
       <span class="input__hint" *ngIf="error?.required">El campo es requerido </span>

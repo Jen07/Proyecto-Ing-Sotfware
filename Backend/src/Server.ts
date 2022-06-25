@@ -10,6 +10,7 @@ import localizationRoutes from "./entities/localization/routes"
 import LoginRoutes from "./entities/login/routes"
 import RequestRoutes from "./entities/requests/routes"
 import UserRoutes from "./entities/user/routes"
+import AttachmentRoutes from "./entities/Attachment/routes"
 
 /**
  *  Esta clase contiene la configuracion necesaria para el
@@ -49,7 +50,6 @@ export class Server {
    * de los router por su endpoint.
    */
   private routes = () => {
-
     this.app.use('/test', testRoutes);
     this.app.use('/classifier', classifierRoutes);
     this.app.use('/department', departmentRoutes);
@@ -57,6 +57,7 @@ export class Server {
     this.app.use('/login',LoginRoutes);
     this.app.use('/requests',RequestRoutes);
     this.app.use('/user',UserRoutes);
+    this.app.use('/attachment',AttachmentRoutes);
   };
 
   /**

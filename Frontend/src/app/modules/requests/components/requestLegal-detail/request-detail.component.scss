@@ -1,0 +1,172 @@
+.body_container {
+  position: relative;
+  top: 1em;
+}
+
+/* Todo el bloque de conversacion */
+.message {
+  color: var(--actual-font-color);
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.message p {
+  margin-bottom: 0.5em;
+}
+
+/* Mensaje y Respuesta */
+.message__text {
+  min-width: 200px;
+  position: relative;
+  border-radius: 0.5em;
+  margin: 1em;
+  box-shadow: 0 0.25em 1em rgb(0 0 0 / 0.3);
+}
+
+.message__time {
+  position: absolute;
+  right: 0.5em;
+  bottom: 0.5em;
+  font-size: 0.8em;
+}
+
+.message__sended {
+  align-self: flex-end;
+  background-color: var(--info);
+  margin-left: 3em;
+  padding: 1em 1em 2em 1em;
+  float: right;
+}
+
+.message__attachments {
+  font-size: 0.8em;
+  position: absolute;
+  left: 1rem;
+  bottom: 0.5em;
+}
+
+.message__attachments-btn {
+  border: none;
+  border-radius: 0.5em;
+}
+
+.message__received {
+  align-self: flex-start;
+  background-color: var(--actual-bg-color-3);
+  margin-right: 3em;
+  padding: 1em;
+}
+
+.message__sended::after,
+.message__received::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 0;
+
+  border-bottom: 0.5em solid transparent;
+}
+
+.message__sended::after {
+  border-top: 0.5em solid var(--info);
+  border-right: 0.5em solid transparent;
+  border-left: 0.5em solid var(--info);
+  right: -0.5em;
+}
+
+.message__received::before {
+  border-top: 0.5em solid var(--actual-bg-color-3);
+  border-right: 0.5em solid var(--actual-bg-color-3);
+  border-left: 0.5em solid transparent;
+  left: -0.5em;
+}
+
+.message .status,
+.message .changes,
+.message .respontL {
+  padding: 1em;
+  margin: 0;
+  text-align: center;
+}
+
+
+.message .changes {
+  background-color: var(--cancel);
+}
+
+.message .respontL {
+  background-color: var(--neutral-100);
+}
+
+.message__title {
+  font-size: 1.5em;
+  line-height: 1em;
+  font-weight: bold;
+  margin: 0.5em 2em;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.message__classifier {
+  font-size: 1.2em;
+  text-align: center;
+}
+
+.message__heading {
+  position: relative;
+  box-shadow: 0 0.25em 1em rgb(0 0 0 / 0.3);
+  padding: 1em 1em 0 1em;
+  background-color: var(--actual-bg-color-4);
+}
+
+.message__status {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 0px 0px;
+  grid-template-areas:
+    ". ."
+    "reply_btn reply_btn";
+  box-shadow: 0 0.10em 1em rgb(0 0 0 / 0.3);
+}
+
+.back__btn {
+  position: absolute;
+  top: calc(50% - 1em);
+  border-radius: 50%;
+  width: 1.5em;
+  padding: 0;
+}
+
+.respontL {
+  background-color: rgba(0, 183, 255, 0.6);
+}
+
+.simple__button {
+  cursor: pointer;
+}
+
+.message__reply {
+  grid-area: reply_btn;
+  box-shadow: 0 0 1em rgb(0 0 0 / 0.3);
+  background-color: snow;
+}
+
+.Ampliado {
+  background-color: rgba(255, 230, 0, 0.6);
+}
+
+.Resuelto {
+  background-color: rgba(0, 255, 13, 0.6);
+}
+
+.Pendiente {
+  background-color: rgba(255, 0, 0, 0.6);
+}

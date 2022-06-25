@@ -20,6 +20,12 @@ export default class ClassifierController {
     res.status(data.status).json(data);
   }
 
+  static async putRequest(req: Request, res: Response) {
+    const data: ServiceResult<RequestModel>
+     = await service.put(parseInt(req.body.id_response_user), req.body.response_detail,
+      parseInt(req.body.id_legal_response),parseInt(req.body.id) );
+    res.status(data.status).json(data);
+  }
 
   static async postNewRequests(req: Request, res: Response){
     

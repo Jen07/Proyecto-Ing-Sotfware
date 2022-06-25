@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LocalizationService } from '@core/services/localization.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import Attachment from '@core/models/attachment';
 
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -16,7 +17,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 })
 export class MainComponent implements OnInit, OnDestroy  {
   public form!: FormGroup;
-  public modalB: boolean = false;
+  public attachments: Array<Attachment>;
 
   /**
    * Lista de observadores suscritos.
@@ -27,9 +28,9 @@ export class MainComponent implements OnInit, OnDestroy  {
     public service: UserService,
     public localizationService: LocalizationService,
     private formBuilder: FormBuilder,
-    private modall: NgbModal,
     private modalService: NgbModal
   ) {
+    this.attachments = [];
     //this.form = this.createForm();
   }
 
@@ -107,6 +108,54 @@ export class MainComponent implements OnInit, OnDestroy  {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  async addAttachment(e: Event) {
+    const element = e.currentTarget as HTMLInputElement;
+    let fileList: FileList | null = element.files;
+
+    if (fileList && fileList.length > 0) {
+      if (this.isRepeated(fileList[0].name)) {
+        Alerts.simpleToast('Este archivo ya existe', 'warning');
+      } else if (fileList[0].size / 1048576 > 10) {
+        Alerts.simpleToast('Maximo permitido 10 mb', 'warning');
+      } else if (this.attachments.length >= 10) {
+        Alerts.simpleAlert(
+          'Atención',
+          'Ha alcanzado el maximo permitido de 10 archivos',
+          'warning'
+        );
+      } else {
+        const newFile = fileList[0];
+        console.log(await this.toBase64(newFile));
+
+        this.attachments.push({
+          name: newFile.name,
+          size: newFile.size,
+          data: (await this.toBase64(newFile)) || '',
+        });
+        this.form.get('attachment')?.setValue('');
+      }
+    } else {
+      Alerts.simpleToast('No se pudo recuperar el archivo', 'warning');
+    }
+  }
+
+  toBase64(file: File) {
+    return new Promise((res, rej) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => res(reader.result);
+      reader.onerror = (error) => rej(error);
+    });
+  }
+
+  deleteAttachment(index: number) {
+    this.attachments.splice(index, index + 1);
+  }
+
+  isRepeated(name: string) {
+    return this.attachments.some((attach) => attach.name == name);
   }
 
 }

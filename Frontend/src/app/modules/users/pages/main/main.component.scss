@@ -1,121 +1,124 @@
-.input__control {
-  width: 30%;
-  padding: 1em;
-  border: none;
-  outline: none;
-  border-radius: 0 0.5em 0.5em 0;
+.select__input {
+ border-top-right-radius: 0.5em;
+ border-bottom-right-radius: 0.5em;
+  cursor: pointer;
+  width: 100%;
+  
+  max-height: 46px;
+  margin-top: 1px;
   background-color: var(--actual-bg-color-3);
   color: var(--actual-font-color);
+  padding: 0.5em;
+ 
+  border: none;
   box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.15);
+  transition: outline 0.5s;
+  outline: 1px solid var(--actual-bg-color-3);
 }
 
-.select__group {
-  display: flex;
-  justify-content: space-evenly;
-  width: 100%;
+.select__input:focus + .input__label{
+  color: var(--accent);
+}
 
-  & .select__input {
-    border-radius: 0.5em;
-    cursor: pointer;
-    background-color: var(--actual-bg-color-3);
+.input__textarea{
+    height: 6em;
+    resize: none;
+}
+
+.simple__button.delete{
+  background-color: var(--accent);
+}
+
+.button__container{
+    margin-top: 2em;
+}
+
+.input__group.issue{
+  height: 6em;
+}
+
+.form__title{
+    margin: 0;
+    padding: .5em;
+    text-align: center;
+    font-size: 2em;
+
     color: var(--actual-font-color);
-    padding: 1em;
-    width: 24%;
-    border: none;
-    box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.15);
-    transition: outline 0.5s;
-    outline: 1px solid var(--actual-bg-color-3);
-    &:focus {
-      outline: 1px solid var(--accent);
-    }
-  }
-
-  .input__group {
-    margin-top: 0;
-    width: 40%;
-
-    &+.input__group {
-        margin-left: 1em;
-      }
-
-    & select {
-      width: 50%;
-     
-    }
-  }
 }
 
-.button__container {
-  display: grid;
-  grid-template-columns: repeat(4,calc(25% - 1em));
-  align-items: center;
-  gap: 1em;
+.list__table{
+  height: 100%;
 }
 
-.button__container > * {
-  width: 100%;
+.attachment__container{
+  height: 6em;
+  overflow: auto;
 }
 
-.button__container > button {
-  height: 3em;
+.files__input_label{
+  cursor: pointer;
 }
 
-.button__container > .input__group{
-  grid-column: 4;
-}
-
-/**/@at-root.select__input {
-    border-radius: 0.5em;
-    cursor: pointer;
-    width: 100%;
-    background-color: var(--actual-bg-color-3);
-    color: var(--actual-font-color);
-    padding: 0.5em;
-   
-    border: none;
-    box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.15);
-    transition: outline 0.5s;
-    outline: 1px solid var(--actual-bg-color-3);
-   
-  }
-  .select__input:focus + .input__label{
-    color: var(--accent);
-  }
-
-  .input__textarea{
-      height: 4em;
-      resize: none;
-  }
-
-
-  .simple__button.delete{
-    background-color: var(--accent);
-  }
-
-  .button__container{
-      margin-top: 1em;
-  }
-
-  .input__group.issue{
-    height: 4em;
-  }
-
+@media screen and (max-height:800px) {
   .form__title{
-      text-align: center;
-      font-size: 2em;
-      padding: 1em;
-      color: var(--actual-font-color);
+    display: none;
   }
+}
 
-  .list__table{
-    height: 100%;
-  }
+////+++++++++++++++++++++
 
-  .attachment__container{
-    height: 10em;
-    overflow: auto;
-  }
 
-  .files__input_label{
-    cursor: pointer;
-  }
+//-----------------------
+.modalL {
+  position: absolute;
+  top: 0;
+  z-index: 200;
+  position: fixed; /* Stay in place */
+  width: 70%; /* Full width */
+  height: 80%; /* Full height */
+  margin: 2% 14%; /* 2% from the top and centered */
+  border-radius: 7px;
+  overflow: auto ;
+  background-color: #888;
+}
+
+.form{
+  overflow: auto ;
+  background: yellow;
+}
+
+.modal-body{
+  padding: 20px;
+  border: 1px solid rgb(173, 156, 156);
+  background-color: var(--actual-bg-color-3);
+}
+
+.modal-header {
+  background: rgb(219, 170, 170);;
+}
+
+.modal-header label {
+  font-size: 2em;
+  padding-bottom: 0px;
+}
+
+.modal-header button {
+  font-size: 2em;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin-bottom: 0px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}

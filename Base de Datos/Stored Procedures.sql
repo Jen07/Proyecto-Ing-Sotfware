@@ -1134,3 +1134,46 @@ BEGIN
 END
 GO
 
+----------------------------------------------------------
+-- =============================================
+-- Author:		<Author, jennifer granados>
+-- Create date: <Create Date,24/06/2022>
+-- Description:	<Description,listar los archivos>
+-- =============================================
+create  PROCEDURE sp_List_Attachments
+	@id_request int 
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+   select * from tb_request_attachments  where id_request=@id_request;
+   
+END
+
+-- =============================================
+-- Author:		<Author,Jennifer Granados>
+-- Create date: <Create Date,24/06/2022>
+-- Description:	<Description,Respuesta de Legal>
+-- =============================================
+create PROCEDURE [dbo].[sp_Update_Request]
+	@id int,
+	@response_detail varchar(60),
+	@id_legal_response tinyint,
+	@id_response_user int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	update tb_requests set response_date=GETDATE(), changes=(changes+1),
+	response_detail=@response_detail,id_legal_response=@id_legal_response, 
+	id_response_user=@id_response_user where id = @id;
+
+END
+
+
+
+

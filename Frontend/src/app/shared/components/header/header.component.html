@@ -4,10 +4,10 @@
     <nav>
         <ul class="nav__list">
             <section class="head__section left">
+
                 <li routerLink="/"> Solicitudes </li>
 
                 <ng-container *ngIf="authService.isLegal()">
-    
                     <div class="dropper">
                         <li class="dropdown__toggle"> Mantenimiento </li>
                         <div class="dropdown">
@@ -18,17 +18,17 @@
                             </ul>
                         </div>
                     </div>
-    
-    
+
+
                     <li routerLink="/reports"> Reportes </li>
-    
+
                     <li> Cubo </li>
                 </ng-container>
             </section>
 
 
 
-           <section class="head__section right">
+            <section class="head__section right">
                 <div class="dropper">
                     <li class="dropdown__toggle"> Perfil </li>
                     <div class="dropdown profile">
@@ -38,8 +38,9 @@
                     </div>
                 </div>
 
-                <img [src]="domSanitizer.bypassSecurityTrustResourceUrl(authService.userData?.picture||'')" class="user__image">
-           </section>
+                <img [src]="domSanitizer.bypassSecurityTrustResourceUrl(authService.userData?.picture||'')"
+                    class="user__image">
+            </section>
 
 
         </ul>
