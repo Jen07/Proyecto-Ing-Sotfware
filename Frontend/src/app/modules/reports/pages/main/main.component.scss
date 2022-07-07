@@ -1,11 +1,24 @@
 .responsive-iframe {
-    position: absolute;
-    top: 10%;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    width: 100%;
-    height: 85vh;
-    
-    z-index: 100;
-  }
+  position: absolute;
+  top: 10%;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 85vh;
+}
+
+.button__container{
+  background-color: white;
+  position: absolute;
+  left: 0;
+  width: 100% !important;
+  justify-content: center;
+}
+
+.simple__button {
+  width: 200px !important;
+  z-index: 100;
+  margin-top: 1em;
+}
+
