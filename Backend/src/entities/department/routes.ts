@@ -7,6 +7,7 @@ const router: Router = Router();
 router.get('/', DepartmentController.getAll);
 
 router.get('/:id', DepartmentValidation.validateGet, DepartmentController.getOne);
+
 router.post('/', DepartmentValidation.validatePost, DepartmentController.post);
 router.put('/:id', DepartmentValidation.validatePut, DepartmentController.put);
 router.delete('/:id', DepartmentValidation.validateGet, DepartmentController.delete);
