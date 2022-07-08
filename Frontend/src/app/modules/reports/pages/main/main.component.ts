@@ -24,14 +24,13 @@ export class MainComponent implements OnInit {
 
   download() {
 
-    var frameContent = document.body.innerHTML;
+    var frameContent: any = document.body;
         
-    
     console.log("Entro A DESCARGAR");
     const  data: any  = document.getElementById('capture2');
     console.log(data);
 
-    html2canvas(data).then(canvas => {
+    html2canvas(frameContent).then(canvas => {
       const img = canvas.toDataURL();//.src= canvas.toDataURL();
      // let pdf = new jsPDF('l', 'cm', 'a4'); //Generates PDF in landscape mode
       let pdf = new jsPDF('p', 'pt', 'a4');// Generates PDF in portrait mode
