@@ -21,6 +21,7 @@ import Attachment from '@core/models/attachment';
 export class RequestLegalDetailComponent implements OnInit {
   public form!: FormGroup;
   public attachments: Array<Attachment>;
+  public showBtn = false;
 
   constructor(
     public requestService: RequestService,
@@ -53,6 +54,9 @@ export class RequestLegalDetailComponent implements OnInit {
   ngOnInit(): void {
     if (!this.requestService.selected.value.id) {
       this.router.navigate(["/"])
+    }
+    if(this.requestService.selected.value.id_legal_response==2){
+      this.showBtn =true;
     }
   }
 

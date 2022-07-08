@@ -29,10 +29,12 @@
             <p class="changes">
                 Cambios: <span> {{ requestService.selected.value.changes }}</span>
             </p>
-
-            <p class="respontL">
-                <button class="simple__button create__btn" (click)="open(content)">Responder</button>
-            </p>
+            <ng-container *ngIf="showBtn">
+                <p class="respontL">
+                    <button class="simple__button create__btn" (click)="open(content)">Responder</button>
+                </p>
+            </ng-container>
+           
         </section>
 
     </div>
