@@ -31,6 +31,7 @@ class LoginService extends abstractService_1.default {
                 this.result = { status: 200, item: outputData.recordset[0] }; //enviar datos del user outputData?.recordset
             }
             else {
+                console.log("dssds");
                 this.result = { status: 404, message: "Los datos no son válidos." };
             }
             return this.result;

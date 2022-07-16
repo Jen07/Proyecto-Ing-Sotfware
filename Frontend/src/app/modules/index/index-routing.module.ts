@@ -26,6 +26,11 @@ const routes: Routes = [
     path: "reports",
     canActivate: [MaintanceGuard],
     loadChildren:() => import('../reports/reports.module').then(m => m.ReportsModule),
+  },
+  {
+    path: "cubo",
+    canActivate: [MaintanceGuard],
+    loadChildren:() => import('../cubo/cubo.module').then(m => m.CuboModule),
   }
 
 ];
